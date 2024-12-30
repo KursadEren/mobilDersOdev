@@ -41,6 +41,7 @@ export default function User() {
     </View>
   );
 
+  
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Belge Sorgulama</Text>
