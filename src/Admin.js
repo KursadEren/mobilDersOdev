@@ -1,10 +1,10 @@
 import { View, Text, StyleSheet, TextInput, Dimensions, Button, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { collection, doc, setDoc ,getDocs} from "firebase/firestore";
+import { collection, doc, setDoc, getDocs } from "firebase/firestore";
 import { db } from './firebase/FirebaseConfig';
 
 
-const {width ,height} = Dimensions.get("window");
+const { width, height } = Dimensions.get("window");
 
 export default function Admin() {
   const [kilavuz, setKilavuz] = useState([]);
@@ -17,7 +17,7 @@ export default function Admin() {
   const [UserIgG3, setUserIgG3] = useState();
   const [UserIgG4, setUserIg4] = useState();
   const [UserIgM, setUserIgM] = useState();
-  const [dataLenght,setDataLenght] = useState(0);
+  const [dataLenght, setDataLenght] = useState(0);
 
   const [BirthDate, setBirtDate] = useState();
   const getAllkilavuz = async () => {
@@ -28,12 +28,12 @@ export default function Admin() {
         data.push({ id: doc.id, ...doc.data() });
       });
       setKilavuz(data);
-      
+
     } catch (error) {
       console.error("Veri alırken hata oluştu:", error);
     }
   };
-  
+
   useEffect(() => {
 
 
@@ -46,21 +46,52 @@ export default function Admin() {
 
   const FilterKilavuz = () => {
     for (let i = 0; i < kilavuz.length; i++) {
-       console.log(kilavuz[i]);
-       if(){
-
-       }
-      if else(){
+     const today = new Date();
+     
+      if (UserIga != ""&&BirthDate) {
         
+       for(let a = 0 ; a<kilavuz[i].IgAlevels.length;a++){
+        
+       }
+        
+        
+       
+      }
+      else if (UserIga1 != ""&&BirthDate) {
+        
+      }
+      else if (UserIga2 != ""&&BirthDate) {
+
+      }
+      else if (UserIga2 != ""&&BirthDate) {
+
+      }
+      else if (UserIgG != ""&&BirthDate) {
+
+      }
+      else if (UserIgG1 != ""&&BirthDate) {
+
+      }
+      else if (UserIgG2 != ""&&BirthDate) {
+
+      }
+      else if (UserIgG3 != ""&&BirthDate) {
+
+      }
+      else if (UserIgG4 != ""&&BirthDate) {
+
+      }
+      else if (UserIgM != "" && BirthDate) {
+
       }
 
     }
   }
-  
+
 
   return (
     <ScrollView style={styles.container}>
-      <Button onPress={()=>FilterKilavuz()} title="hey"></Button>
+      <Button onPress={() => FilterKilavuz()} title="hey"></Button>
       <Text style={styles.Text}>Doğum Günü</Text>
       <TextInput
         style={styles.input}
@@ -142,7 +173,7 @@ export default function Admin() {
         onChangeText={setUserIgM}
       />
       <View style={styles.ButtonStyle}>
-      <Button  onPress={()=>("")} title="Ara"/>
+        <Button onPress={() => ("")} title="Ara" />
       </View>
     </ScrollView>
   )
@@ -165,13 +196,13 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
   Text: {
-      fontSize:18,
-      marginVertical:height*0.02,
-      fontWeight:"bold",
-      color:"#aaa"
+    fontSize: 18,
+    marginVertical: height * 0.02,
+    fontWeight: "bold",
+    color: "#aaa"
   },
-  ButtonStyle:{
-    marginVertical:height*0.1,
-   
+  ButtonStyle: {
+    marginVertical: height * 0.1,
+
   }
 });
