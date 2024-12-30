@@ -1,7 +1,8 @@
-import { View, Text, StyleSheet, TextInput, Dimensions, Button, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, TextInput, Dimensions, Button, ScrollView, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { collection, doc, setDoc, getDocs } from "firebase/firestore";
 import { db } from './firebase/FirebaseConfig';
+import DateTime from './Components/DateTime';
 
 
 const { width, height } = Dimensions.get("window");
@@ -18,6 +19,10 @@ export default function Admin() {
   const [UserIgG4, setUserIg4] = useState();
   const [UserIgM, setUserIgM] = useState();
   const [dataLenght, setDataLenght] = useState(0);
+
+  const [day, setDay] = useState(''); // Gün
+  const [month, setMonth] = useState(''); // Ay
+  const [year, setYear] = useState(''); // Yıl
 
   const [BirthDate, setBirtDate] = useState();
   const getAllkilavuz = async () => {
@@ -45,40 +50,57 @@ export default function Admin() {
 
 
   const FilterKilavuz = () => {
+    if (!day || !month || !year) {
+      Alert.alert('Hata', 'Lütfen tüm alanları doldurun!');
+      return;
+    }
+
+    const formattedDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+    setBirtDate(formattedDate)
+    console.log(formattedDate)
+
+    if (isNaN(dateObject.getTime())) {
+      Alert.alert('Hata', 'Geçersiz tarih girdiniz.');
+      return;
+    }
+
+    setCombinedDate(formattedDate); // Birleşmiş tarihi sakla
+    Alert.alert('Başarılı', `Birleşmiş Tarih: ${formattedDate}`);
+
     for (let i = 0; i < kilavuz.length; i++) {
-     const today = new Date();
-     
-      if (UserIga != ""&&BirthDate) {
-        
-       for(let a = 0 ; a<kilavuz[i].IgAlevels.length;a++){
-        
-       }
-        
-        
-       
-      }
-      else if (UserIga1 != ""&&BirthDate) {
-        
-      }
-      else if (UserIga2 != ""&&BirthDate) {
+      const today = new Date();
+
+      if (UserIga != "" && BirthDate) {
+
+        for (let a = 0; a < kilavuz[i].IgAlevels.length; a++) {
+
+        }
+
+
 
       }
-      else if (UserIga2 != ""&&BirthDate) {
+      else if (UserIga1 != "" && BirthDate) {
 
       }
-      else if (UserIgG != ""&&BirthDate) {
+      else if (UserIga2 != "" && BirthDate) {
 
       }
-      else if (UserIgG1 != ""&&BirthDate) {
+      else if (UserIga2 != "" && BirthDate) {
 
       }
-      else if (UserIgG2 != ""&&BirthDate) {
+      else if (UserIgG != "" && BirthDate) {
 
       }
-      else if (UserIgG3 != ""&&BirthDate) {
+      else if (UserIgG1 != "" && BirthDate) {
 
       }
-      else if (UserIgG4 != ""&&BirthDate) {
+      else if (UserIgG2 != "" && BirthDate) {
+
+      }
+      else if (UserIgG3 != "" && BirthDate) {
+
+      }
+      else if (UserIgG4 != "" && BirthDate) {
 
       }
       else if (UserIgM != "" && BirthDate) {
@@ -92,14 +114,13 @@ export default function Admin() {
   return (
     <ScrollView style={styles.container}>
       <Button onPress={() => FilterKilavuz()} title="hey"></Button>
-      <Text style={styles.Text}>Doğum Günü</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="doğum Günü örn: 07/12/2001"
-        placeholderTextColor={"#e3e3e3"}
-        value={BirthDate}
-        onChangeText={setBirtDate}
-      />
+      <DateTime day={day}
+        month={month}
+        year={year}
+        onDayChange={setDay}
+        onMonthChange={setMonth}
+        onYearChange={setYear} />
+
       <Text style={styles.Text}>UserIga</Text>
       <TextInput
         style={styles.input}
@@ -204,5 +225,6 @@ const styles = StyleSheet.create({
   ButtonStyle: {
     marginVertical: height * 0.1,
 
-  }
+  },
+
 });
