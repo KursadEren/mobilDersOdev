@@ -1,0 +1,936 @@
+const IgGlevels = [
+    {
+        "ageGroup": "0–30 days",
+        "minMonth": 0,
+        "maxMonth": 1,
+        "number": 30,
+        "geoMeanSD": "913.85 ± 262.19",
+        "geoMin": 651.66,
+        "geoMax": 1176.04,
+        "meanSD": "953 ± 262.19",
+        "min": 399.0,
+        "max": 1480.0,
+        "confidenceInterval": {
+            "min": 855.1,
+            "max": 1050.9
+        }
+    },
+    {
+        "ageGroup": "1–3 months",
+        "minMonth": 1,
+        "maxMonth": 3,
+        "number": 30,
+        "geoMeanSD": "409.86 ± 145.59",
+        "geoMin": 264.27,
+        "geoMax": 555.45,
+        "meanSD": "429.5 ± 145.59",
+        "min": 217.0,
+        "max": 981.0,
+        "confidenceInterval": {
+            "min": 375.14,
+            "max": 483.86
+        }
+    },
+    {
+        "ageGroup": "4–6 months",
+        "minMonth": 4,
+        "maxMonth": 6,
+        "number": 30,
+        "geoMeanSD": "440.17 ± 236.8",
+        "geoMin": 203.37,
+        "geoMax": 676.97,
+        "meanSD": "482.43 ± 236.8",
+        "min": 270.0,
+        "max": 1110.0,
+        "confidenceInterval": {
+            "min": 394.01,
+            "max": 570.86
+        }
+    },
+    {
+        "ageGroup": "7–12 months",
+        "minMonth": 7,
+        "maxMonth": 12,
+        "number": 30,
+        "geoMeanSD": "536.79 ± 186.62",
+        "geoMin": 350.17,
+        "geoMax": 723.41,
+        "meanSD": "568.97 ± 186.62",
+        "min": 242.0,
+        "max": 977.0,
+        "confidenceInterval": {
+            "min": 499.28,
+            "max": 638.65
+        }
+    },
+    {
+        "ageGroup": "13–24 months",
+        "minMonth": 13,
+        "maxMonth": 24,
+        "number": 30,
+        "geoMeanSD": "726.79 ± 238.61",
+        "geoMin": 488.18,
+        "geoMax": 965.4,
+        "meanSD": "761.7 ± 238.61",
+        "min": 389.0,
+        "max": 1260.0,
+        "confidenceInterval": {
+            "min": 672.6,
+            "max": 850.8
+        }
+    },
+    {
+        "ageGroup": "25–36 months",
+        "minMonth": 25,
+        "maxMonth": 36,
+        "number": 30,
+        "geoMeanSD": "786.41 ± 249.14",
+        "geoMin": 537.27,
+        "geoMax": 1035.55,
+        "meanSD": "811.5 ± 249.14",
+        "min": 486.0,
+        "max": 1970.0,
+        "confidenceInterval": {
+            "min": 718.47,
+            "max": 904.53
+        }
+    },
+    {
+        "ageGroup": "3–5 years",
+        "minMonth": 36,
+        "maxMonth": 60,
+        "number": 30,
+        "geoMeanSD": "823.19 ± 164.19",
+        "geoMin": 659.0,
+        "geoMax": 987.38,
+        "meanSD": "839.87 ± 164.19",
+        "min": 457.0,
+        "max": 1120.0,
+        "confidenceInterval": {
+            "min": 778.56,
+            "max": 901.18
+        }
+    },
+    {
+        "ageGroup": "6–8 years",
+        "minMonth": 72,
+        "maxMonth": 96,
+        "number": 30,
+        "geoMeanSD": "982.86 ± 255.53",
+        "geoMin": 727.33,
+        "geoMax": 1238.39,
+        "meanSD": "1014.93 ± 255.53",
+        "min": 483.0,
+        "max": 1580.0,
+        "confidenceInterval": {
+            "min": 919.52,
+            "max": 1110.35
+        }
+    },
+    {
+        "ageGroup": "9–11 years",
+        "minMonth": 108,
+        "maxMonth": 132,
+        "number": 30,
+        "geoMeanSD": "1016.12 ± 322.27",
+        "geoMin": 693.85,
+        "geoMax": 1338.39,
+        "meanSD": "1055.43 ± 322.27",
+        "min": 642.0,
+        "max": 2290.0,
+        "confidenceInterval": {
+            "min": 935.09,
+            "max": 1175.77
+        }
+    },
+    {
+        "ageGroup": "12–16 years",
+        "minMonth": 144,
+        "maxMonth": 192,
+        "number": 30,
+        "geoMeanSD": "1123.56 ± 203.83",
+        "geoMin": 919.73,
+        "geoMax": 1327.39,
+        "meanSD": "1142.07 ± 203.83",
+        "min": 636.0,
+        "max": 1610.0,
+        "confidenceInterval": {
+            "min": 1065.96,
+            "max": 1218.18
+        }
+    },
+    {
+        "ageGroup": "16–18 years",
+        "minMonth": 192,
+        "maxMonth": 216,
+        "number": 30,
+        "geoMeanSD": "1277.2 ± 361.89",
+        "geoMin": 915.31,
+        "geoMax": 1639.09,
+        "meanSD": "1322.77 ± 361.89",
+        "min": 688.0,
+        "max": 2430.0,
+        "confidenceInterval": {
+            "min": 1187.63,
+            "max": 1457.9
+        }
+    }
+];
+
+const IgAlevels = [
+    {
+        "ageGroup": "0–30 days",
+        "minMonth": 0,
+        "maxMonth": 1,
+        "number": 30,
+        "geoMeanSD": "6.77 ± 0.45",
+        "geoMin": 6.32,
+        "geoMax": 7.22,
+        "meanSD": "6.79 ± 0.45",
+        "min": 6.67,
+        "max": 8.75,
+        "confidenceInterval": {
+            "min": 6.62,
+            "max": 6.95
+        }
+    },
+    {
+        "ageGroup": "1–3 months",
+        "minMonth": 1,
+        "maxMonth": 3,
+        "number": 30,
+        "geoMeanSD": "9.58 ± 5.16",
+        "geoMin": 4.42,
+        "geoMax": 14.74,
+        "meanSD": "10.53 ± 5.16",
+        "min": 6.67,
+        "max": 24.6,
+        "confidenceInterval": {
+            "min": 8.57,
+            "max": 12.49
+        }
+    },
+    {
+        "ageGroup": "4–6 months",
+        "minMonth": 4,
+        "maxMonth": 6,
+        "number": 30,
+        "geoMeanSD": "17.23 ± 9.77",
+        "geoMin": 7.46,
+        "geoMax": 27.0,
+        "meanSD": "19.86 ± 9.77",
+        "min": 6.67,
+        "max": 53.0,
+        "confidenceInterval": {
+            "min": 14.7,
+            "max": 25.01
+        }
+    },
+    {
+        "ageGroup": "7–12 months",
+        "minMonth": 7,
+        "maxMonth": 12,
+        "number": 30,
+        "geoMeanSD": "23.63 ± 12.37",
+        "geoMin": 11.26,
+        "geoMax": 35.99,
+        "meanSD": "29.41 ± 12.37",
+        "min": 6.68,
+        "max": 114.0,
+        "confidenceInterval": {
+            "min": 21.06,
+            "max": 37.77
+        }
+    },
+    {
+        "ageGroup": "13–24 months",
+        "minMonth": 13,
+        "maxMonth": 24,
+        "number": 30,
+        "geoMeanSD": "34.09 ± 17.1",
+        "geoMin": 16.99,
+        "geoMax": 51.19,
+        "meanSD": "37.62 ± 17.1",
+        "min": 13.1,
+        "max": 103.0,
+        "confidenceInterval": {
+            "min": 31.34,
+            "max": 47.85
+        }
+    },
+    {
+        "ageGroup": "25–36 months",
+        "minMonth": 25,
+        "maxMonth": 36,
+        "number": 30,
+        "geoMeanSD": "48.87 ± 24.52",
+        "geoMin": 24.35,
+        "geoMax": 73.39,
+        "meanSD": "59.77 ± 24.52",
+        "min": 6.67,
+        "max": 135.0,
+        "confidenceInterval": {
+            "min": 46.05,
+            "max": 71.38
+        }
+    },
+    {
+        "ageGroup": "3–5 years",
+        "minMonth": 36,
+        "maxMonth": 60,
+        "number": 30,
+        "geoMeanSD": "62.75 ± 34.05",
+        "geoMin": 28.7,
+        "geoMax": 96.8,
+        "meanSD": "68.98 ± 34.05",
+        "min": 35.7,
+        "max": 192.0,
+        "confidenceInterval": {
+            "min": 56.27,
+            "max": 81.7
+        }
+    },
+    {
+        "ageGroup": "6–8 years",
+        "minMonth": 72,
+        "maxMonth": 96,
+        "number": 30,
+        "geoMeanSD": "97.38 ± 49.66",
+        "geoMin": 47.72,
+        "geoMax": 147.04,
+        "meanSD": "106.9 ± 49.66",
+        "min": 44.8,
+        "max": 276.0,
+        "confidenceInterval": {
+            "min": 88.36,
+            "max": 125.45
+        }
+    },
+    {
+        "ageGroup": "9–11 years",
+        "minMonth": 108,
+        "maxMonth": 132,
+        "number": 30,
+        "geoMeanSD": "102.27 ± 47.05",
+        "geoMin": 55.22,
+        "geoMax": 149.32,
+        "meanSD": "115.99 ± 47.05",
+        "min": 32.6,
+        "max": 262.0,
+        "confidenceInterval": {
+            "min": 94.69,
+            "max": 137.29
+        }
+    },
+    {
+        "ageGroup": "12–16 years",
+        "minMonth": 144,
+        "maxMonth": 192,
+        "number": 30,
+        "geoMeanSD": "112.16 ± 47.51",
+        "geoMin": 64.65,
+        "geoMax": 159.67,
+        "meanSD": "120.90 ± 47.51",
+        "min": 36.4,
+        "max": 305.0,
+        "confidenceInterval": {
+            "min": 99.29,
+            "max": 172.11
+        }
+    },
+    {
+        "ageGroup": "16–18 years",
+        "minMonth": 192,
+        "maxMonth": 216,
+        "number": 30,
+        "geoMeanSD": "179.21 ± 89.92",
+        "geoMin": 89.29,
+        "geoMax": 269.13,
+        "meanSD": "201.84 ± 89.92",
+        "min": 46.3,
+        "max": 385.0,
+        "confidenceInterval": {
+            "min": 168.26,
+            "max": 235.41
+        }
+    }
+];
+
+const IgMlevels = [
+    {
+        "ageGroup": "0–30 days",
+        "minMonth": 0,
+        "maxMonth": 1,
+        "number": 30,
+        "geoMeanSD": "16.89 ± 8.87",
+        "geoMin": 8.02,
+        "geoMax": 25.76,
+        "meanSD": "20.38 ± 8.87",
+        "min": 5.1,
+        "max": 50.9,
+        "confidenceInterval": {
+            "min": 15.57,
+            "max": 18.18
+        }
+    },
+    {
+        "ageGroup": "1–3 months",
+        "minMonth": 1,
+        "maxMonth": 3,
+        "number": 30,
+        "geoMeanSD": "34.21 ± 13.55",
+        "geoMin": 20.66,
+        "geoMax": 47.76,
+        "meanSD": "36.66 ± 13.55",
+        "min": 15.2,
+        "max": 68.5,
+        "confidenceInterval": {
+            "min": 31.6,
+            "max": 41.72
+        }
+    },
+    {
+        "ageGroup": "4–6 months",
+        "minMonth": 4,
+        "maxMonth": 6,
+        "number": 30,
+        "geoMeanSD": "69.05 ± 29.73",
+        "geoMin": 39.32,
+        "geoMax": 98.78,
+        "meanSD": "75.44 ± 29.73",
+        "min": 26.9,
+        "max": 130.0,
+        "confidenceInterval": {
+            "min": 64.34,
+            "max": 86.54
+        }
+    },
+    {
+        "ageGroup": "7–12 months",
+        "minMonth": 7,
+        "maxMonth": 12,
+        "number": 30,
+        "geoMeanSD": "73.42 ± 35.76",
+        "geoMin": 37.66,
+        "geoMax": 109.18,
+        "meanSD": "81.05 ± 35.76",
+        "min": 24.2,
+        "max": 162.0,
+        "confidenceInterval": {
+            "min": 67.7,
+            "max": 94.41
+        }
+    },
+    {
+        "ageGroup": "13–24 months",
+        "minMonth": 13,
+        "maxMonth": 24,
+        "number": 30,
+        "geoMeanSD": "115.25 ± 41.63",
+        "geoMin": 73.62,
+        "geoMax": 156.88,
+        "meanSD": "122.57 ± 41.63",
+        "min": 38.6,
+        "max": 195.0,
+        "confidenceInterval": {
+            "min": 107.03,
+            "max": 138.12
+        }
+    },
+    {
+        "ageGroup": "25–36 months",
+        "minMonth": 25,
+        "maxMonth": 36,
+        "number": 30,
+        "geoMeanSD": "104.66 ± 40.55",
+        "geoMin": 64.11,
+        "geoMax": 145.21,
+        "meanSD": "111.31 ± 40.55",
+        "min": 42.7,
+        "max": 236.0,
+        "confidenceInterval": {
+            "min": 96.17,
+            "max": 126.46
+        }
+    },
+    {
+        "ageGroup": "3–5 years",
+        "minMonth": 36,
+        "maxMonth": 60,
+        "number": 30,
+        "geoMeanSD": "115.60 ± 39.24",
+        "geoMin": 76.36,
+        "geoMax": 154.84,
+        "meanSD": "121.79 ± 39.24",
+        "min": 58.7,
+        "max": 198.0,
+        "confidenceInterval": {
+            "min": 107.13,
+            "max": 136.44
+        }
+    },
+    {
+        "ageGroup": "6–8 years",
+        "minMonth": 72,
+        "maxMonth": 96,
+        "number": 30,
+        "geoMeanSD": "108.05 ± 41.27",
+        "geoMin": 66.78,
+        "geoMax": 149.32,
+        "meanSD": "114.73 ± 41.27",
+        "min": 50.3,
+        "max": 242.0,
+        "confidenceInterval": {
+            "min": 99.32,
+            "max": 130.14
+        }
+    },
+    {
+        "ageGroup": "9–11 years",
+        "minMonth": 108,
+        "maxMonth": 132,
+        "number": 30,
+        "geoMeanSD": "104.95 ± 43.68",
+        "geoMin": 61.27,
+        "geoMax": 148.63,
+        "meanSD": "113.18 ± 43.68",
+        "min": 37.4,
+        "max": 213.0,
+        "confidenceInterval": {
+            "min": 96.87,
+            "max": 129.49
+        }
+    },
+    {
+        "ageGroup": "12–16 years",
+        "minMonth": 144,
+        "maxMonth": 192,
+        "number": 30,
+        "geoMeanSD": "119.16 ± 39.31",
+        "geoMin": 79.85,
+        "geoMax": 158.47,
+        "meanSD": "125.78 ± 39.31",
+        "min": 42.4,
+        "max": 197.0,
+        "confidenceInterval": {
+            "min": 111.1,
+            "max": 140.46
+        }
+    },
+    {
+        "ageGroup": "16–18 years",
+        "minMonth": 192,
+        "maxMonth": 216,
+        "number": 30,
+        "geoMeanSD": "130.60 ± 64.32",
+        "geoMin": 66.28,
+        "geoMax": 194.92,
+        "meanSD": "142.54 ± 64.32",
+        "min": 60.7,
+        "max": 323.0,
+        "confidenceInterval": {
+            "min": 118.53,
+            "max": 166.55
+        }
+    }
+];
+
+const IgG1levels = [
+    {
+        "ageGroup": "25–36 months",
+        "minMonth": 25,
+        "maxMonth": 36,
+        "number": 30,
+        "geoMeanSD": "510.74 ± 192.04",
+        "geoMin": 318.7,
+        "geoMax": 702.78,
+        "meanSD": "531.7 ± 192.04",
+        "min": 309,
+        "max": 1450,
+        "confidenceInterval": {
+            "min": 459.98,
+            "max": 603.41
+        }
+    },
+    {
+        "ageGroup": "3–5 years",
+        "minMonth": 36,
+        "maxMonth": 60,
+        "number": 30,
+        "geoMeanSD": "506.73 ± 82.28",
+        "geoMin": 424.45,
+        "geoMax": 589.01,
+        "meanSD": "513.93 ± 82.28",
+        "min": 273,
+        "max": 679,
+        "confidenceInterval": {
+            "min": 483.2,
+            "max": 544.65
+        }
+    },
+    {
+        "ageGroup": "6–8 years",
+        "minMonth": 72,
+        "maxMonth": 96,
+        "number": 30,
+        "geoMeanSD": "567.94 ± 121.64",
+        "geoMin": 446.3,
+        "geoMax": 689.58,
+        "meanSD": "581 ± 121.64",
+        "min": 292,
+        "max": 781,
+        "confidenceInterval": {
+            "min": 535.87,
+            "max": 626.72
+        }
+    },
+    {
+        "ageGroup": "9–11 years",
+        "minMonth": 108,
+        "maxMonth": 132,
+        "number": 30,
+        "geoMeanSD": "634.17 ± 216.39",
+        "geoMin": 417.78,
+        "geoMax": 850.56,
+        "meanSD": "660.23 ± 216.39",
+        "min": 410,
+        "max": 1530,
+        "confidenceInterval": {
+            "min": 579.43,
+            "max": 741.03
+        }
+    },
+    {
+        "ageGroup": "12–16 years",
+        "minMonth": 144,
+        "maxMonth": 192,
+        "number": 30,
+        "geoMeanSD": "635.52 ± 131.01",
+        "geoMin": 504.51,
+        "geoMax": 766.53,
+        "meanSD": "648.53 ± 131.01",
+        "min": 344,
+        "max": 958,
+        "confidenceInterval": {
+            "min": 599.61,
+            "max": 697.45
+        }
+    },
+    {
+        "ageGroup": "16–18 years",
+        "minMonth": 192,
+        "maxMonth": 216,
+        "number": 30,
+        "geoMeanSD": "645.35 ± 229.62",
+        "geoMin": 415.73,
+        "geoMax": 874.97,
+        "meanSD": "674.5 ± 229.62",
+        "min": 403,
+        "max": 1520,
+        "confidenceInterval": {
+            "min": 588.75,
+            "max": 760.24
+        }
+    },
+   
+];
+
+const IgG2levels = [
+    {
+        "ageGroup": "25–36 months",
+        "minMonth": 25,
+        "maxMonth": 36,
+        "number": 30,
+        "geoMeanSD": "137.88 ± 38.59",
+        "geoMin": 99.29,
+        "geoMax": 176.47,
+        "meanSD": "141.98 ± 38.59",
+        "min": 87.6,
+        "max": 289,
+        "confidenceInterval": {
+            "min": 127.57,
+            "max": 156.39
+        }
+    },
+    {
+        "ageGroup": "3–5 years",
+        "minMonth": 36,
+        "maxMonth": 60,
+        "number": 30,
+        "geoMeanSD": "143.92 ± 50.80",
+        "geoMin": 93.12,
+        "geoMax": 194.72,
+        "meanSD": "151.95 ± 50.80",
+        "min": 73.3,
+        "max": 271,
+        "confidenceInterval": {
+            "min": 132.98,
+            "max": 170.92
+        }
+    },
+    {
+        "ageGroup": "6–8 years",
+        "minMonth": 72,
+        "maxMonth": 96,
+        "number": 30,
+        "geoMeanSD": "196.57 ± 86.41",
+        "geoMin": 110.16,
+        "geoMax": 282.98,
+        "meanSD": "213.67 ± 86.41",
+        "min": 88.1,
+        "max": 408,
+        "confidenceInterval": {
+            "min": 181.40,
+            "max": 245.93
+        }
+    },
+    {
+        "ageGroup": "9–11 years",
+        "minMonth": 108,
+        "maxMonth": 132,
+        "number": 30,
+        "geoMeanSD": "250.67 ± 85.72",
+        "geoMin": 164.95,
+        "geoMax": 336.39,
+        "meanSD": "265.56 ± 85.72",
+        "min": 81,
+        "max": 442,
+        "confidenceInterval": {
+            "min": 233.55,
+            "max": 297.57
+        }
+    },
+    {
+        "ageGroup": "12–16 years",
+        "minMonth": 144,
+        "maxMonth": 192,
+        "number": 30,
+        "geoMeanSD": "261.62 ± 69.14",
+        "geoMin": 192.48,
+        "geoMax": 330.76,
+        "meanSD": "270.23 ± 69.14",
+        "min": 159,
+        "max": 406,
+        "confidenceInterval": {
+            "min": 244.41,
+            "max": 296.05
+        }
+    },
+    {
+        "ageGroup": "16–18 years",
+        "minMonth": 192,
+        "maxMonth": 216,
+        "number": 30,
+        "geoMeanSD": "359.76 ± 115.83",
+        "geoMin": 243.93,
+        "geoMax": 475.59,
+        "meanSD": "375.9 ± 115.83",
+        "min": 184,
+        "max": 696,
+        "confidenceInterval": {
+            "min": 332.6,
+            "max": 419.15
+        }
+    },
+    
+];
+
+const IgG3levels = [
+    {
+        "ageGroup": "25–36 months",
+        "minMonth": 25,
+        "maxMonth": 36,
+        "number": 30,
+        "geoMeanSD": "48.78 ± 16.90",
+        "geoMin": 31.88,
+        "geoMax": 65.68,
+        "meanSD": "51.73 ± 16.90",
+        "min": 19.8,
+        "max": 75,
+        "confidenceInterval": {
+            "min": 45.41,
+            "max": 58.04
+        }
+    },
+    {
+        "ageGroup": "3–5 years",
+        "minMonth": 36,
+        "maxMonth": 60,
+        "number": 30,
+        "geoMeanSD": "44.05 ± 21.55",
+        "geoMin": 22.50,
+        "geoMax": 65.60,
+        "meanSD": "45.26 ± 21.55",
+        "min": 20.8,
+        "max": 93.2,
+        "confidenceInterval": {
+            "min": 37.21,
+            "max": 53.30
+        }
+    },
+    {
+        "ageGroup": "6–8 years",
+        "minMonth": 72,
+        "maxMonth": 96,
+        "number": 30,
+        "geoMeanSD": "56.82 ± 30.55",
+        "geoMin": 26.27,
+        "geoMax": 87.37,
+        "meanSD": "65.53 ± 30.55",
+        "min": 18.9,
+        "max": 135,
+        "confidenceInterval": {
+            "min": 53.01,
+            "max": 78.06
+        }
+    },
+    {
+        "ageGroup": "9–11 years",
+        "minMonth": 108,
+        "maxMonth": 132,
+        "number": 30,
+        "geoMeanSD": "77.59 ± 37.37",
+        "geoMin": 40.22,
+        "geoMax": 114.96,
+        "meanSD": "84.19 ± 37.37",
+        "min": 34.1,
+        "max": 200,
+        "confidenceInterval": {
+            "min": 70.24,
+            "max": 98.15
+        }
+    },
+    {
+        "ageGroup": "12–16 years",
+        "minMonth": 144,
+        "maxMonth": 192,
+        "number": 30,
+        "geoMeanSD": "75.30 ± 31.86",
+        "geoMin": 43.44,
+        "geoMax": 107.16,
+        "meanSD": "81.39 ± 31.86",
+        "min": 35.2,
+        "max": 150,
+        "confidenceInterval": {
+            "min": 69.49,
+            "max": 93.28
+        }
+    },
+    {
+        "ageGroup": "16–18 years",
+        "minMonth": 192,
+        "maxMonth": 216,
+        "number": 30,
+        "geoMeanSD": "86.33 ± 43.29",
+        "geoMin": 43.04,
+        "geoMax": 129.62,
+        "meanSD": "95.12 ± 43.29",
+        "min": 29.3,
+        "max": 200,
+        "confidenceInterval": {
+            "min": 78.95,
+            "max": 111.28
+        }
+    },
+    
+];
+
+const IgG4levels = [
+    {
+        "ageGroup": "25–36 months",
+        "minMonth": 25,
+        "maxMonth": 36,
+        "number": 30,
+        "geoMeanSD": "15.53 ± 8.54",
+        "geoMin": 6.99,
+        "geoMax": 24.07,
+        "meanSD": "18.37 ± 8.54",
+        "min": 7.86,
+        "max": 57.5,
+        "confidenceInterval": {
+            "min": 13.67,
+            "max": 23.07
+        }
+    },
+    {
+        "ageGroup": "3–5 years",
+        "minMonth": 36,
+        "maxMonth": 60,
+        "number": 30,
+        "geoMeanSD": "30.81 ± 15.42",
+        "geoMin": 15.39,
+        "geoMax": 46.23,
+        "meanSD": "40.75 ± 15.42",
+        "min": 7.86,
+        "max": 122,
+        "confidenceInterval": {
+            "min": 28.84,
+            "max": 52.65
+        }
+    },
+    {
+        "ageGroup": "6–8 years",
+        "minMonth": 72,
+        "maxMonth": 96,
+        "number": 30,
+        "geoMeanSD": "39.33 ± 23.05",
+        "geoMin": 16.28,
+        "geoMax": 62.38,
+        "meanSD": "50.94 ± 23.05",
+        "min": 7.86,
+        "max": 157,
+        "confidenceInterval": {
+            "min": 37.11,
+            "max": 64.77
+        }
+    },
+    {
+        "ageGroup": "9–11 years",
+        "minMonth": 108,
+        "maxMonth": 132,
+        "number": 30,
+        "geoMeanSD": "25.36 ± 15.39",
+        "geoMin": 9.97,
+        "geoMax": 40.75,
+        "meanSD": "35.51 ± 15.39",
+        "min": 7.86,
+        "max": 93.8,
+        "confidenceInterval": {
+            "min": 24.95,
+            "max": 46.07
+        }
+    },
+    {
+        "ageGroup": "12–16 years",
+        "minMonth": 144,
+        "maxMonth": 192,
+        "number": 30,
+        "geoMeanSD": "31.03 ± 16.73",
+        "geoMin": 14.3,
+        "geoMax": 47.76,
+        "meanSD": "39.51 ± 16.73",
+        "min": 7.86,
+        "max": 119,
+        "confidenceInterval": {
+            "min": 29.53,
+            "max": 49.49
+        }
+    },
+    {
+        "ageGroup": "16–18 years",
+        "minMonth": 192,
+        "maxMonth": 216,
+        "number": 30,
+        "geoMeanSD": "38.89 ± 23.08",
+        "geoMin": 15.81,
+        "geoMax": 61.97,
+        "meanSD": "50.16 ± 23.08",
+        "min": 7.86,
+        "max": 157,
+        "confidenceInterval": {
+            "min": 36.32,
+            "max": 64.01
+        }
+    },
+   
+];

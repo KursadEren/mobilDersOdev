@@ -13,7 +13,7 @@ const firebaseConfig = {
   storageBucket: "mobildersapp.firebasestorage.app",
   messagingSenderId: "470541547468",
   appId: "1:470541547468:web:d719c31600bb0911d14f69",
-  measurementId: "G-Y41C8DZ6GH",
+  measurementId: "G-Y41C8DZ6GH"
 };
 
 // Initialize Firebase
@@ -23,4 +23,4 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-export { auth, db };
+export { auth, db ,app};

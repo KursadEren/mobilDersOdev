@@ -20,7 +20,7 @@ export default function LoginScreen({ navigation }) {
       // Yeni kullanıcı oluştur
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-
+    
       // Kullanıcıyı Firestore'a ekle
       const userDoc = doc(db, "users", user.uid); // Her kullanıcı için `uid` kullanılıyor
       await setDoc(userDoc, {

@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, TextInput, Dimensions, Button, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { collection, doc, setDoc } from "firebase/firestore";
+import { collection, doc, setDoc ,getDocs} from "firebase/firestore";
+import { db } from './firebase/FirebaseConfig';
 
 
 const {width ,height} = Dimensions.get("window");
@@ -14,31 +15,52 @@ export default function Admin() {
   const [UserIgG1, setUserIgG1] = useState();
   const [UserIgG2, setUserIgG2] = useState();
   const [UserIgG3, setUserIgG3] = useState();
+  const [UserIgG4, setUserIg4] = useState();
   const [UserIgM, setUserIgM] = useState();
+  const [dataLenght,setDataLenght] = useState(0);
+
   const [BirthDate, setBirtDate] = useState();
   const getAllkilavuz = async () => {
-    const querySnapshot = await getDocs(collection(db, "kilavuz"));
-    querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      console.log(doc.id, " => ", doc.data());
-      setKilavuz(doc.data());
-    });
-  }
+    try {
+      const querySnapshot = await getDocs(collection(db, "dataCollection"));
+      const data = [];
+      querySnapshot.forEach((doc) => {
+        data.push({ id: doc.id, ...doc.data() });
+      });
+      setKilavuz(data);
+      
+    } catch (error) {
+      console.error("Veri alırken hata oluştu:", error);
+    }
+  };
+  
   useEffect(() => {
 
 
     getAllkilavuz();
+    setDataLenght(kilavuz.length);
   }, []);
 
 
+
+
   const FilterKilavuz = () => {
-    const filteredKilavuz = kilavuz.filter
+    for (let i = 0; i < kilavuz.length; i++) {
+       console.log(kilavuz[i]);
+       if(){
 
+       }
+      if else(){
+        
+      }
+
+    }
   }
-
+  
 
   return (
     <ScrollView style={styles.container}>
+      <Button onPress={()=>FilterKilavuz()} title="hey"></Button>
       <Text style={styles.Text}>Doğum Günü</Text>
       <TextInput
         style={styles.input}
@@ -96,6 +118,14 @@ export default function Admin() {
         onChangeText={setUserIgG2}
       />
       <Text style={styles.Text}>UserIgG3</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="UserIgG4 değeri giriniz"
+        placeholderTextColor={"#e3e3e3"}
+        value={UserIgG4}
+        onChangeText={setUserIgG2}
+      />
+      <Text style={styles.Text}>UserIgG4</Text>
       <TextInput
         style={styles.input}
         placeholder="UserIgG3 değeri giriniz"
