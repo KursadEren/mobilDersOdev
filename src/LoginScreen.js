@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ActivityIndicator } from 'react-native';
 import { auth, db } from './firebase/FirebaseConfig'; // Firebase bağlantısını içe aktar
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { doc, setDoc,getDoc } from "firebase/firestore"; // Firestore için gerekli fonksiyonları içe aktar
+import { doc, setDoc, getDoc } from "firebase/firestore"; // Firestore için gerekli fonksiyonları içe aktar
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSignUp, setIsSignUp] = useState(false);
-
+  const [visible, setVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
   const handleSignUp = async () => {
     // Girişlerin dolu olup olmadığını kontrol et
+    setLoading(true);
     if (!email || !password) {
       Alert.alert('Hata', 'Lütfen tüm alanları doldurun.');
       return;
@@ -20,7 +22,7 @@ export default function LoginScreen({ navigation }) {
       // Yeni kullanıcı oluştur
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-    
+
       // Kullanıcıyı Firestore'a ekle
       const userDoc = doc(db, "users", user.uid); // Her kullanıcı için `uid` kullanılıyor
       await setDoc(userDoc, {
@@ -31,7 +33,7 @@ export default function LoginScreen({ navigation }) {
 
       Alert.alert('Kayıt Başarılı!', `Hoş geldiniz, ${email}!`);
       console.log("Kullanıcı oluşturuldu ve Firestore'a eklendi:", user);
-
+      setLoading(false);
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -53,42 +55,45 @@ export default function LoginScreen({ navigation }) {
 
   const handleLogin = async () => {
     // Kullanıcı giriş işlemi
+    setLoading(true);
     if (!email || !password) {
       Alert.alert('Hata', 'Lütfen tüm alanları doldurun.');
       return;
     }
-  
+
     try {
       // Firebase Authentication ile giriş
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-  
+
       // Firestore'dan kullanıcı bilgilerini al
       const userDocRef = doc(db, "users", user.uid);
       const userDoc = await getDoc(userDocRef);
-  
+
       if (userDoc.exists()) {
         const userData = userDoc.data();
         const isAdmin = userData.isAdmin;
-  
+
         // Kullanıcıyı ilgili ekrana yönlendir
         if (isAdmin) {
           Alert.alert('Giriş Başarılı!', 'Admin ekranına yönlendiriliyorsunuz.');
+          setLoading(false);
           navigation.navigate("Admin");
         } else {
           Alert.alert('Giriş Başarılı!', 'User ekranına yönlendiriliyorsunuz.');
+          setLoading(false);
           navigation.navigate("user");
         }
       } else {
         Alert.alert('Hata', 'Kullanıcı bilgileri bulunamadı.');
       }
-  
+
       console.log("Kullanıcı giriş yaptı:", user);
-  
+
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
-  
+
       if (errorCode === "auth/user-not-found") {
         Alert.alert("Hata", "Bu kullanıcı bulunamadı.");
       } else if (errorCode === "auth/wrong-password") {
@@ -96,7 +101,7 @@ export default function LoginScreen({ navigation }) {
       } else {
         Alert.alert("Hata", errorMessage);
       }
-  
+
       console.error("Giriş hatası:", errorCode, errorMessage);
     }
   };
@@ -120,15 +125,19 @@ export default function LoginScreen({ navigation }) {
         secureTextEntry
       />
       {isSignUp ? (
-        <TouchableOpacity style={styles.button} onPress={handleSignUp}>
-          <Text style={styles.buttonText}>Kayıt Ol</Text>
-        </TouchableOpacity>
+        loading ? (<ActivityIndicator size="small" color="#0000ff" />) :
+          (
+            <TouchableOpacity style={styles.button} onPress={handleSignUp} disabled={loading}>
+              <Text style={styles.buttonText}>Kayıt Ol</Text>
+            </TouchableOpacity>
+          )
       ) : (
-        <TouchableOpacity style={styles.button} onPress={handleLogin}>
-          <Text style={styles.buttonText}>Giriş Yap</Text>
-        </TouchableOpacity>
+        loading ?  (<ActivityIndicator size="small" color="#0000ff" />):(
+          <TouchableOpacity style={styles.button} onPress={handleLogin} disabled={loading}>
+            <Text style={styles.buttonText}>Giriş Yap</Text>
+          </TouchableOpacity>) 
       )}
-      <TouchableOpacity
+      {<TouchableOpacity
         onPress={() => setIsSignUp(!isSignUp)}
         style={styles.toggleButton}
       >
@@ -136,6 +145,8 @@ export default function LoginScreen({ navigation }) {
           {isSignUp ? 'Giriş Yapmak için Tıklayın' : 'Kayıt Olmak için Tıklayın'}
         </Text>
       </TouchableOpacity>
+
+      }
     </View>
   );
 }
