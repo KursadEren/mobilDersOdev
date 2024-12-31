@@ -5,12 +5,14 @@ import Admin from './src/Admin';
 import user from './src/user';
 import KilavuzEkle from './src/KilavuzEkle';
 
+
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-    <Stack.Navigator initialRouteName='Admin' screenOptions={{headerShown:false}}>
+    <Stack.Navigator initialRouteName='user' screenOptions={{headerShown:false}}>
       <Stack.Screen name="login" component={LoginScreen} />
       <Stack.Screen name="Admin" component={Admin} />
       <Stack.Screen name="user" component={user} />
