@@ -1,70 +1,86 @@
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView, StatusBar, Platform, Image } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, ScrollView, StatusBar, Platform, Image, TextInput, Button } from 'react-native';
+import { db } from './firebase/FirebaseConfig';
+import { collection, query, where, getDocs } from 'firebase/firestore';
 
 const statusBarHeight = Platform.OS === 'android' ? StatusBar.currentHeight : 20;
 
-const user = () => {
-  const dummyData = {
-    patientInfo: {
-      name: 'M*** A***',
-      tcNo: '37******90',
-      dob: '21.01.2022 / 2',
-      gender: 'E',
-      place: 'ADAPAZARI',
-      reportNo: '326972.-.31160234.2024',
-      diagnosis: 'D80.7 - HİPOGAMAGLOBÜLİNEMİ, ÇOCUKLUK ÇAĞI, GEÇİCİ',
-    },
-    hospitalInfo: {
-      hospitalName: 'SAKARYA EĞİTİM VE ARAŞTIRMA HASTANESİ',
-      department: 'ÇOCUK ALERJİ VE İMMÜNOLOJİ SERVİSİ',
-      doctor: 'Prof. Dr. Ö*** ÖZ***',
-    },
-    labResults: [
-      { testName: 'IgG (Nefelometrik)', result: '7,66', range: '7 - 16 g/L' },
-      { testName: 'IgM (Nefelometrik)', result: '0,58', range: '0,4 - 2,3 g/L' },
-      { testName: 'IgA-S', result: '0,494', range: '0,7 - 4,0 g/L' },
-    ],
+const User = () => {
+  const [tcNumber, setTcNumber] = useState('');
+  const [patientData, setPatientData] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const fetchPatientData = async () => {
+    setLoading(true);
+    try {
+      const q = query(collection(db, 'patients'), where('TC', '==', tcNumber));
+      const querySnapshot = await getDocs(q);
+      console.log(querySnapshot.docs[0])
+      if (!querySnapshot.empty) {
+        const data = querySnapshot.docs[0].data();
+        setPatientData(data);
+      } else {
+        setPatientData(null);
+        alert('Bu TC kimlik numarasıyla eşleşen bir kayıt bulunamadı.');
+      }
+    } catch (error) {
+      console.error('Error fetching patient data:', error);
+      alert('Veri sorgulama sırasında bir hata oluştu.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <ScrollView style={styles.container}>
-      {/* Header Section */}
-      <View style={styles.headerSection}>
-        <View
-       style={{justifyContent:"center",alignItems:"center"}} > <Image source={require('../assets/logo.png')} style={styles.logo} /></View>
-        <View> <Text style={styles.headerText}>T.C. SAĞLIK BAKANLIĞI</Text>
-        <Text style={styles.subHeaderText}>{dummyData.hospitalInfo.hospitalName}</Text>
-        <Text style={styles.headerBoldText}>TIBBİ LABORATUVAR TETKİK SONUÇ RAPORU</Text></View>
-       
+      {/* TC Kimlik Giriş ve Sorgula Butonu */}
+      <View style={styles.searchSection}>
+        <TextInput
+          style={styles.input}
+          placeholder="T.C. Kimlik Numarası"
+          value={tcNumber}
+          onChangeText={setTcNumber}
+          keyboardType="numeric"
+        />
+        <Button title="Sorgula" onPress={fetchPatientData} color="#4CAF50" />
       </View>
 
-      {/* Patient Info Section */}
-      <View style={styles.section}>
-        <Text style={styles.label}>Adı Soyadı: <Text style={styles.value}>{dummyData.patientInfo.name}</Text></Text>
-        <Text style={styles.label}>T.C. Numarası: <Text style={styles.value}>{dummyData.patientInfo.tcNo}</Text></Text>
-        <Text style={styles.label}>Doğum Tarihi / Yaşı: <Text style={styles.value}>{dummyData.patientInfo.dob}</Text></Text>
-        <Text style={styles.label}>Cinsiyet / Doğum Yeri: <Text style={styles.value}>{dummyData.patientInfo.gender} / {dummyData.patientInfo.place}</Text></Text>
-        <Text style={styles.label}>Rapor Numarası: <Text style={styles.value}>{dummyData.patientInfo.reportNo}</Text></Text>
-        <Text style={styles.label}>Tanı: <Text style={styles.value}>{dummyData.patientInfo.diagnosis}</Text></Text>
-      </View>
+      {loading && <Text style={styles.loadingText}>Yükleniyor...</Text>}
 
-      {/* Hospital Info Section */}
-      <View style={styles.sectionGray}>
-        <Text style={styles.label}>Doktor: <Text style={styles.value}>{dummyData.hospitalInfo.doctor}</Text></Text>
-        <Text style={styles.value}>{dummyData.hospitalInfo.department}</Text>
-      </View>
-
-      {/* Lab Results Section */}
-      <View style={styles.section}>
-        <Text style={styles.subHeader}>Laboratuvar Sonuçları</Text>
-        {dummyData.labResults.map((result, index) => (
-          <View key={index} style={styles.resultRow}>
-            <Text style={styles.resultText}>{result.testName}</Text>
-            <Text style={styles.resultText}>Sonuç: {result.result}</Text>
-            <Text style={styles.resultText}>Referans Aralığı: {result.range}</Text>
+      {patientData && (
+        <>
+          {/* Header Section */}
+          <View style={styles.headerSection}>
+            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+              <Image source={require('../assets/logo.png')} style={styles.logo} />
+            </View>
+            <View>
+              <Text style={styles.headerText}>T.C. SAĞLIK BAKANLIĞI</Text>
+              <Text style={styles.subHeaderText}>Hasta Bilgi Sistemi</Text>
+              <Text style={styles.headerBoldText}>TIBBİ LABORATUVAR TETKİK SONUÇ RAPORU</Text>
+            </View>
           </View>
-        ))}
-      </View>
+
+          {/* Patient Info Section */}
+          <View style={styles.section}>
+            <Text style={styles.label}>Adı Soyadı: <Text style={styles.value}>{patientData.name}</Text></Text>
+            <Text style={styles.label}>T.C. Numarası: <Text style={styles.value}>{patientData.TC}</Text></Text>
+            <Text style={styles.label}>Doğum Tarihi: <Text style={styles.value}>{patientData.birthDate}</Text></Text>
+            <Text style={styles.label}>Oluşturulma Tarihi: <Text style={styles.value}>{new Date(patientData.createdAt).toLocaleString()}</Text></Text>
+          </View>
+
+          {/* Lab Results Section */}
+          <View style={styles.sectionGray}>
+            <Text style={styles.subHeader}>Laboratuvar Sonuçları</Text>
+          {patientData.UserIgG ?  <Text style={styles.label}>IgG: <Text style={styles.value}>{patientData.UserIgG || 'Belirtilmemiş'}</Text></Text>: ""}
+          {patientData.UserIgG1 ? <Text style={styles.label}>IgG1: <Text style={styles.value}>{patientData.UserIgG1 || 'Belirtilmemiş'}</Text></Text>: ""}
+          {patientData.UserIgG2 ? <Text style={styles.label}>IgG2: <Text style={styles.value}>{patientData.UserIgG2 || 'Belirtilmemiş'}</Text></Text>: ""}
+          {patientData.UserIgM ? <Text style={styles.label}>IgM: <Text style={styles.value}>{patientData.UserIgM || 'Belirtilmemiş'}</Text></Text>: ""}
+          {patientData.UserIga ? <Text style={styles.label}>IgA: <Text style={styles.value}>{patientData.UserIga}</Text></Text>: ""}
+          </View>
+        </>
+        
+      )}
     </ScrollView>
   );
 };
@@ -76,10 +92,24 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     padding: 10,
   },
-  headerSection: {
-    alignItems: 'left',
+  searchSection: {
     marginBottom: 20,
-    
+    padding: 10,
+    backgroundColor: '#f2f2f2',
+    borderRadius: 5,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 10,
+    fontSize: 14,
+    backgroundColor: '#fff',
+  },
+  headerSection: {
+    alignItems: 'center',
+    marginBottom: 20,
   },
   logo: {
     width: 100,
@@ -131,16 +161,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     color: '#555',
   },
-  resultRow: {
-    marginBottom: 10,
-    paddingVertical: 5,
-    borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
-  },
-  resultText: {
-    fontSize: 14,
-    color: '#444',
+  loadingText: {
+    fontSize: 18,
+    textAlign: 'center',
+    marginTop: 20,
+    color: '#777',
   },
 });
 
-export default user;
+export default User;
