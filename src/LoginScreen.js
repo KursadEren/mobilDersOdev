@@ -15,6 +15,7 @@ export default function LoginScreen({ navigation }) {
     setLoading(true);
     if (!email || !password) {
       Alert.alert('Hata', 'Lütfen tüm alanları doldurun.');
+      setLoading(false)
       return;
     }
 
@@ -37,10 +38,11 @@ export default function LoginScreen({ navigation }) {
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
-
+      setLoading(false)
       // Hata durumuna göre kullanıcıya bilgi ver
       if (errorCode === "auth/email-already-in-use") {
         Alert.alert("Hata", "Bu e-posta adresi zaten kullanılıyor.");
+        
       } else if (errorCode === "auth/invalid-email") {
         Alert.alert("Hata", "Geçersiz e-posta adresi.");
       } else if (errorCode === "auth/weak-password") {
@@ -58,6 +60,7 @@ export default function LoginScreen({ navigation }) {
     setLoading(true);
     if (!email || !password) {
       Alert.alert('Hata', 'Lütfen tüm alanları doldurun.');
+      setLoading(false)
       return;
     }
 
@@ -86,6 +89,7 @@ export default function LoginScreen({ navigation }) {
         }
       } else {
         Alert.alert('Hata', 'Kullanıcı bilgileri bulunamadı.');
+        setLoading(false)
       }
 
       console.log("Kullanıcı giriş yaptı:", user);
@@ -93,7 +97,7 @@ export default function LoginScreen({ navigation }) {
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
-
+      setLoading(false)
       if (errorCode === "auth/user-not-found") {
         Alert.alert("Hata", "Bu kullanıcı bulunamadı.");
       } else if (errorCode === "auth/wrong-password") {

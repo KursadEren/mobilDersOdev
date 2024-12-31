@@ -1,3 +1,11 @@
+
+
+
+
+
+
+
+
 import { View, Text, StyleSheet, TextInput, Dimensions, Button, ScrollView, TouchableOpacity, Alert, FlatList,Image } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { collection, doc, setDoc, getDocs } from "firebase/firestore";
@@ -835,7 +843,7 @@ export default function Admin({ navigation }) {
       <View style={styles.headerSection}>
         <Image source={require('../assets/logo.png')} style={styles.logo} />
         <Text style={styles.headerText}>T.C. SAĞLIK BAKANLIĞI</Text>
-        <Text style={styles.subHeaderText}>Hasta Kayıt Sayfası</Text>
+        <Text style={styles.subHeaderText}>Filtreleme</Text>
       </View>
 
       <DateTime day={day}
