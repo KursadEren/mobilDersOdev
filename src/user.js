@@ -1,6 +1,8 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView,StatusBar,Platform } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, StatusBar, Platform, Image } from 'react-native';
+
 const statusBarHeight = Platform.OS === 'android' ? StatusBar.currentHeight : 20;
+
 const user = () => {
   const dummyData = {
     patientInfo: {
@@ -25,13 +27,15 @@ const user = () => {
   };
 
   return (
-
     <ScrollView style={styles.container}>
       {/* Header Section */}
       <View style={styles.headerSection}>
-        <Text style={styles.headerText}>T.C. SAĞLIK BAKANLIĞI</Text>
-        <Text style={styles.headerText}>{dummyData.hospitalInfo.hospitalName}</Text>
-        <Text style={styles.headerText}>TIBBİ LABORATUVAR TETKİK SONUÇ RAPORU</Text>
+        <View
+       style={{justifyContent:"center",alignItems:"center"}} > <Image source={require('../assets/logo.png')} style={styles.logo} /></View>
+        <View> <Text style={styles.headerText}>T.C. SAĞLIK BAKANLIĞI</Text>
+        <Text style={styles.subHeaderText}>{dummyData.hospitalInfo.hospitalName}</Text>
+        <Text style={styles.headerBoldText}>TIBBİ LABORATUVAR TETKİK SONUÇ RAPORU</Text></View>
+       
       </View>
 
       {/* Patient Info Section */}
@@ -45,9 +49,9 @@ const user = () => {
       </View>
 
       {/* Hospital Info Section */}
-      <View style={styles.section}>
+      <View style={styles.sectionGray}>
         <Text style={styles.label}>Doktor: <Text style={styles.value}>{dummyData.hospitalInfo.doctor}</Text></Text>
-        <Text style={styles.label}>{dummyData.hospitalInfo.department}</Text>
+        <Text style={styles.value}>{dummyData.hospitalInfo.department}</Text>
       </View>
 
       {/* Lab Results Section */}
@@ -67,40 +71,75 @@ const user = () => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop:statusBarHeight,
+    marginTop: statusBarHeight,
     flex: 1,
     backgroundColor: '#fff',
     padding: 10,
   },
   headerSection: {
-    alignItems: 'center',
+    alignItems: 'left',
     marginBottom: 20,
+    
+  },
+  logo: {
+    width: 100,
+    height: 100,
+    marginBottom: 10,
   },
   headerText: {
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: 'bold',
     textAlign: 'center',
+    color: '#000',
+  },
+  subHeaderText: {
+    fontSize: 16,
+    textAlign: 'center',
+    color: '#333',
+  },
+  headerBoldText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginTop: 5,
+    color: '#444',
   },
   section: {
     marginBottom: 20,
+    paddingVertical: 10,
+  },
+  sectionGray: {
+    backgroundColor: '#f2f2f2',
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    marginBottom: 20,
+    borderRadius: 5,
   },
   label: {
     fontSize: 14,
     fontWeight: 'bold',
+    marginBottom: 5,
+    color: '#000',
   },
   value: {
     fontWeight: 'normal',
+    color: '#333',
   },
   subHeader: {
     fontSize: 16,
     fontWeight: 'bold',
     marginBottom: 10,
+    color: '#555',
   },
   resultRow: {
     marginBottom: 10,
+    paddingVertical: 5,
+    borderBottomWidth: 1,
+    borderBottomColor: '#e0e0e0',
   },
   resultText: {
     fontSize: 14,
+    color: '#444',
   },
 });
 
