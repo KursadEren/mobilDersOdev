@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TextInput, Dimensions, Button, ScrollView, TouchableOpacity, Alert, FlatList } from 'react-native'
+import { View, Text, StyleSheet, TextInput, Dimensions, Button, ScrollView, TouchableOpacity, Alert, FlatList,Image } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { collection, doc, setDoc, getDocs } from "firebase/firestore";
 import { db } from './firebase/FirebaseConfig';
@@ -307,64 +307,64 @@ export default function Admin({ navigation }) {
       if (UserIga1 != "" && BirthDate) {
 
 
-       
 
-          if (kilavuz[i].key === "IgA1levels") {
-            if (userMonth) {
-              for (let a = 0; a < kilavuz[i].values.length; a++) {
-                if (kilavuz[i].values[a].minMonth <= userMonth && userMonth <= kilavuz[i].values[a].maxMonth) {
 
-                  if (kilavuz[i].values[a]?.min <= UserIga1 && UserIga1 <= kilavuz[i].values[a]?.max ||
-                    kilavuz[i].values[a]?.confidenceInterval?.min <= UserIga1 && UserIga1 <= kilavuz[i].values[a]?.confidenceInterval?.max ||
-                    kilavuz[i].values[a]?.geoMin <= UserIga1 && UserIga1 <= kilavuz[i].values[a]?.geoMax ||
-                    kilavuz[i].values[a]?.minMeanSd <= UserIga1 && UserIga1 <= kilavuz[i].values[a]?.maxMeanSd) {
-                    const data = {
-                      ageGroup: kilavuz[i].values[a]?.ageGroup || null,
-                      confidenceIntervalMin: kilavuz[i].values[a]?.confidenceInterval?.min || null,
-                      confidenceIntervalMax: kilavuz[i].values[a]?.confidenceInterval?.max || null,
-                      geoMax: kilavuz[i].values[a]?.geoMax || null,
-                      geoMin: kilavuz[i].values[a]?.geoMin || null,
-                      max: kilavuz[i].values[a]?.max || null,
-                      min: kilavuz[i].values[a]?.min || null,
-                      maxMeanSd: kilavuz[i].values[a]?.maxMeanSd || null,
-                      minMeanSd: kilavuz[i].values[a]?.minMeanSd || null,
-                      maxMonth: kilavuz[i].values[a]?.maxMonth || null,
-                      minMonth: kilavuz[i].values[a]?.minMonth || null,
-                      number: kilavuz[i].values[a]?.number || null,
-                      kilavuzname: kilavuz[i]?.id,
-                      Type: "IgA1",
-                      isactive: true
-                    }
+        if (kilavuz[i].key === "IgA1levels") {
+          if (userMonth) {
+            for (let a = 0; a < kilavuz[i].values.length; a++) {
+              if (kilavuz[i].values[a].minMonth <= userMonth && userMonth <= kilavuz[i].values[a].maxMonth) {
 
-                    setList((prevList) => [...prevList, data]);
+                if (kilavuz[i].values[a]?.min <= UserIga1 && UserIga1 <= kilavuz[i].values[a]?.max ||
+                  kilavuz[i].values[a]?.confidenceInterval?.min <= UserIga1 && UserIga1 <= kilavuz[i].values[a]?.confidenceInterval?.max ||
+                  kilavuz[i].values[a]?.geoMin <= UserIga1 && UserIga1 <= kilavuz[i].values[a]?.geoMax ||
+                  kilavuz[i].values[a]?.minMeanSd <= UserIga1 && UserIga1 <= kilavuz[i].values[a]?.maxMeanSd) {
+                  const data = {
+                    ageGroup: kilavuz[i].values[a]?.ageGroup || null,
+                    confidenceIntervalMin: kilavuz[i].values[a]?.confidenceInterval?.min || null,
+                    confidenceIntervalMax: kilavuz[i].values[a]?.confidenceInterval?.max || null,
+                    geoMax: kilavuz[i].values[a]?.geoMax || null,
+                    geoMin: kilavuz[i].values[a]?.geoMin || null,
+                    max: kilavuz[i].values[a]?.max || null,
+                    min: kilavuz[i].values[a]?.min || null,
+                    maxMeanSd: kilavuz[i].values[a]?.maxMeanSd || null,
+                    minMeanSd: kilavuz[i].values[a]?.minMeanSd || null,
+                    maxMonth: kilavuz[i].values[a]?.maxMonth || null,
+                    minMonth: kilavuz[i].values[a]?.minMonth || null,
+                    number: kilavuz[i].values[a]?.number || null,
+                    kilavuzname: kilavuz[i]?.id,
+                    Type: "IgA1",
+                    isactive: true
                   }
-                  else {
-                    const data = {
-                      ageGroup: kilavuz[i].values[a]?.ageGroup || null,
-                      confidenceIntervalMin: kilavuz[i].values[a]?.confidenceInterval?.min || null,
-                      confidenceIntervalMax: kilavuz[i].values[a]?.confidenceInterval?.max || null,
-                      geoMax: kilavuz[i].values[a]?.geoMax || null,
-                      geoMin: kilavuz[i].values[a]?.geoMin || null,
-                      max: kilavuz[i].values[a]?.max || null,
-                      min: kilavuz[i].values[a]?.min || null,
-                      maxMeanSd: kilavuz[i].values[a]?.maxMeanSd || null,
-                      minMeanSd: kilavuz[i].values[a]?.minMeanSd || null,
-                      maxMonth: kilavuz[i].values[a]?.maxMonth || null,
-                      minMonth: kilavuz[i].values[a]?.minMonth || null,
-                      number: kilavuz[i].values[a]?.number || null,
-                      kilavuzname: kilavuz[i]?.id,
-                      Type: "IgA1",
-                      isactive: false
-                    }
-                    setList((prevList) => [...prevList, data]);
 
+                  setList((prevList) => [...prevList, data]);
+                }
+                else {
+                  const data = {
+                    ageGroup: kilavuz[i].values[a]?.ageGroup || null,
+                    confidenceIntervalMin: kilavuz[i].values[a]?.confidenceInterval?.min || null,
+                    confidenceIntervalMax: kilavuz[i].values[a]?.confidenceInterval?.max || null,
+                    geoMax: kilavuz[i].values[a]?.geoMax || null,
+                    geoMin: kilavuz[i].values[a]?.geoMin || null,
+                    max: kilavuz[i].values[a]?.max || null,
+                    min: kilavuz[i].values[a]?.min || null,
+                    maxMeanSd: kilavuz[i].values[a]?.maxMeanSd || null,
+                    minMeanSd: kilavuz[i].values[a]?.minMeanSd || null,
+                    maxMonth: kilavuz[i].values[a]?.maxMonth || null,
+                    minMonth: kilavuz[i].values[a]?.minMonth || null,
+                    number: kilavuz[i].values[a]?.number || null,
+                    kilavuzname: kilavuz[i]?.id,
+                    Type: "IgA1",
+                    isactive: false
                   }
+                  setList((prevList) => [...prevList, data]);
+
                 }
               }
             }
           }
+        }
 
-        
+
 
 
 
@@ -825,20 +825,25 @@ export default function Admin({ navigation }) {
       }
 
     }
-  } 
+  }
 
 
 
 
   return (
     <ScrollView style={styles.container}>
-      <Button onPress={() => FilterKilavuz()} title="hey"></Button>
+      <View style={styles.headerSection}>
+        <Image source={require('../assets/logo.png')} style={styles.logo} />
+        <Text style={styles.headerText}>T.C. SAĞLIK BAKANLIĞI</Text>
+        <Text style={styles.subHeaderText}>Hasta Kayıt Sayfası</Text>
+      </View>
+
       <DateTime day={day}
         month={month}
         year={year}
         onDayChange={setDay}
         onMonthChange={setMonth}
-        onYearChange={setYear} /> 
+        onYearChange={setYear} />
 
       <Text style={styles.Text}>UserIga</Text>
       <TextInput
@@ -896,7 +901,7 @@ export default function Admin({ navigation }) {
         value={UserIgG2}
         onChangeText={setUserIgG2}
       />
-     
+
       <Text style={styles.Text}>UserIgG3</Text>
       <TextInput
         style={styles.input}
@@ -905,7 +910,7 @@ export default function Admin({ navigation }) {
         value={UserIgG3}
         onChangeText={setUserIgG3}
       />
-       <Text style={styles.Text}>UserIgG4</Text>
+      <Text style={styles.Text}>UserIgG4</Text>
       <TextInput
         style={styles.input}
         placeholder="UserIgG4 değeri giriniz"
@@ -922,78 +927,80 @@ export default function Admin({ navigation }) {
         onChangeText={setUserIgM}
       />
       <FlatList
-  data={Object.entries(
-    list.reduce((groups, item) => {
-      const groupName = item.kilavuzname || 'Unknown';
-      if (!groups[groupName]) {
-        groups[groupName] = [];
-      }
-      groups[groupName].push(item);
-      return groups;
-    }, {})
-  )}
-  keyExtractor={(item) => item[0]}
-  renderItem={({ item }) => {
-    const [groupName, groupData] = item;
-    return (
-      <View style={styles.groupContainer}>
-        <Text style={styles.groupTitle}>Kılavuz: {groupName}</Text>
-        <FlatList
-          data={groupData}
-          keyExtractor={(subItem, index) => `${groupName}-${index}`}
-          horizontal
-          renderItem={({ item: subItem }) => (
-            <View
-              style={[
-                styles.listItem,
-                {
-                  borderWidth: 1,
-                  borderColor: subItem.isactive ? 'green' : 'red',
-                  borderRadius: 10,
-                  backgroundColor: '#e3e3e3',
-                  marginVertical: 10,
-                  marginHorizontal: 10,
-                  padding: 10,
-                },
-              ]}
-            >
-              {/* Type */}
-              {subItem.Type && <Text style={styles.itemText}>Type: {subItem.Type || 'N/A'}</Text>}
-              {/* Age Group */}
-              {subItem.ageGroup && (
-                <Text style={styles.itemText}>Age Group: {subItem.ageGroup || 'N/A'}</Text>
-              )}
-              {/* Confidence Interval Min */}
-              {subItem.confidenceIntervalMin && (
-                <Text style={styles.itemText}>
-                  Confidence Interval Min: {subItem.confidenceIntervalMin || 'N/A'}
-                </Text>
-              )}
-              {/* Confidence Interval Max */}
-              {subItem.confidenceIntervalMax && (
-                <Text style={styles.itemText}>
-                  Confidence Interval Max: {subItem.confidenceIntervalMax || 'N/A'}
-                </Text>
-              )}
-              {/* Geo Max */}
-              {subItem.geoMax && <Text style={styles.itemText}>Geo Max: {subItem.geoMax || 'N/A'}</Text>}
-              {/* Geo Min */}
-              {subItem.geoMin && <Text style={styles.itemText}>Geo Min: {subItem.geoMin || 'N/A'}</Text>}
-              {/* Max */}
-              {subItem.max && <Text style={styles.itemText}>Max: {subItem.max || 'N/A'}</Text>}
-              {/* Min */}
-              {subItem.min && <Text style={styles.itemText}>Min: {subItem.min || 'N/A'}</Text>}
-              {/* Active */}
-              <Text style={styles.itemText}>Active: {subItem.isactive ? 'Yes' : 'No'}</Text>
+        data={Object.entries(
+          list.reduce((groups, item) => {
+            const groupName = item.kilavuzname || 'Unknown';
+            if (!groups[groupName]) {
+              groups[groupName] = [];
+            }
+            groups[groupName].push(item);
+            return groups;
+          }, {})
+        )}
+        keyExtractor={(item) => item[0]}
+        renderItem={({ item }) => {
+          const [groupName, groupData] = item;
+          return (
+            <View style={styles.groupContainer}>
+              <Text style={styles.groupTitle}>Kılavuz: {groupName}</Text>
+              <FlatList
+                data={groupData}
+                keyExtractor={(subItem, index) => `${groupName}-${index}`}
+                horizontal
+                renderItem={({ item: subItem }) => (
+                  <View
+                    style={[
+                      styles.listItem,
+                      {
+                        borderWidth: 1,
+                        borderColor: subItem.isactive ? 'green' : 'red',
+                        borderRadius: 10,
+                        backgroundColor: '#e3e3e3',
+                        marginVertical: 10,
+                        marginHorizontal: 10,
+                        padding: 10,
+                      },
+                    ]}
+                  >
+                    {/* Type */}
+                    {subItem.Type && <Text style={styles.itemText}>Type: {subItem.Type || 'N/A'}</Text>}
+                    {/* Age Group */}
+                    {subItem.ageGroup && (
+                      <Text style={styles.itemText}>Age Group: {subItem.ageGroup || 'N/A'}</Text>
+                    )}
+                    {/* Confidence Interval Min */}
+                    {subItem.confidenceIntervalMin && (
+                      <Text style={styles.itemText}>
+                        Confidence Interval Min: {subItem.confidenceIntervalMin || 'N/A'}
+                      </Text>
+                    )}
+                    {/* Confidence Interval Max */}
+                    {subItem.confidenceIntervalMax && (
+                      <Text style={styles.itemText}>
+                        Confidence Interval Max: {subItem.confidenceIntervalMax || 'N/A'}
+                      </Text>
+                    )}
+                    {/* Geo Max */}
+                    {subItem.geoMax && <Text style={styles.itemText}>Geo Max: {subItem.geoMax || 'N/A'}</Text>}
+                    {/* Geo Min */}
+                    {subItem.geoMin && <Text style={styles.itemText}>Geo Min: {subItem.geoMin || 'N/A'}</Text>}
+                    {/* Max */}
+                    {subItem.max && <Text style={styles.itemText}>Max: {subItem.max || 'N/A'}</Text>}
+                    {/* Min */}
+                    {subItem.min && <Text style={styles.itemText}>Min: {subItem.min || 'N/A'}</Text>}
+                    {/* Active */}
+                    <Text style={styles.itemText}>Active: {subItem.isactive ? 'Yes' : 'No'}</Text>
+                  </View>
+                )}
+              />
             </View>
-          )}
-        />
+          );
+        }}
+        ListEmptyComponent={<Text style={styles.emptyText}>Henüz veri yok</Text>}
+      />
+      <View style={styles.ButtonStyle}>
+        <Button onPress={() => FilterKilavuz()} title="Filterele"></Button>
       </View>
-    );
-  }}
-  ListEmptyComponent={<Text style={styles.emptyText}>Henüz veri yok</Text>}
-/>
-
       <View style={styles.ButtonStyle}>
         <Button onPress={() => navigation.navigate("KilavuzEkle")} title="Kilavuz Ekle" />
       </View>
@@ -1009,6 +1016,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
+    marginBottom: 20,
     marginTop: 40,
     backgroundColor: '#fff'
   },
@@ -1018,7 +1026,8 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     borderRadius: 4,
     padding: 8,
-    marginTop: 10
+    marginTop: 10,
+
   },
   Text: {
     fontSize: 18,
@@ -1027,8 +1036,36 @@ const styles = StyleSheet.create({
     color: "#aaa"
   },
   ButtonStyle: {
-    marginVertical: height * 0.1,
+    marginVertical: height * 0.01,
+    marginBottom: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 10, height: 20 },
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+    // Shadow for Android
+    elevation: 5,
 
   },
+  headerSection: {
+    alignItems: 'center',
+    marginBottom: 20,
+},
+logo: {
+    width: 100,
+    height: 100,
+    marginBottom: 10,
+},
+headerText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: '#000',
+},
+subHeaderText: {
+    fontSize: 16,
+    textAlign: 'center',
+    color: '#333',
+    marginBottom: 20,
+},
 
 });

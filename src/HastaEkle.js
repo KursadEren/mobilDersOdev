@@ -1,4 +1,4 @@
-import { View, Text, TextInput, StyleSheet, Dimensions, ScrollView,Button,Image } from 'react-native'
+import { View, Text, TextInput, StyleSheet, Dimensions, ScrollView, Button, Image } from 'react-native'
 import React, { useState } from 'react'
 import DateTime from './Components/DateTime';
 import { collection, addDoc } from "firebase/firestore";
@@ -76,12 +76,12 @@ export default function HastaEkle() {
     return (
         <ScrollView style={styles.container}>
             <View style={styles.headerSection}>
-        <Image source={require('../assets/logo.png')} style={styles.logo} />
-        <Text style={styles.headerText}>T.C. SAĞLIK BAKANLIĞI</Text>
-        <Text style={styles.subHeaderText}>Hasta Kayıt Sayfası</Text>
-      </View>
+                <Image source={require('../assets/logo.png')} style={styles.logo} />
+                <Text style={styles.headerText}>T.C. SAĞLIK BAKANLIĞI</Text>
+                <Text style={styles.subHeaderText}>Hasta Kayıt Sayfası</Text>
+            </View>
 
-    
+
 
             <DateTime day={day}
                 month={month}
@@ -187,8 +187,8 @@ export default function HastaEkle() {
                 value={UserIgM}
                 onChangeText={setUserIgM}
             />
-            <View style={{marginVertical:30}}>
-            <Button  title="Kaydet" onPress={HandleSetPatients} />
+            <View style={{ marginVertical: 30 }}>
+                <Button title="Kaydet" onPress={HandleSetPatients} />
             </View>
         </ScrollView>
     )
@@ -204,20 +204,42 @@ const styles = StyleSheet.create({
     input: {
         width: '100%',
         borderWidth: 1,
-        borderColor: '#ccc',
+        borderColor: '#aaa',
         borderRadius: 4,
         padding: 8,
         marginTop: 10
     },
     Text: {
-        fontSize: 18,
         marginVertical: height * 0.02,
-        fontWeight: "bold",
-        color: "#aaa"
+        fontSize: 14,
+        fontWeight: 'bold',
+        marginBottom: 5,
+        color: '#000',
     },
     ButtonStyle: {
         marginVertical: height * 0.1,
 
+    },
+    headerSection: {
+        alignItems: 'center',
+        marginBottom: 20,
+    },
+    logo: {
+        width: 100,
+        height: 100,
+        marginBottom: 10,
+    },
+    headerText: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        color: '#000',
+    },
+    subHeaderText: {
+        fontSize: 16,
+        textAlign: 'center',
+        color: '#333',
+        marginBottom: 20,
     },
 
 });
