@@ -24,7 +24,7 @@ const PatientRegistration = () => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.headerSection}>
-        <Image source={require('./assets/logo.png')} style={styles.logo} />
+        <Image source={require('../assets/logo.png')} style={styles.logo} />
         <Text style={styles.headerText}>T.C. SAĞLIK BAKANLIĞI</Text>
         <Text style={styles.subHeaderText}>Hasta Kayıt Sayfası</Text>
       </View>
