@@ -1,11 +1,16 @@
 // AddLevels.js
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, ScrollView, Alert, TouchableOpacity } from 'react-native';
-import { db } from './firebase/FirebaseConfig';
-import 'react-native-get-random-values';
-import { v4 as uuidv4 } from 'uuid';
+import {
+  View, Text, TextInput, Button, StyleSheet,
+  ScrollView, Alert, TouchableOpacity
+} from 'react-native';
+import { db, } from './firebase/FirebaseConfig'; // Firebase yapılandırmasını doğru şekilde import edin
+import uuid from 'react-native-uuid'; // react-native-uuid paketini import ediyoruz
+import { doc, setDoc } from 'firebase/firestore';
+
 
 const AddLevels = () => {
+
   const [guideName, setGuideName] = useState('');
 
   // Her bir immünoglobulin seviyesi için ayrı state dizileri
@@ -20,7 +25,7 @@ const AddLevels = () => {
   // Genel form alanı ekleme fonksiyonu
   const addLevel = (levelType) => {
     const newLevel = {
-      id: uuidv4(), // Benzersiz ID
+      id: uuid.v4(), // react-native-uuid ile benzersiz ID oluşturuyoruz
       ageGroup: '',
       minMonth: '',
       maxMonth: '',
@@ -145,31 +150,31 @@ const AddLevels = () => {
 
   // Formu Firebase'e kaydetme fonksiyonu
   const handleSubmit = async () => {
-    if (!guideName) {
+    if (!guideName.trim()) {
       Alert.alert('Hata', 'Kılavuz adını giriniz.');
       return;
     }
-
+   
     // Boş alanları kontrol etme
     const allLevels = [IgALevels, IgGLevels, IgMLevels, IgG1Levels, IgG2Levels, IgG3Levels, IgG4Levels];
     for (let levelArray of allLevels) {
       for (let level of levelArray) {
         for (let key in level) {
           if (key === 'confidenceInterval') {
-            if (!level[key].min || !level[key].max) {
+            if (!level[key].min.trim() || !level[key].max.trim()) {
               Alert.alert('Hata', 'Tüm güven aralığı alanlarını doldurunuz.');
               return;
             }
-          } else if (!level[key] && key !== 'id') {
+          } else if (!level[key].toString().trim() && key !== 'id') {
             Alert.alert('Hata', 'Tüm alanları doldurunuz.');
             return;
           }
         }
       }
     }
-
+    
     const data = {
-      guideName,
+      guideName: guideName.trim(),
       IgALevels,
       IgGLevels,
       IgMLevels,
@@ -177,13 +182,13 @@ const AddLevels = () => {
       IgG2Levels,
       IgG3Levels,
       IgG4Levels,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     };
-
+    console.log("hey2")
     try {
-      await db.collection('guides').doc(guideName).set(data);
-      Alert.alert('Başarılı', 'Veriler Firebase\'e kaydedildi.');
-
+        const docRef = doc(db, 'dataCollection', guideName.trim());
+    await setDoc(docRef, data);
+    Alert.alert('Başarılı', 'Veriler Firebase\'e kaydedildi.');
+     
       // Formu temizlemek
       setGuideName('');
       setIgALevels([]);
@@ -220,7 +225,10 @@ const AddLevels = () => {
           placeholder="Min Month"
           placeholderTextColor="#e3e3e3"
           value={level.minMonth}
-          onChangeText={(text) => updateLevel(levelType, level.id, 'minMonth', text)}
+          onChangeText={(text) => {
+            const numericValue = text.replace(/[^0-9]/g, '');
+            updateLevel(levelType, level.id, 'minMonth', numericValue);
+          }}
           keyboardType="numeric"
         />
 
@@ -230,7 +238,10 @@ const AddLevels = () => {
           placeholder="Max Month"
           placeholderTextColor="#e3e3e3"
           value={level.maxMonth}
-          onChangeText={(text) => updateLevel(levelType, level.id, 'maxMonth', text)}
+          onChangeText={(text) => {
+            const numericValue = text.replace(/[^0-9]/g, '');
+            updateLevel(levelType, level.id, 'maxMonth', numericValue);
+          }}
           keyboardType="numeric"
         />
 
@@ -240,7 +251,10 @@ const AddLevels = () => {
           placeholder="Number"
           placeholderTextColor="#e3e3e3"
           value={level.number}
-          onChangeText={(text) => updateLevel(levelType, level.id, 'number', text)}
+          onChangeText={(text) => {
+            const numericValue = text.replace(/[^0-9]/g, '');
+            updateLevel(levelType, level.id, 'number', numericValue);
+          }}
           keyboardType="numeric"
         />
 
@@ -259,7 +273,10 @@ const AddLevels = () => {
           placeholder="Geo Min"
           placeholderTextColor="#e3e3e3"
           value={level.geoMin}
-          onChangeText={(text) => updateLevel(levelType, level.id, 'geoMin', text)}
+          onChangeText={(text) => {
+            const numericValue = text.replace(/[^0-9]/g, '');
+            updateLevel(levelType, level.id, 'geoMin', numericValue);
+          }}
           keyboardType="numeric"
         />
 
@@ -269,7 +286,10 @@ const AddLevels = () => {
           placeholder="Geo Max"
           placeholderTextColor="#e3e3e3"
           value={level.geoMax}
-          onChangeText={(text) => updateLevel(levelType, level.id, 'geoMax', text)}
+          onChangeText={(text) => {
+            const numericValue = text.replace(/[^0-9]/g, '');
+            updateLevel(levelType, level.id, 'geoMax', numericValue);
+          }}
           keyboardType="numeric"
         />
 
@@ -288,7 +308,10 @@ const AddLevels = () => {
           placeholder="Min"
           placeholderTextColor="#e3e3e3"
           value={level.min}
-          onChangeText={(text) => updateLevel(levelType, level.id, 'min', text)}
+          onChangeText={(text) => {
+            const numericValue = text.replace(/[^0-9]/g, '');
+            updateLevel(levelType, level.id, 'min', numericValue);
+          }}
           keyboardType="numeric"
         />
 
@@ -298,7 +321,10 @@ const AddLevels = () => {
           placeholder="Max"
           placeholderTextColor="#e3e3e3"
           value={level.max}
-          onChangeText={(text) => updateLevel(levelType, level.id, 'max', text)}
+          onChangeText={(text) => {
+            const numericValue = text.replace(/[^0-9]/g, '');
+            updateLevel(levelType, level.id, 'max', numericValue);
+          }}
           keyboardType="numeric"
         />
 
@@ -308,7 +334,10 @@ const AddLevels = () => {
           placeholder="Confidence Interval Min"
           placeholderTextColor="#e3e3e3"
           value={level.confidenceInterval.min}
-          onChangeText={(text) => updateLevel(levelType, level.id, 'confidenceInterval.min', text)}
+          onChangeText={(text) => {
+            const numericValue = text.replace(/[^0-9.]/g, '');
+            updateLevel(levelType, level.id, 'confidenceInterval.min', numericValue);
+          }}
           keyboardType="numeric"
         />
 
@@ -318,7 +347,10 @@ const AddLevels = () => {
           placeholder="Confidence Interval Max"
           placeholderTextColor="#e3e3e3"
           value={level.confidenceInterval.max}
-          onChangeText={(text) => updateLevel(levelType, level.id, 'confidenceInterval.max', text)}
+          onChangeText={(text) => {
+            const numericValue = text.replace(/[^0-9.]/g, '');
+            updateLevel(levelType, level.id, 'confidenceInterval.max', numericValue);
+          }}
           keyboardType="numeric"
         />
 
