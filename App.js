@@ -5,8 +5,7 @@ import Admin from './src/Admin';
 import user from './src/user';
 import KilavuzEkle from './src/KilavuzEkle';
 import PatientRegistration from './src/PatientRegistration';
-
-
+import HastaEkle from './src/HastaEkle';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -17,7 +16,6 @@ export default function App() {
       <Stack.Screen name="Admin" component={Admin} />
       <Stack.Screen name="user" component={user} />
       <Stack.Screen name="KilavuzEkle" component={KilavuzEkle} />
-      <Stack.Screen name="PatientRegistration" component={PatientRegistration} />
     </Stack.Navigator>
     </NavigationContainer>
   );
