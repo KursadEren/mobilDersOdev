@@ -1,4 +1,4 @@
-import { View, Text, TextInput, StyleSheet, Dimensions, ScrollView,Button } from 'react-native'
+import { View, Text, TextInput, StyleSheet, Dimensions, ScrollView,Button,Image } from 'react-native'
 import React, { useState } from 'react'
 import DateTime from './Components/DateTime';
 import { collection, addDoc } from "firebase/firestore";
@@ -75,6 +75,14 @@ export default function HastaEkle() {
     const [list, setList] = useState([]);
     return (
         <ScrollView style={styles.container}>
+            <View style={styles.headerSection}>
+        <Image source={require('../assets/logo.png')} style={styles.logo} />
+        <Text style={styles.headerText}>T.C. SAĞLIK BAKANLIĞI</Text>
+        <Text style={styles.subHeaderText}>Hasta Kayıt Sayfası</Text>
+      </View>
+
+    
+
             <DateTime day={day}
                 month={month}
                 year={year}
