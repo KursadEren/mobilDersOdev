@@ -1,132 +1,107 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, FlatList } from 'react-native';
-import { db } from './firebase/FirebaseConfig'; // Firebase bağlantısını içe aktar
-import { doc, getDoc } from 'firebase/firestore';
-
-export default function User() {
-  const [inputId, setInputId] = useState('');
-  const [documentData, setDocumentData] = useState(null);
-  const [loading, setLoading] = useState(false);
-
-  const handleSearch = async () => {
-    if (!inputId) {
-      Alert.alert('Hata', 'Lütfen bir ID girin.');
-      return;
-    }
-
-    setLoading(true);
-
-    try {
-      const docRef = doc(db, 'collectionName', inputId); // "collectionName" kısmını değiştirin
-      const docSnap = await getDoc(docRef);
-
-      if (docSnap.exists()) {
-        setDocumentData(docSnap.data());
-      } else {
-        Alert.alert('Hata', 'Belge bulunamadı.');
-        setDocumentData(null);
-      }
-    } catch (error) {
-      console.error('Firestore sorgu hatası:', error);
-      Alert.alert('Hata', 'Belge sorgularken bir hata oluştu.');
-    } finally {
-      setLoading(false);
-    }
+import React from 'react';
+import { View, Text, StyleSheet, ScrollView,StatusBar,Platform } from 'react-native';
+const statusBarHeight = Platform.OS === 'android' ? StatusBar.currentHeight : 20;
+const user = () => {
+  const dummyData = {
+    patientInfo: {
+      name: 'M*** A***',
+      tcNo: '37******90',
+      dob: '21.01.2022 / 2',
+      gender: 'E',
+      place: 'ADAPAZARI',
+      reportNo: '326972.-.31160234.2024',
+      diagnosis: 'D80.7 - HİPOGAMAGLOBÜLİNEMİ, ÇOCUKLUK ÇAĞI, GEÇİCİ',
+    },
+    hospitalInfo: {
+      hospitalName: 'SAKARYA EĞİTİM VE ARAŞTIRMA HASTANESİ',
+      department: 'ÇOCUK ALERJİ VE İMMÜNOLOJİ SERVİSİ',
+      doctor: 'Prof. Dr. Ö*** ÖZ***',
+    },
+    labResults: [
+      { testName: 'IgG (Nefelometrik)', result: '7,66', range: '7 - 16 g/L' },
+      { testName: 'IgM (Nefelometrik)', result: '0,58', range: '0,4 - 2,3 g/L' },
+      { testName: 'IgA-S', result: '0,494', range: '0,7 - 4,0 g/L' },
+    ],
   };
 
-  const renderItem = ({ item }) => (
-    <View style={styles.row}>
-      <Text style={styles.cell}>{item.key}</Text>
-      <Text style={styles.cell}>{item.value}</Text>
-    </View>
-  );
-
-  
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Belge Sorgulama</Text>
 
-      <TextInput
-        style={styles.input}
-        placeholder="Belge ID'sini girin"
-        value={inputId}
-        onChangeText={setInputId}
-      />
+    <ScrollView style={styles.container}>
+      {/* Header Section */}
+      <View style={styles.headerSection}>
+        <Text style={styles.headerText}>T.C. SAĞLIK BAKANLIĞI</Text>
+        <Text style={styles.headerText}>{dummyData.hospitalInfo.hospitalName}</Text>
+        <Text style={styles.headerText}>TIBBİ LABORATUVAR TETKİK SONUÇ RAPORU</Text>
+      </View>
 
-      <TouchableOpacity style={styles.button} onPress={handleSearch}>
-        <Text style={styles.buttonText}>{loading ? 'Aranıyor...' : 'Sorgula'}</Text>
-      </TouchableOpacity>
+      {/* Patient Info Section */}
+      <View style={styles.section}>
+        <Text style={styles.label}>Adı Soyadı: <Text style={styles.value}>{dummyData.patientInfo.name}</Text></Text>
+        <Text style={styles.label}>T.C. Numarası: <Text style={styles.value}>{dummyData.patientInfo.tcNo}</Text></Text>
+        <Text style={styles.label}>Doğum Tarihi / Yaşı: <Text style={styles.value}>{dummyData.patientInfo.dob}</Text></Text>
+        <Text style={styles.label}>Cinsiyet / Doğum Yeri: <Text style={styles.value}>{dummyData.patientInfo.gender} / {dummyData.patientInfo.place}</Text></Text>
+        <Text style={styles.label}>Rapor Numarası: <Text style={styles.value}>{dummyData.patientInfo.reportNo}</Text></Text>
+        <Text style={styles.label}>Tanı: <Text style={styles.value}>{dummyData.patientInfo.diagnosis}</Text></Text>
+      </View>
 
-      {documentData && (
-        <View style={styles.tableContainer}>
-          <Text style={styles.tableTitle}>Belge Detayları</Text>
-          <FlatList
-            data={Object.entries(documentData).map(([key, value]) => ({
-              key,
-              value: String(value),
-            }))}
-            renderItem={renderItem}
-            keyExtractor={(item) => item.key}
-          />
-        </View>
-      )}
-    </View>
+      {/* Hospital Info Section */}
+      <View style={styles.section}>
+        <Text style={styles.label}>Doktor: <Text style={styles.value}>{dummyData.hospitalInfo.doctor}</Text></Text>
+        <Text style={styles.label}>{dummyData.hospitalInfo.department}</Text>
+      </View>
+
+      {/* Lab Results Section */}
+      <View style={styles.section}>
+        <Text style={styles.subHeader}>Laboratuvar Sonuçları</Text>
+        {dummyData.labResults.map((result, index) => (
+          <View key={index} style={styles.resultRow}>
+            <Text style={styles.resultText}>{result.testName}</Text>
+            <Text style={styles.resultText}>Sonuç: {result.result}</Text>
+            <Text style={styles.resultText}>Referans Aralığı: {result.range}</Text>
+          </View>
+        ))}
+      </View>
+    </ScrollView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
+    marginTop:statusBarHeight,
     flex: 1,
-    padding: 20,
-    backgroundColor: '#f9f9f9',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    textAlign: 'center',
-  },
-  input: {
-    borderColor: '#ccc',
-    borderWidth: 1,
-    borderRadius: 8,
-    paddingHorizontal: 10,
-    height: 50,
-    marginBottom: 20,
     backgroundColor: '#fff',
+    padding: 10,
   },
-  button: {
-    backgroundColor: '#007bff',
-    paddingVertical: 15,
-    borderRadius: 8,
+  headerSection: {
     alignItems: 'center',
+    marginBottom: 20,
   },
-  buttonText: {
-    color: '#fff',
+  headerText: {
     fontSize: 16,
     fontWeight: 'bold',
+    textAlign: 'center',
   },
-  tableContainer: {
-    marginTop: 20,
-    borderTopWidth: 1,
-    borderColor: '#ddd',
-    paddingTop: 10,
+  section: {
+    marginBottom: 20,
   },
-  tableTitle: {
-    fontSize: 18,
+  label: {
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
+  value: {
+    fontWeight: 'normal',
+  },
+  subHeader: {
+    fontSize: 16,
     fontWeight: 'bold',
     marginBottom: 10,
-    textAlign: 'center',
   },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingVertical: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
+  resultRow: {
+    marginBottom: 10,
   },
-  cell: {
-    flex: 1,
-    fontSize: 16,
+  resultText: {
+    fontSize: 14,
   },
 });
+
+export default user;

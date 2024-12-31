@@ -1,0 +1,568 @@
+const IgGlevels = [
+  {
+    "ageGroup": "0-1 mo",
+    "mean": "700-1300",
+    "minMeanSd": 700,
+    "maxMeanSd": 1300,
+    "minMonth": 0,
+    "maxMonth": 1
+  },
+  {
+    "ageGroup": "1-4 mo",
+    "mean": "280-750",
+    "minMeanSd": 280,
+    "maxMeanSd": 750,
+    "minMonth": 1,
+    "maxMonth": 4
+  },
+  {
+    "ageGroup": "4-7 mo",
+    "mean": "200-1200",
+    "minMeanSd": 200,
+    "maxMeanSd": 1200,
+    "minMonth": 4,
+    "maxMonth": 7
+  },
+  {
+    "ageGroup": "7-13 mo",
+    "mean": "300-1500",
+    "minMeanSd": 300,
+    "maxMeanSd": 1500,
+    "minMonth": 7,
+    "maxMonth": 13
+  },
+  {
+    "ageGroup": "13 mo-3 yr",
+    "mean": "400-1300",
+    "minMeanSd": 400,
+    "maxMeanSd": 1300,
+    "minMonth": 13,
+    "maxMonth": 36
+  },
+  {
+    "ageGroup": "3-6 yr",
+    "mean": "600-1500",
+    "minMeanSd": 600,
+    "maxMeanSd": 1500,
+    "minMonth": 36,
+    "maxMonth": 72
+  },
+  {
+    "ageGroup": "6 yr-adult",
+    "mean": "639-1344",
+    "minMeanSd": 639,
+    "maxMeanSd": 1344,
+    "minMonth": 72,
+    "maxMonth": 216
+  }
+];
+const IgAlevels = [
+  {
+    "ageGroup": "0-1 mo",
+    "mean": "0-11",
+    "minMeanSd": 0,
+    "maxMeanSd": 11,
+    "minMonth": 0,
+    "maxMonth": 1
+  },
+  {
+    "ageGroup": "1-4 mo",
+    "mean": "6-50",
+    "minMeanSd": 6,
+    "maxMeanSd": 50,
+    "minMonth": 1,
+    "maxMonth": 4
+  },
+  {
+    "ageGroup": "4-7 mo",
+    "mean": "8-90",
+    "minMeanSd": 8,
+    "maxMeanSd": 90,
+    "minMonth": 4,
+    "maxMonth": 7
+  },
+  {
+    "ageGroup": "7-13 mo",
+    "mean": "16-100",
+    "minMeanSd": 16,
+    "maxMeanSd": 100,
+    "minMonth": 7,
+    "maxMonth": 13
+  },
+  {
+    "ageGroup": "13 mo-3 yr",
+    "mean": "20-230",
+    "minMeanSd": 20,
+    "maxMeanSd": 230,
+    "minMonth": 13,
+    "maxMonth": 36
+  },
+  {
+    "ageGroup": "3-6 yr",
+    "mean": "50-150",
+    "minMeanSd": 50,
+    "maxMeanSd": 150,
+    "minMonth": 36,
+    "maxMonth": 72
+  },
+  {
+    "ageGroup": "6 yr-adult",
+    "mean": "70-312",
+    "minMeanSd": 70,
+    "maxMeanSd": 312,
+    "minMonth": 72,
+    "maxMonth": 216
+  }
+];
+const IgMlevels = [
+  {
+    "ageGroup": "0-1 mo",
+    "mean": "5-30",
+    "minMeanSd": 5,
+    "maxMeanSd": 30,
+    "minMonth": 0,
+    "maxMonth": 1
+  },
+  {
+    "ageGroup": "1-4 mo",
+    "mean": "15-70",
+    "minMeanSd": 15,
+    "maxMeanSd": 70,
+    "minMonth": 1,
+    "maxMonth": 4
+  },
+  {
+    "ageGroup": "4-7 mo",
+    "mean": "10-90",
+    "minMeanSd": 10,
+    "maxMeanSd": 90,
+    "minMonth": 4,
+    "maxMonth": 7
+  },
+  {
+    "ageGroup": "7-13 mo",
+    "mean": "25-115",
+    "minMeanSd": 25,
+    "maxMeanSd": 115,
+    "minMonth": 7,
+    "maxMonth": 13
+  },
+  {
+    "ageGroup": "13 mo-3 yr",
+    "mean": "30-120",
+    "mminMeanSdin": 30,
+    "maxMeanSd": 120,
+    "minMonth": 13,
+    "maxMonth": 36
+  },
+  {
+    "ageGroup": "3-6 yr",
+    "mean": "22-100",
+    "minMeanSd": 22,
+    "maxMeanSd": 100,
+    "minMonth": 36,
+    "maxMonth": 72
+  },
+  {
+    "ageGroup": "6 yr-adult",
+    "mean": "56-352",
+    "minMeanSd": 56,
+    "maxMeanSd": 352,
+    "minMonth": 72,
+    "maxMonth": 216
+  }
+]
+const IgG1levels = 
+   [
+    {
+      "ageGroup": "Cord",
+      "mean": "435-1084",
+      "minMeanSd": 435,
+      "maxMeanSd": 1084,
+      "minMonth": 0,
+      "maxMonth": 0
+    },
+    {
+      "ageGroup": "0-3 mo",
+      "mean": "218-496",
+      "minMeanSd": 218,
+      "maxMeanSd": 496,
+      "minMonth": 0,
+      "maxMonth": 3
+    },
+    {
+      "ageGroup": "3-6 mo",
+      "mean": "143-394",
+      "minMeanSd": 143,
+      "maxMeanSd": 394,
+      "minMonth": 3,
+      "maxMonth": 6
+    },
+    {
+      "ageGroup": "6-9 mo",
+      "mean": "190-388",
+      "minMeanSd": 190,
+      "maxMeanSd": 388,
+      "minMonth": 6,
+      "maxMonth": 9
+    },
+    {
+      "ageGroup": "9 mo-2 yr",
+      "mean": "286-680",
+      "minMeanSd": 286,
+      "maxMeanSd": 680,
+      "minMonth": 9,
+      "maxMonth": 24
+    },
+    {
+      "ageGroup": "2-4 yr",
+      "mean": "381-884",
+      "minMeanSd": 381,
+      "maxMeanSd": 884,
+      "minMonth": 24,
+      "maxMonth": 48
+    },
+    {
+      "ageGroup": "4-6 yr",
+      "mean": "292-816",
+      "minMeanSd": 292,
+      "maxMeanSd": 816,
+      "minMonth": 48,
+      "maxMonth": 72
+    },
+    {
+      "ageGroup": "6-8 yr",
+      "mean": "422-802",
+      "minMeanSd": 422,
+      "maxMeanSd": 802,
+      "minMonth": 72,
+      "maxMonth": 96
+    },
+    {
+      "ageGroup": "8-10 yr",
+      "mean": "456-938",
+      "minMeanSd": 456,
+      "maxMeanSd": 938,
+      "minMonth": 96,
+      "maxMonth": 120
+    },
+    {
+      "ageGroup": "10-12 yr",
+      "mean": "456-952",
+      "minMeanSd": 456,
+      "maxMeanSd": 952,
+      "minMonth": 120,
+      "maxMonth": 144
+    },
+    {
+      "ageGroup": "12-14 yr",
+      "mean": "347-993",
+      "minMeanSd": 347,
+      "maxMeanSd": 993,
+      "minMonth": 144,
+      "maxMonth": 168
+    },
+    {
+      "ageGroup": "Adult",
+      "mean": "422-1292",
+      "minMeanSd": 422,
+      "maxMeanSd": 1292,
+      "minMonth": 216,
+      "maxMonth": 216
+    }
+  ];
+const IgG2levels =[
+    {
+      "ageGroup": "Cord",
+      "mean": "143-453",
+      "minMeanSd": 143,
+      "maxMeanSd": 453,
+      "minMonth": 0,
+      "maxMonth": 0
+    },
+    {
+      "ageGroup": "0-3 mo",
+      "mean": "40-167",
+      "minMeanSd": 40,
+      "maxMeanSd": 167,
+      "minMonth": 0,
+      "maxMonth": 3
+    },
+    {
+      "ageGroup": "3-6 mo",
+      "mean": "23-147",
+      "minMeanSd": 23,
+      "maxMeanSd": 147,
+      "minMonth": 3,
+      "maxMonth": 6
+    },
+    {
+      "ageGroup": "6-9 mo",
+      "mean": "37-60",
+      "minMeanSd": 37,
+      "maxMeanSd": 60,
+      "minMonth": 6,
+      "maxMonth": 9
+    },
+    {
+      "ageGroup": "9 mo-2 yr",
+      "mean": "30-327",
+      "minMeanSd": 30,
+      "maxMeanSd": 327,
+      "minMonth": 9,
+      "maxMonth": 24
+    },
+    {
+      "ageGroup": "2-4 yr",
+      "mean": "70-443",
+      "minMeanSd": 70,
+      "maxMeanSd": 443,
+      "minMonth": 24,
+      "maxMonth": 48
+    },
+    {
+      "ageGroup": "4-6 yr",
+      "mean": "83-513",
+      "minMeanSd": 83,
+      "maxMeanSd": 513,
+      "minMonth": 48,
+      "maxMonth": 72
+    },
+    {
+      "ageGroup": "6-8 yr",
+      "mean": "113-480",
+      "minMeanSd": 113,
+      "maxMeanSd": 480,
+      "minMonth": 72,
+      "maxMonth": 96
+    },
+    {
+      "ageGroup": "8-10 yr",
+      "mean": "163-513",
+      "minMeanSd": 163,
+      "maxMeanSd": 513,
+      "minMonth": 96,
+      "maxMonth": 120
+    },
+    {
+      "ageGroup": "10-12 yr",
+      "mean": "147-493",
+      "minMeanSd": 147,
+      "maxMeanSd": 493,
+      "minMonth": 120,
+      "maxMonth": 144
+    },
+    {
+      "ageGroup": "12-14 yr",
+      "mean": "140-440",
+      "minMeanSd": 140,
+      "maxMeanSd": 440,
+      "minMonth": 144,
+      "maxMonth": 168
+    },
+    {
+      "ageGroup": "Adult",
+      "mean": "117-747",
+      "minMeanSd": 117,
+      "maxMeanSd": 747,
+      "minMonth": 216,
+      "maxMonth": 216
+    }
+  ]
+const IgG3levels = 
+ [
+    {
+      "ageGroup": "Cord",
+      "mean": "27-146",
+      "minMeanSd": 27,
+      "maxMeanSd": 146,
+      "minMonth": 0,
+      "maxMonth": 0
+    },
+    {
+      "ageGroup": "0-3 mo",
+      "mean": "4-23",
+      "minMeanSd": 4,
+      "maxMeanSd": 23,
+      "minMonth": 0,
+      "maxMonth": 3
+    },
+    {
+      "ageGroup": "3-6 mo",
+      "mean": "4-100",
+      "minMeanSd": 4,
+      "maxMeanSd": 100,
+      "minMonth": 3,
+      "maxMonth": 6
+    },
+    {
+      "ageGroup": "6-9 mo",
+      "mean": "12-62",
+      "minMeanSd": 12,
+      "maxMeanSd": 62,
+      "minMonth": 6,
+      "maxMonth": 9
+    },
+    {
+      "ageGroup": "9 mo-2 yr",
+      "mean": "13-82",
+      "minMeanSd": 13,
+      "maxMeanSd": 82,
+      "minMonth": 9,
+      "maxMonth": 24
+    },
+    {
+      "ageGroup": "2-4 yr",
+      "mean": "17-90",
+      "minMeanSd": 17,
+      "maxMeanSd": 90,
+      "minMonth": 24,
+      "maxMonth": 48
+    },
+    {
+      "ageGroup": "4-6 yr",
+      "mean": "8-111",
+      "minMeanSd": 8,
+      "maxMeanSd": 111,
+      "minMonth": 48,
+      "maxMonth": 72
+    },
+    {
+      "ageGroup": "6-8 yr",
+      "mean": "15-133",
+      "minMeanSd": 15,
+      "maxMeanSd": 133,
+      "minMonth": 72,
+      "maxMonth": 96
+    },
+    {
+      "ageGroup": "8-10 yr",
+      "mean": "26-113",
+      "minMeanSd": 26,
+      "maxMeanSd": 113,
+      "minMonth": 96,
+      "maxMonth": 120
+    },
+    {
+      "ageGroup": "10-12 yr",
+      "mean": "12-179",
+      "minMeanSd": 12,
+      "maxMeanSd": 179,
+      "minMonth": 120,
+      "maxMonth": 144
+    },
+    {
+      "ageGroup": "12-14 yr",
+      "mean": "23-117",
+      "minMeanSd": 23,
+      "maxMeanSd": 117,
+      "minMonth": 144,
+      "maxMonth": 168
+    },
+    {
+      "ageGroup": "Adult",
+      "mean": "41-129",
+      "minMeanSd": 41,
+      "maxMeanSd": 129,
+      "minMonth": 216,
+      "maxMonth": 216
+    }
+  ];
+ const IgG4levels =  [
+    {
+      "ageGroup": "Cord",
+      "mean": "1-47",
+      "minMeanSd": 1,
+      "maxMeanSd": 47,
+      "minMonth": 0,
+      "maxMonth": 0
+    },
+    {
+      "ageGroup": "0-3 mo",
+      "mean": "1-120",
+      "minMeanSd": 1,
+      "maxMeanSd": 120,
+      "minMonth": 0,
+      "maxMonth": 3
+    },
+    {
+      "ageGroup": "3-6 mo",
+      "mean": "1-120",
+      "minMeanSd": 1,
+      "maxMeanSd": 120,
+      "minMonth": 3,
+      "maxMonth": 6
+    },
+    {
+      "ageGroup": "6-9 mo",
+      "mean": "1-120",
+      "minMeanSd": 1,
+      "maxMeanSd": 120,
+      "minMonth": 6,
+      "maxMonth": 9
+    },
+    {
+      "ageGroup": "9 mo-2 yr",
+      "mean": "1-120",
+      "minMeanSd": 1,
+      "maxMeanSd": 120,
+      "minMonth": 9,
+      "maxMonth": 24
+    },
+    {
+      "ageGroup": "2-4 yr",
+      "mean": "2-112",
+      "minMeanSd": 2,
+      "maxMeanSd": 112,
+      "minMonth": 24,
+      "maxMonth": 48
+    },
+    {
+      "ageGroup": "4-6 yr",
+      "mean": "1-138",
+      "minMeanSd": 1,
+      "maxMeanSd": 138,
+      "minMonth": 48,
+      "maxMonth": 72
+    },
+    {
+      "ageGroup": "6-8 yr",
+      "mean": "1-95",
+      "minMeanSd": 1,
+      "maxMeanSd": 95,
+      "minMonth": 72,
+      "maxMonth": 96
+    },
+    {
+      "ageGroup": "8-10 yr",
+      "mean": "1-153",
+      "minMeanSd": 1,
+      "maxMeanSd": 153,
+      "minMonth": 96,
+      "maxMonth": 120
+    },
+    {
+      "ageGroup": "10-12 yr",
+      "mean": "1-143",
+      "minMeanSd": 1,
+      "maxMeanSd": 143,
+      "minMonth": 120,
+      "maxMonth": 144
+    },
+    {
+      "ageGroup": "12-14 yr",
+      "mean": "1-143",
+      "minMeanSd": 1,
+      "maxMeanSd": 143,
+      "minMonth": 144,
+      "maxMonth": 168
+    },
+    {
+      "ageGroup": "Adult",
+      "mean": "10-67",
+      "minMeanSd": 10,
+      "maxMeanSd": 67,
+      "minMonth": 216,
+      "maxMonth": 216
+    }
+  ]
