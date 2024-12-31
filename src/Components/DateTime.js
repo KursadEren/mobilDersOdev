@@ -4,28 +4,10 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, Dimensions 
 const {width,height}= Dimensions.get("window")
 
 const DateTime = ({  day , month, year, onDayChange, onMonthChange, onYearChange }) => {
-    const [day, setDay] = useState(''); // Gün
-    const [month, setMonth] = useState(''); // Ay
-    const [year, setYear] = useState(''); // Yıl
+  
     const [selectedDate, setSelectedDate] = useState(null);
 
-    const handleCombineDate = () => {
-        if (!day || !month || !year) {
-            Alert.alert('Hata', 'Lütfen tüm alanları doldurun!');
-            return;
-        }
-
-        const combinedDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
-        const dateObject = new Date(combinedDate);
-
-        if (isNaN(dateObject.getTime())) {
-            Alert.alert('Hata', 'Geçersiz tarih girdiniz.');
-            return;
-        }
-
-        setSelectedDate(combinedDate);
-        Alert.alert('Başarılı', `Tarih: ${combinedDate}`);
-    };
+   
 
     return (
         <View style={styles.container}>

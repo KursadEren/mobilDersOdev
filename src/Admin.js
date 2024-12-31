@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TextInput, Dimensions, Button, ScrollView, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TextInput, Dimensions, Button, ScrollView, TouchableOpacity, Alert, FlatList } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { collection, doc, setDoc, getDocs } from "firebase/firestore";
 import { db } from './firebase/FirebaseConfig';
@@ -7,7 +7,7 @@ import DateTime from './Components/DateTime';
 
 const { width, height } = Dimensions.get("window");
 
-export default function Admin() {
+export default function Admin({navigation}) {
   const [kilavuz, setKilavuz] = useState([]);
   const [UserIga, setUserIga] = useState();
   const [UserIga1, setUserIga1] = useState();
@@ -23,21 +23,32 @@ export default function Admin() {
   const [day, setDay] = useState(''); // Gün
   const [month, setMonth] = useState(''); // Ay
   const [year, setYear] = useState(''); // Yıl
-
+  const [userMonth, setUserMonth] = useState(0);
   const [BirthDate, setBirtDate] = useState();
+  const [list, setList] = useState([]);
+
   const getAllkilavuz = async () => {
     try {
       const querySnapshot = await getDocs(collection(db, "dataCollection"));
       const data = [];
-      querySnapshot.forEach((doc) => {
-        data.push({ id: doc.id, ...doc.data() });
-      });
-      setKilavuz(data);
 
+      querySnapshot.forEach((doc) => {
+        const docData = doc.data();
+
+        // Dinamik olarak tüm alanları bir diziye ekleyin
+        Object.keys(docData).forEach((key) => {
+          if (Array.isArray(docData[key])) {
+            data.push({ key, values: docData[key], id: doc.id }); // Key ve değerleri bir dizi olarak sakla
+          }
+        });
+      });
+
+      setKilavuz(data); // Dinamik veriyi kaydedin
     } catch (error) {
       console.error("Veri alırken hata oluştu:", error);
     }
   };
+
 
   useEffect(() => {
 
@@ -46,7 +57,9 @@ export default function Admin() {
     setDataLenght(kilavuz.length);
   }, []);
 
-
+  useEffect(() => {
+    console.log("list", list)
+  }, [list])
 
 
   const FilterKilavuz = () => {
@@ -54,26 +67,96 @@ export default function Admin() {
       Alert.alert('Hata', 'Lütfen tüm alanları doldurun!');
       return;
     }
-
+    setList([]);
+    // Doğum tarihini oluştur ve kontrol et
     const formattedDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
-    setBirtDate(formattedDate)
-    console.log(formattedDate)
+    const birthDateObject = new Date(formattedDate);
 
-    if (isNaN(dateObject.getTime())) {
+    if (isNaN(birthDateObject.getTime())) {
       Alert.alert('Hata', 'Geçersiz tarih girdiniz.');
       return;
     }
 
-    setCombinedDate(formattedDate); // Birleşmiş tarihi sakla
-    Alert.alert('Başarılı', `Birleşmiş Tarih: ${formattedDate}`);
+    setBirtDate(birthDateObject); // Doğum tarihini sakla
 
+    // Bugünün tarihi
+    const today = new Date();
+
+    // Yaşın toplam ay cinsinden hesaplanması
+    const totalYears = today.getFullYear() - birthDateObject.getFullYear();
+    const totalMonths = totalYears * 12 + (today.getMonth() - birthDateObject.getMonth());
+
+    // Gün farkını dikkate al
+    if (today.getDate() < birthDateObject.getDate()) {
+      totalMonths--;
+    }
+
+    setUserMonth(totalMonths); // Kullanıcının toplam ayını sakla
+    console.log(`Toplam Yaş (Ay Cinsinden): ${totalMonths}`);
+
+    console.log("kilavuz2", kilavuz)
     for (let i = 0; i < kilavuz.length; i++) {
-      const today = new Date();
+
 
       if (UserIga != "" && BirthDate) {
 
-        for (let a = 0; a < kilavuz[i].IgAlevels.length; a++) {
+        if (kilavuz[i].key === "IgAlevels" ||
+          kilavuz[i].key === "IgAlevelsBayram" ||
+          kilavuz[i].key === "IgAlevelsSahin" ||
+          kilavuz[i].key === "IgAlevelsStiehm") {
+          if (userMonth) {
 
+            if (kilavuz[i].key === "IgAlevels")
+              for (let a = 0; a < kilavuz[i].values.length; a++) {
+            
+                if (kilavuz[i].values[a].minMonth <= userMonth && userMonth <= kilavuz[i].values[a].maxMonth) {
+                  
+                  if (kilavuz[i].values[a]?.min <= UserIga && UserIga<= kilavuz[i].values[a]?.max ||
+                    kilavuz[i].values[a]?.confidenceInterval?.min <= UserIga&&UserIga<= kilavuz[i].values[a]?.confidenceInterval?.max ||
+                    kilavuz[i].values[a]?.geoMin <= UserIga&&UserIga <= kilavuz[i].values[a]?.geoMax) {
+
+                    const data = {
+                      ageGroup: kilavuz[i].values[a]?.ageGroup || null,
+                      confidenceIntervalMin: kilavuz[i].values[a]?.confidenceInterval?.min || null,
+                      confidenceIntervalMax: kilavuz[i].values[a]?.confidenceInterval?.max || null,
+                      geoMax: kilavuz[i].values[a]?.geoMax || null,
+                      geoMin: kilavuz[i].values[a]?.geoMin || null,
+                      max: kilavuz[i].values[a]?.max || null,
+                      min: kilavuz[i].values[a]?.min || null,
+                      maxMonth: kilavuz[i].values[a]?.maxMonth || null,
+                      minMonth: kilavuz[i].values[a]?.minMonth || null,
+                      number: kilavuz[i].values[a]?.number || null,
+                      kilavuzname: kilavuz[i]?.id,
+                      isactive: true
+                    }
+                    setList((prevList) => [...prevList, data]);
+                  }
+                  else {
+                    const data = {
+                      ageGroup: kilavuz[i].values[a]?.ageGroup || null,
+                      confidenceIntervalMin: kilavuz[i].values[a]?.confidenceInterval?.min || null,
+                      confidenceIntervalMax: kilavuz[i].values[a]?.confidenceInterval?.max || null,
+                      geoMax: kilavuz[i].values[a]?.geoMax || null,
+                      geoMin: kilavuz[i].values[a]?.geoMin || null,
+                      max: kilavuz[i].values[a]?.max || null,
+                      min: kilavuz[i].values[a]?.min || null,
+                      maxMonth: kilavuz[i].values[a]?.maxMonth || null,
+                      minMonth: kilavuz[i].values[a]?.minMonth || null,
+                      number: kilavuz[i].values[a]?.number || null,
+                      kilavuzname: kilavuz?.id,
+                      isactive: false
+                    }
+                    setList((prevList) => [...prevList, data]);
+
+                  }
+                }
+              }
+
+
+            //IgaLevels Bayram
+
+
+          }
         }
 
 
@@ -110,6 +193,73 @@ export default function Admin() {
     }
   }
 
+
+  const renderItem = ({ item }) => (
+    <View style={styles.listItem}>
+      {/* ID */}
+      {item.kilavuzname !== 'null' && (
+        <Text style={styles.itemText}>ID: {item.kilavuzname || 'Unknown'}</Text>
+      )}
+  
+      {/* Age Group */}
+      {item.ageGroup !== 'null' && (
+        <Text style={styles.itemText}>Age Group: {item.ageGroup || 'N/A'}</Text>
+      )}
+  
+      {/* Confidence Interval Min */}
+      {item.confidenceIntervalMin !== 'null' && (
+        <Text style={styles.itemText}>
+          Confidence Interval Min: {item.confidenceIntervalMin || 'N/A'}
+        </Text>
+      )}
+  
+      {/* Confidence Interval Max */}
+      {item.confidenceIntervalMax !== '' && (
+        <Text style={styles.itemText}>
+          Confidence Interval Max: {item.confidenceIntervalMax || 'N/A'}
+        </Text>
+      )}
+  
+      {/* Geo Max */}
+      {item.geoMax !== 'null' && (
+        <Text style={styles.itemText}>Geo Max: {item.geoMax || 'N/A'}</Text>
+      )}
+  
+      {/* Geo Min */}
+      {item.geoMin !== 'null' && (
+        <Text style={styles.itemText}>Geo Min: {item.geoMin || 'N/A'}</Text>
+      )}
+  
+      {/* Max */}
+      {item.max !== 'null' && (
+        <Text style={styles.itemText}>Max: {item.max || 'N/A'}</Text>
+      )}
+  
+      {/* Min */}
+      {item.min !== 'null' && (
+        <Text style={styles.itemText}>Min: {item.min || 'N/A'}</Text>
+      )}
+  
+      {/* Max Month */}
+      {item.maxMonth !== 'null' && (
+        <Text style={styles.itemText}>Max Month: {item.maxMonth || 'N/A'}</Text>
+      )}
+  
+      {/* Min Month */}
+      {item.minMonth !== 'null' && (
+        <Text style={styles.itemText}>Min Month: {item.minMonth || 'N/A'}</Text>
+      )}
+  
+      {/* Number */}
+      {item.number !== 'null' && (
+        <Text style={styles.itemText}>Number: {item.number || 'N/A'}</Text>
+      )}
+  
+      {/* Active */}
+      <Text style={styles.itemText}>Active: {item.isactive ? 'Yes' : 'No'}</Text>
+    </View>
+  );
+  
 
   return (
     <ScrollView style={styles.container}>
@@ -193,8 +343,16 @@ export default function Admin() {
         value={UserIgM}
         onChangeText={setUserIgM}
       />
+      <FlatList
+        key={list.length} // key her güncellemede değişir
+        data={list}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={renderItem}
+        horizontal
+        ListEmptyComponent={<Text style={styles.emptyText}>Henüz veri yok</Text>}
+      />
       <View style={styles.ButtonStyle}>
-        <Button onPress={() => ("")} title="Ara" />
+        <Button onPress={() => navigation.navigate("KilavuzEkle")} title="Kilavuz Ekle" />
       </View>
     </ScrollView>
   )
