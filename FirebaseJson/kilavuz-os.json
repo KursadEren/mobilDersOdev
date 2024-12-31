@@ -1,1027 +1,1026 @@
 const IgGlevels = [
-    {
+  {
+    "age": "1-3 Ay",
+    "n": 20,
+    "meanSD": "433,55 ± 137,11",
+    "meanMin": 296.44,
+    "meanMax": 570.66,
+    "min": 227,
+    "max": 770,
+    "refIntervalLower": "45,72 (0 - 113,97)",
+    "refIntervalUpper": "677,11 (606,64 - 773,06)",
+    "minMonth": 1,
+    "maxMonth": 3
+  },
+  {
+    "age": "4-6 Ay",
+    "n": 20,
+    "meanSD": "382,15 ± 173,18",
+    "meanMin": 208.97,
+    "meanMax": 555.33,
+    "min": 141,
+    "max": 885,
+    "refIntervalLower": "141,42 (81,17 - 191,10)",
+    "refIntervalUpper": "825,52 (764,34 - 904,92)",
+    "minMonth": 4,
+    "maxMonth": 6
+  },
+  {
+    "age": "7-12 Ay",
+    "n": 20,
+    "meanSD": "618,1 ± 200,78",
+    "meanMin": 417.32,
+    "meanMax": 818.88,
+    "min": 350,
+    "max": 1010,
+    "refIntervalLower": "236,02 (189,43 - 272,36)",
+    "refIntervalUpper": "972,82 (916,73 - 1044,81)",
+    "minMonth": 7,
+    "maxMonth": 12
+  },
+  {
+    "age": "13-24 Ay",
+    "n": 20,
+    "meanSD": "671,1 ± 177,86",
+    "meanMin": 493.24,
+    "meanMax": 848.96,
+    "min": 432,
+    "max": 990,
+    "refIntervalLower": "328,97 (284,73 - 363,04)",
+    "refIntervalUpper": "1118,46 (1061,27 - 1186,48)",
+    "minMonth": 13,
+    "maxMonth": 24
+  },
+  {
+    "age": "25-36 Ay",
+    "n": 20,
+    "meanSD": "834,75 ± 193,52",
+    "meanMin": 641.23,
+    "meanMax": 1028.27,
+    "min": 437,
+    "max": 1320,
+    "refIntervalLower": "419,70 (369,16 - 457,53)",
+    "refIntervalUpper": "1261,89 (1204,99 - 1330,59)",
+    "minMonth": 25,
+    "maxMonth": 36
+  },
+  {
+    "age": "4-5 Yaş",
+    "n": 20,
+    "meanSD": "994,4 ± 236,68",
+    "meanMin": 757.72,
+    "meanMax": 1231.08,
+    "min": 524,
+    "max": 1400,
+    "refIntervalLower": "507,68 (449,67 - 553,68)",
+    "refIntervalUpper": "1402,57 (1346,03 - 1471,82)",
+    "minMonth": 37,
+    "maxMonth": 60
+  },
+  {
+    "age": "6-8 Yaş",
+    "n": 20,
+    "meanSD": "1162,75 ± 227,85",
+    "meanMin": 934.9,
+    "meanMax": 1390.6,
+    "min": 858,
+    "max": 1600,
+    "refIntervalLower": "592,34 (523,167 - 646,42)",
+    "refIntervalUpper": "1539,92 (1483,07 - 1608,34)",
+    "minMonth": 61,
+    "maxMonth": 96
+  },
+  {
+    "age": "9-11 Yaş",
+    "n": 20,
+    "meanSD": "1177,1 ± 248,22",
+    "meanMin": 928.88,
+    "meanMax": 1425.32,
+    "min": 645,
+    "max": 1520,
+    "refIntervalLower": "673,13 (592,73 - 738,39)",
+    "refIntervalUpper": "1673,42 (1614,20 - 1744,370)",
+    "minMonth": 97,
+    "maxMonth": 132
+  },
+  {
+    "age": "12-16 Yaş",
+    "n": 20,
+    "meanSD": "1213,95 ± 229,63",
+    "meanMin": 984.32,
+    "meanMax": 1443.58,
+    "min": 877,
+    "max": 1620,
+    "refIntervalLower": "749,51 (648,78 - 831,55)",
+    "refIntervalUpper": "1802,49 (1729,70 - 1888,42)",
+    "minMonth": 133,
+    "maxMonth": 192
+  }
+];
+
+const IgAlevels = [
+  {
       "age": "1-3 Ay",
       "n": 20,
-      "meanSD": "433,55 ± 137,11",
-      "meanMin": 296.44,
-      "meanMax": 570.66,
-      "min": 227,
-      "max": 770,
-      "refIntervalLower": "45,72 (0 - 113,97)",
-      "refIntervalUpper": "677,11 (606,64 - 773,06)",
+      "meanSD": "15,95 ± 12,02",
+      "meanMin": 3.93,
+      "meanMax": 27.97,
+      "min": 6,
+      "max": 47,
+      "refLower": "0 (0 - 1,64)",
+      "refUpper": "36,36 (26,17 - 49,61)",
       "minMonth": 1,
       "maxMonth": 3
-    },
-    {
+  },
+  {
       "age": "4-6 Ay",
       "n": 20,
-      "meanSD": "382,15 ± 173,18",
-      "meanMin": 208.97,
-      "meanMax": 555.33,
-      "min": 141,
-      "max": 885,
-      "refIntervalLower": "141,42 (81,17 - 191,10)",
-      "refIntervalUpper": "825,52 (764,34 - 904,92)",
+      "meanSD": "19,95 ± 12,7",
+      "meanMin": 7.25,
+      "meanMax": 32.65,
+      "min": 7,
+      "max": 63,
+      "refLower": "0 (0 - 0)",
+      "refUpper": "53,39 (45,93 - 63,11)",
       "minMonth": 4,
       "maxMonth": 6
-    },
-    {
+  },
+  {
       "age": "7-12 Ay",
       "n": 20,
-      "meanSD": "618,1 ± 200,78",
-      "meanMin": 417.32,
-      "meanMax": 818.88,
-      "min": 350,
-      "max": 1010,
-      "refIntervalLower": "236,02 (189,43 - 272,36)",
-      "refIntervalUpper": "972,82 (916,73 - 1044,81)",
+      "meanSD": "35,75 ± 23,29",
+      "meanMin": 12.46,
+      "meanMax": 59.04,
+      "min": 12,
+      "max": 114,
+      "refLower": "0 (0 - 0)",
+      "refUpper": "72,26 (64,86 - 80,54)",
       "minMonth": 7,
       "maxMonth": 12
-    },
-    {
+  },
+  {
       "age": "13-24 Ay",
       "n": 20,
-      "meanSD": "671,1 ± 177,86",
-      "meanMin": 493.24,
-      "meanMax": 848.96,
-      "min": 432,
-      "max": 990,
-      "refIntervalLower": "328,97 (284,73 - 363,04)",
-      "refIntervalUpper": "1118,46 (1061,27 - 1186,48)",
+      "meanSD": "37,35 ± 10,95",
+      "meanMin": 26.40,
+      "meanMax": 48.30,
+      "min": 15,
+      "max": 52,
+      "refLower": "0 (0 - 0,36)",
+      "refUpper": "93,9 (84,75 - 103,12)",
       "minMonth": 13,
       "maxMonth": 24
-    },
-    {
+  },
+  {
       "age": "25-36 Ay",
       "n": 20,
-      "meanSD": "834,75 ± 193,52",
-      "meanMin": 641.23,
-      "meanMax": 1028.27,
-      "min": 437,
-      "max": 1320,
-      "refIntervalLower": "419,70 (369,16 - 457,53)",
-      "refIntervalUpper": "1261,89 (1204,99 - 1330,59)",
+      "meanSD": "54,2 ± 16,04",
+      "meanMin": 38.16,
+      "meanMax": 70.24,
+      "min": 24,
+      "max": 84,
+      "refLower": "2,29 (0 - 8,17)",
+      "refUpper": "119,23 (107,38 - 130,39)",
       "minMonth": 25,
       "maxMonth": 36
-    },
-    {
+  },
+  {
       "age": "4-5 Yaş",
       "n": 20,
-      "meanSD": "994,4 ± 236,68",
-      "meanMin": 757.72,
-      "meanMax": 1231.08,
-      "min": 524,
-      "max": 1400,
-      "refIntervalLower": "507,68 (449,67 - 553,68)",
-      "refIntervalUpper": "1402,57 (1346,03 - 1471,82)",
+      "meanSD": "94,35 ± 20,9",
+      "meanMin": 73.45,
+      "meanMax": 115.25,
+      "min": 55,
+      "max": 135,
+      "refLower": "13,24 (0 - 20,52)",
+      "refUpper": "149,16 (134,47 - 162,7)",
       "minMonth": 37,
       "maxMonth": 60
-    },
-    {
+  },
+  {
       "age": "6-8 Yaş",
       "n": 20,
-      "meanSD": "1162,75 ± 227,85",
-      "meanMin": 934.9,
-      "meanMax": 1390.6,
-      "min": 858,
-      "max": 1600,
-      "refIntervalLower": "592,34 (523,167 - 646,42)",
-      "refIntervalUpper": "1539,92 (1483,07 - 1608,34)",
+      "meanSD": "130,25 ± 47,41",
+      "meanMin": 82.84,
+      "meanMax": 177.66,
+      "min": 81,
+      "max": 264,
+      "refLower": "29,73 (14,8 - 38,98)",
+      "refUpper": "184,63 (167,07 - 200,93)",
       "minMonth": 61,
       "maxMonth": 96
-    },
-    {
+  },
+  {
       "age": "9-11 Yaş",
       "n": 20,
-      "meanSD": "1177,1 ± 248,22",
-      "meanMin": 928.88,
-      "meanMax": 1425.32,
-      "min": 645,
-      "max": 1520,
-      "refIntervalLower": "673,13 (592,73 - 738,39)",
-      "refIntervalUpper": "1673,42 (1614,20 - 1744,370)",
+      "meanSD": "160,45 ± 70,56",
+      "meanMin": 89.89,
+      "meanMax": 231.01,
+      "min": 78,
+      "max": 334,
+      "refLower": "52,67 (35,85 - 65,42)",
+      "refUpper": "226,55 (205,78 - 246,3)",
       "minMonth": 97,
       "maxMonth": 132
-    },
-    {
+  },
+  {
       "age": "12-16 Yaş",
       "n": 20,
-      "meanSD": "1213,95 ± 229,63",
-      "meanMin": 984.32,
-      "meanMax": 1443.58,
-      "min": 877,
-      "max": 1620,
-      "refIntervalLower": "749,51 (648,78 - 831,55)",
-      "refIntervalUpper": "1802,49 (1729,70 - 1888,42)",
+      "meanSD": "163,6 ± 49,58",
+      "meanMin": 114.02,
+      "meanMax": 213.18,
+      "min": 87,
+      "max": 234,
+      "refLower": "82,99 (63,8 - 101,53)",
+      "refUpper": "275,84 (251,43 - 301,84)",
       "minMonth": 133,
       "maxMonth": 192
-    }
-  ];
-  
-  const IgAlevels = [
-    {
-        "age": "1-3 Ay",
-        "n": 20,
-        "meanSD": "15,95 ± 12,02",
-        "meanMin": 3.93,
-        "meanMax": 27.97,
-        "min": 6,
-        "max": 47,
-        "refLower": "0 (0 - 1,64)",
-        "refUpper": "36,36 (26,17 - 49,61)",
-        "minMonth": 1,
-        "maxMonth": 3
-    },
-    {
-        "age": "4-6 Ay",
-        "n": 20,
-        "meanSD": "19,95 ± 12,7",
-        "meanMin": 7.25,
-        "meanMax": 32.65,
-        "min": 7,
-        "max": 63,
-        "refLower": "0 (0 - 0)",
-        "refUpper": "53,39 (45,93 - 63,11)",
-        "minMonth": 4,
-        "maxMonth": 6
-    },
-    {
-        "age": "7-12 Ay",
-        "n": 20,
-        "meanSD": "35,75 ± 23,29",
-        "meanMin": 12.46,
-        "meanMax": 59.04,
-        "min": 12,
-        "max": 114,
-        "refLower": "0 (0 - 0)",
-        "refUpper": "72,26 (64,86 - 80,54)",
-        "minMonth": 7,
-        "maxMonth": 12
-    },
-    {
-        "age": "13-24 Ay",
-        "n": 20,
-        "meanSD": "37,35 ± 10,95",
-        "meanMin": 26.40,
-        "meanMax": 48.30,
-        "min": 15,
-        "max": 52,
-        "refLower": "0 (0 - 0,36)",
-        "refUpper": "93,9 (84,75 - 103,12)",
-        "minMonth": 13,
-        "maxMonth": 24
-    },
-    {
-        "age": "25-36 Ay",
-        "n": 20,
-        "meanSD": "54,2 ± 16,04",
-        "meanMin": 38.16,
-        "meanMax": 70.24,
-        "min": 24,
-        "max": 84,
-        "refLower": "2,29 (0 - 8,17)",
-        "refUpper": "119,23 (107,38 - 130,39)",
-        "minMonth": 25,
-        "maxMonth": 36
-    },
-    {
-        "age": "4-5 Yaş",
-        "n": 20,
-        "meanSD": "94,35 ± 20,9",
-        "meanMin": 73.45,
-        "meanMax": 115.25,
-        "min": 55,
-        "max": 135,
-        "refLower": "13,24 (0 - 20,52)",
-        "refUpper": "149,16 (134,47 - 162,7)",
-        "minMonth": 37,
-        "maxMonth": 60
-    },
-    {
-        "age": "6-8 Yaş",
-        "n": 20,
-        "meanSD": "130,25 ± 47,41",
-        "meanMin": 82.84,
-        "meanMax": 177.66,
-        "min": 81,
-        "max": 264,
-        "refLower": "29,73 (14,8 - 38,98)",
-        "refUpper": "184,63 (167,07 - 200,93)",
-        "minMonth": 61,
-        "maxMonth": 96
-    },
-    {
-        "age": "9-11 Yaş",
-        "n": 20,
-        "meanSD": "160,45 ± 70,56",
-        "meanMin": 89.89,
-        "meanMax": 231.01,
-        "min": 78,
-        "max": 334,
-        "refLower": "52,67 (35,85 - 65,42)",
-        "refUpper": "226,55 (205,78 - 246,3)",
-        "minMonth": 97,
-        "maxMonth": 132
-    },
-    {
-        "age": "12-16 Yaş",
-        "n": 20,
-        "meanSD": "163,6 ± 49,58",
-        "meanMin": 114.02,
-        "meanMax": 213.18,
-        "min": 87,
-        "max": 234,
-        "refLower": "82,99 (63,8 - 101,53)",
-        "refUpper": "275,84 (251,43 - 301,84)",
-        "minMonth": 133,
-        "maxMonth": 192
-    }
-  ];
-  const IgMlevels = [
-    {
-        "age": "1-3 Ay",
-        "n": 20,
-        "meanSD": "34,7 ± 16,48",
-        "meanMin": 18.22,
-        "meanMax": 51.18,
-        "min": 18,
-        "max": 87,
-        "refLower": "2,78 (0 - 9,42)",
-        "refUpper": "63,58 (52,78 - 81,39)",
-        "minMonth": 1,
-        "maxMonth": 3
-    },
-    {
-        "age": "4-6 Ay",
-        "n": 20,
-        "meanSD": "50,15 ± 25,71",
-        "meanMin": 24.44,
-        "meanMax": 75.86,
-        "min": 18,
-        "max": 136,
-        "refLower": "11,56 (4,05 - 16,6)",
-        "refUpper": "89,45 (80,41 - 104,21)",
-        "minMonth": 4,
-        "maxMonth": 6
-    },
-    {
-        "age": "7-12 Ay",
-        "n": 20,
-        "meanSD": "57,95 ± 21,25",
-        "meanMin": 36.70,
-        "meanMax": 79.20,
-        "min": 28,
-        "max": 115,
-        "refLower": "19,59 (13 - 24,84)",
-        "refUpper": "114,57 (106,56 - 126,48)",
-        "minMonth": 7,
-        "maxMonth": 12
-    },
-    {
-        "age": "13-24 Ay",
-        "n": 20,
-        "meanSD": "85,4 ± 36,53",
-        "meanMin": 48.87,
-        "meanMax": 121.93,
-        "min": 32,
-        "max": 148,
-        "refLower": "26,48 (19,4 - 32,93)",
-        "refUpper": "138,56 (130,8 - 149,28)",
-        "minMonth": 13,
-        "maxMonth": 24
-    },
-    {
-        "age": "25-36 Ay",
-        "n": 20,
-        "meanSD": "100,45 ± 25,58",
-        "meanMin": 74.87,
-        "meanMax": 126.03,
-        "min": 47,
-        "max": 144,
-        "refLower": "31,87 (23,65 - 39,25)",
-        "refUpper": "161,04 (152,96 - 172,08)",
-        "minMonth": 25,
-        "maxMonth": 36
-    },
-    {
-        "age": "4-5 Yaş",
-        "n": 20,
-        "meanSD": "121,1 ± 37,33",
-        "meanMin": 83.77,
-        "meanMax": 158.43,
-        "min": 65,
-        "max": 205,
-        "refLower": "35,37 (25,93 - 43,33)",
-        "refUpper": "181,64 (173,02 - 193,92)",
-        "minMonth": 37,
-        "maxMonth": 60
-    },
-    {
-        "age": "6-8 Yaş",
-        "n": 20,
-        "meanSD": "118,15 ± 39,49",
-        "meanMin": 78.66,
-        "meanMax": 157.64,
-        "min": 47,
-        "max": 198,
-        "refLower": "36,61 (26,3 - 45,45)",
-        "refUpper": "199,98 (189,86 - 212,96)",
-        "minMonth": 61,
-        "maxMonth": 96
-    },
-    {
-        "age": "9-11 Yaş",
-        "n": 20,
-        "meanSD": "102,2 ± 36,58",
-        "meanMin": 65.62,
-        "meanMax": 138.78,
-        "min": 38,
-        "max": 163,
-        "refLower": "35,21 (23,54 - 45,21)",
-        "refUpper": "215,67 (203,3 - 231,12)",
-        "minMonth": 97,
-        "maxMonth": 132
-    },
-    {
-        "age": "12-16 Yaş",
-        "n": 20,
-        "meanSD": "143,6 ± 57,71",
-        "meanMin": 85.89,
-        "meanMax": 201.31,
-        "min": 47,
-        "max": 285,
-        "refLower": "30,79 (16,79 - 43,41)",
-        "refUpper": "228,35 (211,84 - 247,5)",
-        "minMonth": 133,
-        "maxMonth": 192
-    }
-  ];
-  const IgGlevelsSahin= [
-    {
+  }
+];
+const IgMlevels = [
+  {
       "age": "1-3 Ay",
       "n": 20,
-      "meanSD": "433,55±137,11",
-      "minMeanSD": 296.44,
-      "maxMeanSD": 570.66,
+      "meanSD": "34,7 ± 16,48",
+      "meanMin": 18.22,
+      "meanMax": 51.18,
+      "min": 18,
+      "max": 87,
+      "refLower": "2,78 (0 - 9,42)",
+      "refUpper": "63,58 (52,78 - 81,39)",
       "minMonth": 1,
       "maxMonth": 3
-    },
-    {
+  },
+  {
       "age": "4-6 Ay",
       "n": 20,
-      "meanSD": "382,15±173,18",
-      "minMeanSD": 208.97,
-      "maxMeanSD": 555.33,
+      "meanSD": "50,15 ± 25,71",
+      "meanMin": 24.44,
+      "meanMax": 75.86,
+      "min": 18,
+      "max": 136,
+      "refLower": "11,56 (4,05 - 16,6)",
+      "refUpper": "89,45 (80,41 - 104,21)",
       "minMonth": 4,
       "maxMonth": 6
-    },
-    {
+  },
+  {
       "age": "7-12 Ay",
       "n": 20,
-      "meanSD": "618,1±200,78",
-      "minMeanSD": 417.32,
-      "maxMeanSD": 818.88,
+      "meanSD": "57,95 ± 21,25",
+      "meanMin": 36.70,
+      "meanMax": 79.20,
+      "min": 28,
+      "max": 115,
+      "refLower": "19,59 (13 - 24,84)",
+      "refUpper": "114,57 (106,56 - 126,48)",
       "minMonth": 7,
       "maxMonth": 12
-    },
-    {
+  },
+  {
       "age": "13-24 Ay",
       "n": 20,
-      "meanSD": "671,1±177,86",
-      "minMeanSD": 493.24,
-      "maxMeanSD": 848.96,
+      "meanSD": "85,4 ± 36,53",
+      "meanMin": 48.87,
+      "meanMax": 121.93,
+      "min": 32,
+      "max": 148,
+      "refLower": "26,48 (19,4 - 32,93)",
+      "refUpper": "138,56 (130,8 - 149,28)",
       "minMonth": 13,
       "maxMonth": 24
-    }
-  ];
-  const IgAlevelsSahin=[
-    {
-      "age": "1-3 Ay",
+  },
+  {
+      "age": "25-36 Ay",
       "n": 20,
-      "meanSD": "15,95±12,02",
-      "minMeanSD": 3.93,
-      "maxMeanSD": 27.97,
-      "minMonth": 1,
-      "maxMonth": 3
-    },
-    {
-      "age": "4-6 Ay",
-      "n": 20,
-      "meanSD": "19,95±12,7",
-      "minMeanSD": 7.25,
-      "maxMeanSD": 32.65,
-      "minMonth": 4,
-      "maxMonth": 6
-    },
-    {
-      "age": "7-12 Ay",
-      "n": 20,
-      "meanSD": "35,75±23,29",
-      "minMeanSD": 12.46,
-      "maxMeanSD": 59.04,
-      "minMonth": 7,
-      "maxMonth": 12
-    },
-    {
-      "age": "13-24 Ay",
-      "n": 20,
-      "meanSD": "37,35±10,95",
-      "minMeanSD": 26.40,
-      "maxMeanSD": 48.30,
-      "minMonth": 13,
-      "maxMonth": 24
-    }
-  ];
-  const IgMlevelsSahin= [
-    {
-      "age": "1-3 Ay",
-      "n": 20,
-      "meanSD": "34,7±16,48",
-      "minMeanSD": 18.22,
-      "maxMeanSD": 51.18,
-      "minMonth": 1,
-      "maxMonth": 3
-    },
-    {
-      "age": "4-6 Ay",
-      "n": 20,
-      "meanSD": "50,15±25,71",
-      "minMeanSD": 24.44,
-      "maxMeanSD": 75.86,
-      "minMonth": 4,
-      "maxMonth": 6
-    },
-    {
-      "age": "7-12 Ay",
-      "n": 20,
-      "meanSD": "57,95±21,25",
-      "minMeanSD": 36.70,
-      "maxMeanSD": 79.20,
-      "minMonth": 7,
-      "maxMonth": 12
-    },
-    {
-      "age": "13-24 Ay",
-      "n": 20,
-      "meanSD": "85,4±36,53",
-      "minMeanSD": 48.87,
-      "maxMeanSD": 121.93,
-      "minMonth": 13,
-      "maxMonth": 24
-    }
-  ];
-  const IgGlevelsBayram=[
-    {
-      "ageRange": "1-3 Ay",
-      "mean": "429.5 ± 145.59",
-      "p1": 0.922,
-      "minMeanSd": 283.91,
-      "maxMeanSd": 575.09,
-      "minMonth": 1,
-      "maxMonth": 3
-    },
-    {
-      "ageRange": "4-6 Ay",
-      "mean": "482.43 ± 236.8",
-      "p1": 0.111,
-      "minMeanSd": 245.63,
-      "maxMeanSd": 719.23,
-      "minMonth": 4,
-      "maxMonth": 6
-    },
-    {
-      "ageRange": "7-12 Ay",
-      "mean": "568.97 ± 186.62",
-      "p1": 0.381,
-      "minMeanSd": 382.35,
-      "maxMeanSd": 755.59,
-      "minMonth": 7,
-      "maxMonth": 12
-    },
-    {
-      "ageRange": "13-24 Ay",
-      "mean": "761.7 ± 238.61",
-      "p1": 0.154,
-      "minMeanSd": 523.09,
-      "maxMeanSd": 1000.31,
-      "minMonth": 13,
-      "maxMonth": 24
-    },
-    {
-      "ageRange": "25-36 Ay",
-      "mean": "811.5 ± 249.14",
-      "p1": 0.726,
-      "minMeanSd": 562.36,
-      "maxMeanSd": 1060.64,
+      "meanSD": "100,45 ± 25,58",
+      "meanMin": 74.87,
+      "meanMax": 126.03,
+      "min": 47,
+      "max": 144,
+      "refLower": "31,87 (23,65 - 39,25)",
+      "refUpper": "161,04 (152,96 - 172,08)",
       "minMonth": 25,
       "maxMonth": 36
-    },
-    {
-      "ageRange": "4-5 Yaş",
-      "mean": "839.87 ± 164.19",
-      "p1": 0.009,
-      "minMeanSd": 675.68,
-      "maxMeanSd": 1004.06,
-      "minMonth": 48,
+  },
+  {
+      "age": "4-5 Yaş",
+      "n": 20,
+      "meanSD": "121,1 ± 37,33",
+      "meanMin": 83.77,
+      "meanMax": 158.43,
+      "min": 65,
+      "max": 205,
+      "refLower": "35,37 (25,93 - 43,33)",
+      "refUpper": "181,64 (173,02 - 193,92)",
+      "minMonth": 37,
       "maxMonth": 60
-    },
-    {
-      "ageRange": "6-8 Yaş",
-      "mean": "1014.93 ± 255.53",
-      "p1": 0.042,
-      "minMeanSd": 759.4,
-      "maxMeanSd": 1270.46,
-      "minMonth": 72,
+  },
+  {
+      "age": "6-8 Yaş",
+      "n": 20,
+      "meanSD": "118,15 ± 39,49",
+      "meanMin": 78.66,
+      "meanMax": 157.64,
+      "min": 47,
+      "max": 198,
+      "refLower": "36,61 (26,3 - 45,45)",
+      "refUpper": "199,98 (189,86 - 212,96)",
+      "minMonth": 61,
       "maxMonth": 96
-    },
-    {
-      "ageRange": "9-11 Yaş",
-      "mean": "1055.43 ± 322.27",
-      "p1": 0.160,
-      "minMeanSd": 733.16,
-      "maxMeanSd": 1377.7,
-      "minMonth": 108,
+  },
+  {
+      "age": "9-11 Yaş",
+      "n": 20,
+      "meanSD": "102,2 ± 36,58",
+      "meanMin": 65.62,
+      "meanMax": 138.78,
+      "min": 38,
+      "max": 163,
+      "refLower": "35,21 (23,54 - 45,21)",
+      "refUpper": "215,67 (203,3 - 231,12)",
+      "minMonth": 97,
       "maxMonth": 132
-    },
-    {
-      "ageRange": "12-16 Yaş",
-      "mean": "1142.07 ± 203.83",
-      "p1": 0.251,
-      "minMeanSd": 938.24,
-      "maxMeanSd": 1345.9,
-      "minMonth": 144,
+  },
+  {
+      "age": "12-16 Yaş",
+      "n": 20,
+      "meanSD": "143,6 ± 57,71",
+      "meanMin": 85.89,
+      "meanMax": 201.31,
+      "min": 47,
+      "max": 285,
+      "refLower": "30,79 (16,79 - 43,41)",
+      "refUpper": "228,35 (211,84 - 247,5)",
+      "minMonth": 133,
       "maxMonth": 192
-    },
-    {
-      "ageRange": "17-18 Yaş",
-      "mean": "1322.77 ± 361.89",
-      "p1": 0.628,
-      "minMeanSd": 960.88,
-      "maxMeanSd": 1684.66,
-      "minMonth": 204,
-      "maxMonth": 216
-    }
-  ];
-  const IgAlevelsBayram=[
-    {
-      "ageRange": "1-3 Ay",
-      "mean": "10.53 ± 5.16",
-      "p1": 0.033,
-      "minMeanSd": 5.37,
-      "maxMeanSd": 15.69,
-      "minMonth": 1,
-      "maxMonth": 3
-    },
-    {
-      "ageRange": "4-6 Ay",
-      "mean": "19.86 ± 9.77",
-      "p1": 0.978,
-      "minMeanSd": 10.09,
-      "maxMeanSd": 29.63,
-      "minMonth": 4,
-      "maxMonth": 6
-    },
-    {
-      "ageRange": "7-12 Ay",
-      "mean": "29.41 ± 12.37",
-      "p1": 0.216,
-      "minMeanSd": 17.04,
-      "maxMeanSd": 41.78,
-      "minMonth": 7,
-      "maxMonth": 12
-    },
-    {
-      "ageRange": "13-24 Ay",
-      "mean": "37.62 ± 17.1",
-      "p1": 0.950,
-      "minMeanSd": 20.52,
-      "maxMeanSd": 54.72,
-      "minMonth": 13,
-      "maxMonth": 24
-    },
-    {
-      "ageRange": "25-36 Ay",
-      "mean": "59.77 ± 24.52",
-      "p1": 0.001,
-      "minMeanSd": 35.25,
-      "maxMeanSd": 84.29,
-      "minMonth": 25,
-      "maxMonth": 36
-    },
-    {
-      "ageRange": "4-5 Yaş",
-      "mean": "68.98 ± 34.05",
-      "p1": 0.005,
-      "minMeanSd": 34.93,
-      "maxMeanSd": 103.03,
-      "minMonth": 48,
-      "maxMonth": 60
-    },
-    {
-      "ageRange": "6-8 Yaş",
-      "mean": "106.9 ± 49.66",
-      "p1": 0.104,
-      "minMeanSd": 57.24,
-      "maxMeanSd": 156.56,
-      "minMonth": 72,
-      "maxMonth": 96
-    },
-    {
-      "ageRange": "9-11 Yaş",
-      "mean": "115.99 ± 47.05",
-      "p1": 0.010,
-      "minMeanSd": 68.94,
-      "maxMeanSd": 164.04,
-      "minMonth": 108,
-      "maxMonth": 132
-    },
-    {
-      "ageRange": "12-16 Yaş",
-      "mean": "120.9 ± 47.51",
-      "p1": 0.004,
-      "minMeanSd": 73.39,
-      "maxMeanSd": 168.41,
-      "minMonth": 144,
-      "maxMonth": 192
-    },
-    {
-      "ageRange": "17-18 Yaş",
-      "mean": "201.84 ± 89.92",
-      "p1": 0.861,
-      "minMeanSd": 111.92,
-      "maxMeanSd": 291.76,
-      "minMonth": 204,
-      "maxMonth": 216
-    }
-  ];
-  
-  const IgMlevelsBayram =  [
-    {
-      "ageRange": "1-3 Ay",
-      "mean": "36.66 ± 13.55",
-      "p1": 0.648,
-      "minMeanSd": 23.11,
-      "maxMeanSd": 50.21,
-      "minMonth": 1,
-      "maxMonth": 3
-    },
-    {
-      "ageRange": "4-6 Ay",
-      "mean": "75.44 ± 29.73",
-      "p1": 0.003,
-      "minMeanSd": 45.71,
-      "maxMeanSd": 105.17,
-      "minMonth": 4,
-      "maxMonth": 6
-    },
-    {
-      "ageRange": "7-12 Ay",
-      "mean": "81.05 ± 35.76",
-      "p1": 0.013,
-      "minMeanSd": 45.29,
-      "maxMeanSd": 116.81,
-      "minMonth": 7,
-      "maxMonth": 12
-    },
-    {
-      "ageRange": "13-24 Ay",
-      "mean": "122.57 ± 41.63",
-      "p1": 0.002,
-      "minMeanSd": 80.94,
-      "maxMeanSd": 164.2,
-      "minMonth": 13,
-      "maxMonth": 24
-    },
-    {
-      "ageRange": "25-36 Ay",
-      "mean": "111.31 ± 40.55",
-      "p1": 0.001,
-      "minMeanSd": 70.76,
-      "maxMeanSd": 151.86,
-      "minMonth": 25,
-      "maxMonth": 36
-    },
-    {
-      "ageRange": "4-5 Yaş",
-      "mean": "121.79 ± 39.24",
-      "p1": 0.951,
-      "minMeanSd": 82.55,
-      "maxMeanSd": 161.03,
-      "minMonth": 48,
-      "maxMonth": 60
-    },
-    {
-      "ageRange": "6-8 Yaş",
-      "mean": "114.73 ± 41.27",
-      "p1": 0.772,
-      "minMeanSd": 73.46,
-      "maxMeanSd": 156.0,
-      "minMonth": 72,
-      "maxMonth": 96
-    },
-    {
-      "ageRange": "9-11 Yaş",
-      "mean": "113.18 ± 43.68",
-      "p1": 0.358,
-      "minMeanSd": 69.5,
-      "maxMeanSd": 156.86,
-      "minMonth": 108,
-      "maxMonth": 132
-    },
-    {
-      "ageRange": "12-16 Yaş",
-      "mean": "125.78 ± 39.31",
-      "p1": 0.200,
-      "minMeanSd": 86.47,
-      "maxMeanSd": 165.09,
-      "minMonth": 144,
-      "maxMonth": 192
-    },
-    {
-      "ageRange": "17-18 Yaş",
-      "mean": "142.54 ± 64.32",
-      "p1": 0.428,
-      "minMeanSd": 78.22,
-      "maxMeanSd": 206.86,
-      "minMonth": 204,
-      "maxMonth": 216
-    }
-  ];
-  
-  const IgGlevelsStiehm =  [
-    {
-      "ageRange": "1-3 Ay",
-      "mean": "430 ± 119",
-      "p2": 0.926,
-      "minMeanSd": 311,
-      "maxMeanSd": 549,
-      "minMonth": 1,
-      "maxMonth": 3
-    },
-    {
-      "ageRange": "4-6 Ay",
-      "mean": "427 ± 186",
-      "p2": 0.412,
-      "minMeanSd": 241,
-      "maxMeanSd": 613,
-      "minMonth": 4,
-      "maxMonth": 6
-    },
-    {
-      "ageRange": "7-12 Ay",
-      "mean": "661 ± 219",
-      "p2": 0.502,
-      "minMeanSd": 442,
-      "maxMeanSd": 880,
-      "minMonth": 7,
-      "maxMonth": 12
-    },
-    {
-      "ageRange": "13-24 Ay",
-      "mean": "762 ± 209",
-      "p2": 0.129,
-      "minMeanSd": 553,
-      "maxMeanSd": 971,
-      "minMonth": 13,
-      "maxMonth": 24
-    },
-    {
-      "ageRange": "25-36 Ay",
-      "mean": "892 ± 183",
-      "p2": 0.315,
-      "minMeanSd": 709,
-      "maxMeanSd": 1075,
-      "minMonth": 25,
-      "maxMonth": 36
-    },
-    {
-      "ageRange": "4-5 Yaş",
-      "mean": "929 ± 228",
-      "p2": 0.352,
-      "minMeanSd": 701,
-      "maxMeanSd": 1157,
-      "minMonth": 48,
-      "maxMonth": 60
-    },
-    {
-      "ageRange": "6-8 Yaş",
-      "mean": "923 ± 256",
-      "p2": 0.002,
-      "minMeanSd": 667,
-      "maxMeanSd": 1179,
-      "minMonth": 72,
-      "maxMonth": 96
-    },
-    {
-      "ageRange": "9-11 Yaş",
-      "mean": "1124 ± 235",
-      "p2": 0.467,
-      "minMeanSd": 889,
-      "maxMeanSd": 1359,
-      "minMonth": 108,
-      "maxMonth": 132
-    },
-    {
-      "ageRange": "12-16 Yaş",
-      "mean": "946 ± 124",
-      "p2": "<0.001",
-      "minMeanSd": 822,
-      "maxMeanSd": 1070,
-      "minMonth": 144,
-      "maxMonth": 192
-    },
-    {
-      "ageRange": "17-18 Yaş",
-      "mean": "1158 ± 305",
-      "p2": 0.029,
-      "minMeanSd": 853,
-      "maxMeanSd": 1463,
-      "minMonth": 204,
-      "maxMonth": 216
-    }
-  ];
-  const IgMlevelsStiehm = [
-    {
-      "ageRange": "1-3 Ay",
-      "mean": "21 ± 13",
-      "p2": 0.188,
-      "minMeanSd": 8,
-      "maxMeanSd": 34,
-      "minMonth": 1,
-      "maxMonth": 3
-    },
-    {
-      "ageRange": "4-6 Ay",
-      "mean": "28 ± 18",
-      "p2": 0.684,
-      "minMeanSd": 10,
-      "maxMeanSd": 46,
-      "minMonth": 4,
-      "maxMonth": 6
-    },
-    {
-      "ageRange": "7-12 Ay",
-      "mean": "37 ± 18",
-      "p2": 0.840,
-      "minMeanSd": 19,
-      "maxMeanSd": 55,
-      "minMonth": 7,
-      "maxMonth": 12
-    },
-    {
-      "ageRange": "13-24 Ay",
-      "mean": "50 ± 24",
-      "p2": 0.035,
-      "minMeanSd": 26,
-      "maxMeanSd": 74,
-      "minMonth": 13,
-      "maxMonth": 24
-    },
-    {
-      "ageRange": "25-36 Ay",
-      "mean": "71 ± 37",
-      "p2": 0.066,
-      "minMeanSd": 34,
-      "maxMeanSd": 108,
-      "minMonth": 25,
-      "maxMonth": 36
-    },
-    {
-      "ageRange": "4-5 Yaş",
-      "mean": "93 ± 27",
-      "p2": 0.855,
-      "minMeanSd": 66,
-      "maxMeanSd": 120,
-      "minMonth": 48,
-      "maxMonth": 60
-    },
-    {
-      "ageRange": "6-8 Yaş",
-      "mean": "124 ± 45",
-      "p2": 0.654,
-      "minMeanSd": 79,
-      "maxMeanSd": 169,
-      "minMonth": 72,
-      "maxMonth": 96
-    },
-    {
-      "ageRange": "9-11 Yaş",
-      "mean": "131 ± 60",
-      "p2": 0.138,
-      "minMeanSd": 71,
-      "maxMeanSd": 191,
-      "minMonth": 108,
-      "maxMonth": 132
-    },
-    {
-      "ageRange": "12-16 Yaş",
-      "mean": "148 ± 63",
-      "p2": 0.371,
-      "minMeanSd": 85,
-      "maxMeanSd": 211,
-      "minMonth": 144,
-      "maxMonth": 192
-    },
-    {
-      "ageRange": "17-18 Yaş",
-      "mean": "200 ± 61",
-      "p2": 0.771,
-      "minMeanSd": 139,
-      "maxMeanSd": 261,
-      "minMonth": 204,
-      "maxMonth": 216
-    }
-  ];
-  const IgAlevelsStiehm = [
-    {
-      "ageRange": "1-3 Ay",
-      "mean": "30 ± 11",
-      "p2": 0.259,
-      "minMeanSd": 19,
-      "maxMeanSd": 41,
-      "minMonth": 1,
-      "maxMonth": 3
-    },
-    {
-      "ageRange": "4-6 Ay",
-      "mean": "43 ± 17",
-      "p2": 0.269,
-      "minMeanSd": 26,
-      "maxMeanSd": 60,
-      "minMonth": 4,
-      "maxMonth": 6
-    },
-    {
-      "ageRange": "7-12 Ay",
-      "mean": "54 ± 23",
-      "p2": 0.557,
-      "minMeanSd": 31,
-      "maxMeanSd": 77,
-      "minMonth": 7,
-      "maxMonth": 12
-    },
-    {
-      "ageRange": "13-24 Ay",
-      "mean": "58 ± 23",
-      "p2": 0.004,
-      "minMeanSd": 35,
-      "maxMeanSd": 81,
-      "minMonth": 13,
-      "maxMonth": 24
-    },
-    {
-      "ageRange": "25-36 Ay",
-      "mean": "61 ± 19",
-      "p2": "<0.001",
-      "minMeanSd": 42,
-      "maxMeanSd": 80,
-      "minMonth": 25,
-      "maxMonth": 36
-    },
-    {
-      "ageRange": "4-5 Yaş",
-      "mean": "56 ± 18",
-      "p2": "<0.001",
-      "minMeanSd": 38,
-      "maxMeanSd": 74,
-      "minMonth": 48,
-      "maxMonth": 60
-    },
-    {
-      "ageRange": "6-8 Yaş",
-      "mean": "65 ± 25",
-      "p2": "<0.001",
-      "minMeanSd": 40,
-      "maxMeanSd": 90,
-      "minMonth": 72,
-      "maxMonth": 96
-    },
-    {
-      "ageRange": "9-11 Yaş",
-      "mean": "79 ± 33",
-      "p2": 0.031,
-      "minMeanSd": 46,
-      "maxMeanSd": 112,
-      "minMonth": 108,
-      "maxMonth": 132
-    },
-    {
-      "ageRange": "12-16 Yaş",
-      "mean": "59 ± 20",
-      "p2": "<0.001",
-      "minMeanSd": 39,
-      "maxMeanSd": 79,
-      "minMonth": 144,
-      "maxMonth": 192
-    },
-    {
-      "ageRange": "17-18 Yaş",
-      "mean": "99 ± 27",
-      "p2": 0.016,
-      "minMeanSd": 72,
-      "maxMeanSd": 126,
-      "minMonth": 204,
-      "maxMonth": 216
-    }
-  ]
-  
+  }
+];
+const IgGlevelsSahin= [
+  {
+    "age": "1-3 Ay",
+    "n": 20,
+    "meanSD": "433,55±137,11",
+    "minMeanSD": 296.44,
+    "maxMeanSD": 570.66,
+    "minMonth": 1,
+    "maxMonth": 3
+  },
+  {
+    "age": "4-6 Ay",
+    "n": 20,
+    "meanSD": "382,15±173,18",
+    "minMeanSD": 208.97,
+    "maxMeanSD": 555.33,
+    "minMonth": 4,
+    "maxMonth": 6
+  },
+  {
+    "age": "7-12 Ay",
+    "n": 20,
+    "meanSD": "618,1±200,78",
+    "minMeanSD": 417.32,
+    "maxMeanSD": 818.88,
+    "minMonth": 7,
+    "maxMonth": 12
+  },
+  {
+    "age": "13-24 Ay",
+    "n": 20,
+    "meanSD": "671,1±177,86",
+    "minMeanSD": 493.24,
+    "maxMeanSD": 848.96,
+    "minMonth": 13,
+    "maxMonth": 24
+  }
+];
+const IgAlevelsSahin=[
+  {
+    "age": "1-3 Ay",
+    "n": 20,
+    "meanSD": "15,95±12,02",
+    "minMeanSD": 3.93,
+    "maxMeanSD": 27.97,
+    "minMonth": 1,
+    "maxMonth": 3
+  },
+  {
+    "age": "4-6 Ay",
+    "n": 20,
+    "meanSD": "19,95±12,7",
+    "minMeanSD": 7.25,
+    "maxMeanSD": 32.65,
+    "minMonth": 4,
+    "maxMonth": 6
+  },
+  {
+    "age": "7-12 Ay",
+    "n": 20,
+    "meanSD": "35,75±23,29",
+    "minMeanSD": 12.46,
+    "maxMeanSD": 59.04,
+    "minMonth": 7,
+    "maxMonth": 12
+  },
+  {
+    "age": "13-24 Ay",
+    "n": 20,
+    "meanSD": "37,35±10,95",
+    "minMeanSD": 26.40,
+    "maxMeanSD": 48.30,
+    "minMonth": 13,
+    "maxMonth": 24
+  }
+];
+const IgMlevelsSahin= [
+  {
+    "age": "1-3 Ay",
+    "n": 20,
+    "meanSD": "34,7±16,48",
+    "minMeanSD": 18.22,
+    "maxMeanSD": 51.18,
+    "minMonth": 1,
+    "maxMonth": 3
+  },
+  {
+    "age": "4-6 Ay",
+    "n": 20,
+    "meanSD": "50,15±25,71",
+    "minMeanSD": 24.44,
+    "maxMeanSD": 75.86,
+    "minMonth": 4,
+    "maxMonth": 6
+  },
+  {
+    "age": "7-12 Ay",
+    "n": 20,
+    "meanSD": "57,95±21,25",
+    "minMeanSD": 36.70,
+    "maxMeanSD": 79.20,
+    "minMonth": 7,
+    "maxMonth": 12
+  },
+  {
+    "age": "13-24 Ay",
+    "n": 20,
+    "meanSD": "85,4±36,53",
+    "minMeanSD": 48.87,
+    "maxMeanSD": 121.93,
+    "minMonth": 13,
+    "maxMonth": 24
+  }
+];
+const IgGlevelsBayram=[
+  {
+    "ageRange": "1-3 Ay",
+    "mean": "429.5 ± 145.59",
+    "p1": 0.922,
+    "minMeanSd": 283.91,
+    "maxMeanSd": 575.09,
+    "minMonth": 1,
+    "maxMonth": 3
+  },
+  {
+    "ageRange": "4-6 Ay",
+    "mean": "482.43 ± 236.8",
+    "p1": 0.111,
+    "minMeanSd": 245.63,
+    "maxMeanSd": 719.23,
+    "minMonth": 4,
+    "maxMonth": 6
+  },
+  {
+    "ageRange": "7-12 Ay",
+    "mean": "568.97 ± 186.62",
+    "p1": 0.381,
+    "minMeanSd": 382.35,
+    "maxMeanSd": 755.59,
+    "minMonth": 7,
+    "maxMonth": 12
+  },
+  {
+    "ageRange": "13-24 Ay",
+    "mean": "761.7 ± 238.61",
+    "p1": 0.154,
+    "minMeanSd": 523.09,
+    "maxMeanSd": 1000.31,
+    "minMonth": 13,
+    "maxMonth": 24
+  },
+  {
+    "ageRange": "25-36 Ay",
+    "mean": "811.5 ± 249.14",
+    "p1": 0.726,
+    "minMeanSd": 562.36,
+    "maxMeanSd": 1060.64,
+    "minMonth": 25,
+    "maxMonth": 36
+  },
+  {
+    "ageRange": "4-5 Yaş",
+    "mean": "839.87 ± 164.19",
+    "p1": 0.009,
+    "minMeanSd": 675.68,
+    "maxMeanSd": 1004.06,
+    "minMonth": 48,
+    "maxMonth": 60
+  },
+  {
+    "ageRange": "6-8 Yaş",
+    "mean": "1014.93 ± 255.53",
+    "p1": 0.042,
+    "minMeanSd": 759.4,
+    "maxMeanSd": 1270.46,
+    "minMonth": 72,
+    "maxMonth": 96
+  },
+  {
+    "ageRange": "9-11 Yaş",
+    "mean": "1055.43 ± 322.27",
+    "p1": 0.160,
+    "minMeanSd": 733.16,
+    "maxMeanSd": 1377.7,
+    "minMonth": 108,
+    "maxMonth": 132
+  },
+  {
+    "ageRange": "12-16 Yaş",
+    "mean": "1142.07 ± 203.83",
+    "p1": 0.251,
+    "minMeanSd": 938.24,
+    "maxMeanSd": 1345.9,
+    "minMonth": 144,
+    "maxMonth": 192
+  },
+  {
+    "ageRange": "17-18 Yaş",
+    "mean": "1322.77 ± 361.89",
+    "p1": 0.628,
+    "minMeanSd": 960.88,
+    "maxMeanSd": 1684.66,
+    "minMonth": 204,
+    "maxMonth": 216
+  }
+];
+const IgAlevelsBayram=[
+  {
+    "ageRange": "1-3 Ay",
+    "mean": "10.53 ± 5.16",
+    "p1": 0.033,
+    "minMeanSd": 5.37,
+    "maxMeanSd": 15.69,
+    "minMonth": 1,
+    "maxMonth": 3
+  },
+  {
+    "ageRange": "4-6 Ay",
+    "mean": "19.86 ± 9.77",
+    "p1": 0.978,
+    "minMeanSd": 10.09,
+    "maxMeanSd": 29.63,
+    "minMonth": 4,
+    "maxMonth": 6
+  },
+  {
+    "ageRange": "7-12 Ay",
+    "mean": "29.41 ± 12.37",
+    "p1": 0.216,
+    "minMeanSd": 17.04,
+    "maxMeanSd": 41.78,
+    "minMonth": 7,
+    "maxMonth": 12
+  },
+  {
+    "ageRange": "13-24 Ay",
+    "mean": "37.62 ± 17.1",
+    "p1": 0.950,
+    "minMeanSd": 20.52,
+    "maxMeanSd": 54.72,
+    "minMonth": 13,
+    "maxMonth": 24
+  },
+  {
+    "ageRange": "25-36 Ay",
+    "mean": "59.77 ± 24.52",
+    "p1": 0.001,
+    "minMeanSd": 35.25,
+    "maxMeanSd": 84.29,
+    "minMonth": 25,
+    "maxMonth": 36
+  },
+  {
+    "ageRange": "4-5 Yaş",
+    "mean": "68.98 ± 34.05",
+    "p1": 0.005,
+    "minMeanSd": 34.93,
+    "maxMeanSd": 103.03,
+    "minMonth": 48,
+    "maxMonth": 60
+  },
+  {
+    "ageRange": "6-8 Yaş",
+    "mean": "106.9 ± 49.66",
+    "p1": 0.104,
+    "minMeanSd": 57.24,
+    "maxMeanSd": 156.56,
+    "minMonth": 72,
+    "maxMonth": 96
+  },
+  {
+    "ageRange": "9-11 Yaş",
+    "mean": "115.99 ± 47.05",
+    "p1": 0.010,
+    "minMeanSd": 68.94,
+    "maxMeanSd": 164.04,
+    "minMonth": 108,
+    "maxMonth": 132
+  },
+  {
+    "ageRange": "12-16 Yaş",
+    "mean": "120.9 ± 47.51",
+    "p1": 0.004,
+    "minMeanSd": 73.39,
+    "maxMeanSd": 168.41,
+    "minMonth": 144,
+    "maxMonth": 192
+  },
+  {
+    "ageRange": "17-18 Yaş",
+    "mean": "201.84 ± 89.92",
+    "p1": 0.861,
+    "minMeanSd": 111.92,
+    "maxMeanSd": 291.76,
+    "minMonth": 204,
+    "maxMonth": 216
+  }
+];
+
+const IgMlevelsBayram =  [
+  {
+    "ageRange": "1-3 Ay",
+    "mean": "36.66 ± 13.55",
+    "p1": 0.648,
+    "minMeanSd": 23.11,
+    "maxMeanSd": 50.21,
+    "minMonth": 1,
+    "maxMonth": 3
+  },
+  {
+    "ageRange": "4-6 Ay",
+    "mean": "75.44 ± 29.73",
+    "p1": 0.003,
+    "minMeanSd": 45.71,
+    "maxMeanSd": 105.17,
+    "minMonth": 4,
+    "maxMonth": 6
+  },
+  {
+    "ageRange": "7-12 Ay",
+    "mean": "81.05 ± 35.76",
+    "p1": 0.013,
+    "minMeanSd": 45.29,
+    "maxMeanSd": 116.81,
+    "minMonth": 7,
+    "maxMonth": 12
+  },
+  {
+    "ageRange": "13-24 Ay",
+    "mean": "122.57 ± 41.63",
+    "p1": 0.002,
+    "minMeanSd": 80.94,
+    "maxMeanSd": 164.2,
+    "minMonth": 13,
+    "maxMonth": 24
+  },
+  {
+    "ageRange": "25-36 Ay",
+    "mean": "111.31 ± 40.55",
+    "p1": 0.001,
+    "minMeanSd": 70.76,
+    "maxMeanSd": 151.86,
+    "minMonth": 25,
+    "maxMonth": 36
+  },
+  {
+    "ageRange": "4-5 Yaş",
+    "mean": "121.79 ± 39.24",
+    "p1": 0.951,
+    "minMeanSd": 82.55,
+    "maxMeanSd": 161.03,
+    "minMonth": 48,
+    "maxMonth": 60
+  },
+  {
+    "ageRange": "6-8 Yaş",
+    "mean": "114.73 ± 41.27",
+    "p1": 0.772,
+    "minMeanSd": 73.46,
+    "maxMeanSd": 156.0,
+    "minMonth": 72,
+    "maxMonth": 96
+  },
+  {
+    "ageRange": "9-11 Yaş",
+    "mean": "113.18 ± 43.68",
+    "p1": 0.358,
+    "minMeanSd": 69.5,
+    "maxMeanSd": 156.86,
+    "minMonth": 108,
+    "maxMonth": 132
+  },
+  {
+    "ageRange": "12-16 Yaş",
+    "mean": "125.78 ± 39.31",
+    "p1": 0.200,
+    "minMeanSd": 86.47,
+    "maxMeanSd": 165.09,
+    "minMonth": 144,
+    "maxMonth": 192
+  },
+  {
+    "ageRange": "17-18 Yaş",
+    "mean": "142.54 ± 64.32",
+    "p1": 0.428,
+    "minMeanSd": 78.22,
+    "maxMeanSd": 206.86,
+    "minMonth": 204,
+    "maxMonth": 216
+  }
+];
+
+const IgGlevelsStiehm =  [
+  {
+    "ageRange": "1-3 Ay",
+    "mean": "430 ± 119",
+    "p2": 0.926,
+    "minMeanSd": 311,
+    "maxMeanSd": 549,
+    "minMonth": 1,
+    "maxMonth": 3
+  },
+  {
+    "ageRange": "4-6 Ay",
+    "mean": "427 ± 186",
+    "p2": 0.412,
+    "minMeanSd": 241,
+    "maxMeanSd": 613,
+    "minMonth": 4,
+    "maxMonth": 6
+  },
+  {
+    "ageRange": "7-12 Ay",
+    "mean": "661 ± 219",
+    "p2": 0.502,
+    "minMeanSd": 442,
+    "maxMeanSd": 880,
+    "minMonth": 7,
+    "maxMonth": 12
+  },
+  {
+    "ageRange": "13-24 Ay",
+    "mean": "762 ± 209",
+    "p2": 0.129,
+    "minMeanSd": 553,
+    "maxMeanSd": 971,
+    "minMonth": 13,
+    "maxMonth": 24
+  },
+  {
+    "ageRange": "25-36 Ay",
+    "mean": "892 ± 183",
+    "p2": 0.315,
+    "minMeanSd": 709,
+    "maxMeanSd": 1075,
+    "minMonth": 25,
+    "maxMonth": 36
+  },
+  {
+    "ageRange": "4-5 Yaş",
+    "mean": "929 ± 228",
+    "p2": 0.352,
+    "minMeanSd": 701,
+    "maxMeanSd": 1157,
+    "minMonth": 48,
+    "maxMonth": 60
+  },
+  {
+    "ageRange": "6-8 Yaş",
+    "mean": "923 ± 256",
+    "p2": 0.002,
+    "minMeanSd": 667,
+    "maxMeanSd": 1179,
+    "minMonth": 72,
+    "maxMonth": 96
+  },
+  {
+    "ageRange": "9-11 Yaş",
+    "mean": "1124 ± 235",
+    "p2": 0.467,
+    "minMeanSd": 889,
+    "maxMeanSd": 1359,
+    "minMonth": 108,
+    "maxMonth": 132
+  },
+  {
+    "ageRange": "12-16 Yaş",
+    "mean": "946 ± 124",
+    "p2": "<0.001",
+    "minMeanSd": 822,
+    "maxMeanSd": 1070,
+    "minMonth": 144,
+    "maxMonth": 192
+  },
+  {
+    "ageRange": "17-18 Yaş",
+    "mean": "1158 ± 305",
+    "p2": 0.029,
+    "minMeanSd": 853,
+    "maxMeanSd": 1463,
+    "minMonth": 204,
+    "maxMonth": 216
+  }
+];
+const IgMlevelsStiehm = [
+  {
+    "ageRange": "1-3 Ay",
+    "mean": "21 ± 13",
+    "p2": 0.188,
+    "minMeanSd": 8,
+    "maxMeanSd": 34,
+    "minMonth": 1,
+    "maxMonth": 3
+  },
+  {
+    "ageRange": "4-6 Ay",
+    "mean": "28 ± 18",
+    "p2": 0.684,
+    "minMeanSd": 10,
+    "maxMeanSd": 46,
+    "minMonth": 4,
+    "maxMonth": 6
+  },
+  {
+    "ageRange": "7-12 Ay",
+    "mean": "37 ± 18",
+    "p2": 0.840,
+    "minMeanSd": 19,
+    "maxMeanSd": 55,
+    "minMonth": 7,
+    "maxMonth": 12
+  },
+  {
+    "ageRange": "13-24 Ay",
+    "mean": "50 ± 24",
+    "p2": 0.035,
+    "minMeanSd": 26,
+    "maxMeanSd": 74,
+    "minMonth": 13,
+    "maxMonth": 24
+  },
+  {
+    "ageRange": "25-36 Ay",
+    "mean": "71 ± 37",
+    "p2": 0.066,
+    "minMeanSd": 34,
+    "maxMeanSd": 108,
+    "minMonth": 25,
+    "maxMonth": 36
+  },
+  {
+    "ageRange": "4-5 Yaş",
+    "mean": "93 ± 27",
+    "p2": 0.855,
+    "minMeanSd": 66,
+    "maxMeanSd": 120,
+    "minMonth": 48,
+    "maxMonth": 60
+  },
+  {
+    "ageRange": "6-8 Yaş",
+    "mean": "124 ± 45",
+    "p2": 0.654,
+    "minMeanSd": 79,
+    "maxMeanSd": 169,
+    "minMonth": 72,
+    "maxMonth": 96
+  },
+  {
+    "ageRange": "9-11 Yaş",
+    "mean": "131 ± 60",
+    "p2": 0.138,
+    "minMeanSd": 71,
+    "maxMeanSd": 191,
+    "minMonth": 108,
+    "maxMonth": 132
+  },
+  {
+    "ageRange": "12-16 Yaş",
+    "mean": "148 ± 63",
+    "p2": 0.371,
+    "minMeanSd": 85,
+    "maxMeanSd": 211,
+    "minMonth": 144,
+    "maxMonth": 192
+  },
+  {
+    "ageRange": "17-18 Yaş",
+    "mean": "200 ± 61",
+    "p2": 0.771,
+    "minMeanSd": 139,
+    "maxMeanSd": 261,
+    "minMonth": 204,
+    "maxMonth": 216
+  }
+];
+const IgAlevelsStiehm = [
+  {
+    "ageRange": "1-3 Ay",
+    "mean": "30 ± 11",
+    "p2": 0.259,
+    "minMeanSd": 19,
+    "maxMeanSd": 41,
+    "minMonth": 1,
+    "maxMonth": 3
+  },
+  {
+    "ageRange": "4-6 Ay",
+    "mean": "43 ± 17",
+    "p2": 0.269,
+    "minMeanSd": 26,
+    "maxMeanSd": 60,
+    "minMonth": 4,
+    "maxMonth": 6
+  },
+  {
+    "ageRange": "7-12 Ay",
+    "mean": "54 ± 23",
+    "p2": 0.557,
+    "minMeanSd": 31,
+    "maxMeanSd": 77,
+    "minMonth": 7,
+    "maxMonth": 12
+  },
+  {
+    "ageRange": "13-24 Ay",
+    "mean": "58 ± 23",
+    "p2": 0.004,
+    "minMeanSd": 35,
+    "maxMeanSd": 81,
+    "minMonth": 13,
+    "maxMonth": 24
+  },
+  {
+    "ageRange": "25-36 Ay",
+    "mean": "61 ± 19",
+    "p2": "<0.001",
+    "minMeanSd": 42,
+    "maxMeanSd": 80,
+    "minMonth": 25,
+    "maxMonth": 36
+  },
+  {
+    "ageRange": "4-5 Yaş",
+    "mean": "56 ± 18",
+    "p2": "<0.001",
+    "minMeanSd": 38,
+    "maxMeanSd": 74,
+    "minMonth": 48,
+    "maxMonth": 60
+  },
+  {
+    "ageRange": "6-8 Yaş",
+    "mean": "65 ± 25",
+    "p2": "<0.001",
+    "minMeanSd": 40,
+    "maxMeanSd": 90,
+    "minMonth": 72,
+    "maxMonth": 96
+  },
+  {
+    "ageRange": "9-11 Yaş",
+    "mean": "79 ± 33",
+    "p2": 0.031,
+    "minMeanSd": 46,
+    "maxMeanSd": 112,
+    "minMonth": 108,
+    "maxMonth": 132
+  },
+  {
+    "ageRange": "12-16 Yaş",
+    "mean": "59 ± 20",
+    "p2": "<0.001",
+    "minMeanSd": 39,
+    "maxMeanSd": 79,
+    "minMonth": 144,
+    "maxMonth": 192
+  },
+  {
+    "ageRange": "17-18 Yaş",
+    "mean": "99 ± 27",
+    "p2": 0.016,
+    "minMeanSd": 72,
+    "maxMeanSd": 126,
+    "minMonth": 204,
+    "maxMonth": 216
+  }
+]
