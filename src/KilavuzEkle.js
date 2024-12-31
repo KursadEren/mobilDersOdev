@@ -369,9 +369,9 @@ const AddLevels = () => {
             <View style={styles.headerSection}>
                 <Image source={require('../assets/logo.png')} style={styles.logo} />
                 <Text style={styles.headerText}>T.C. SAĞLIK BAKANLIĞI</Text>
-                <Text style={styles.subHeaderText}>Hasta Kayıt Sayfası</Text>
+                <Text style={styles.subHeaderText}>Yeni Kılavuz Ekle</Text>
             </View>
-            <Text style={styles.header}>Yeni Kılavuz Ekle</Text>
+            
 
             <Text style={styles.label}>Kılavuz Adı</Text>
             <TextInput
