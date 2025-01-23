@@ -14,21 +14,21 @@ const AddLevels = () => {
     const [guideName, setGuideName] = useState('');
 
     // Her bir immünoglobulin seviyesi için ayrı state dizileri
-    const [IgALevels, setIgALevels] = useState([]);
-    const [IgGLevels, setIgGLevels] = useState([]);
-    const [IgMLevels, setIgMLevels] = useState([]);
-    const [IgG1Levels, setIgG1Levels] = useState([]);
-    const [IgG2Levels, setIgG2Levels] = useState([]);
-    const [IgG3Levels, setIgG3Levels] = useState([]);
-    const [IgG4Levels, setIgG4Levels] = useState([]);
+    const [IgAlevels, setIgAlevels] = useState([]);
+    const [IgGlevels, setIgGlevels] = useState([]);
+    const [IgMlevels, setIgMlevels] = useState([]);
+    const [IgG1levels, setIgG1levels] = useState([]);
+    const [IgG2levels, setIgG2levels] = useState([]);
+    const [IgG3levels, setIgG3levels] = useState([]);
+    const [IgG4levels, setIgG4levels] = useState([]);
 
     // Genel form alanı ekleme fonksiyonu
     const addLevel = (levelType) => {
         const newLevel = {
             id: uuid.v4(), // react-native-uuid ile benzersiz ID oluşturuyoruz
             ageGroup: '',
-            minMonth: '',
-            maxMonth: '',
+            minMonth: 0,
+            maxMonth: 0,
             number: '',
             geoMeanSD: '',
             geoMin: '',
@@ -44,25 +44,25 @@ const AddLevels = () => {
 
         switch (levelType) {
             case 'IgA':
-                setIgALevels([...IgALevels, newLevel]);
+                setIgAlevels([...IgAlevels, newLevel]);
                 break;
             case 'IgG':
-                setIgGLevels([...IgGLevels, newLevel]);
+                setIgGlevels([...IgGlevels, newLevel]);
                 break;
             case 'IgM':
-                setIgMLevels([...IgMLevels, newLevel]);
+                setIgMlevels([...IgMlevels, newLevel]);
                 break;
             case 'IgG1':
-                setIgG1Levels([...IgG1Levels, newLevel]);
+                setIgG1levels([...IgG1levels, newLevel]);
                 break;
             case 'IgG2':
-                setIgG2Levels([...IgG2Levels, newLevel]);
+                setIgG2levels([...IgG2levels, newLevel]);
                 break;
             case 'IgG3':
-                setIgG3Levels([...IgG3Levels, newLevel]);
+                setIgG3levels([...IgG3levels, newLevel]);
                 break;
             case 'IgG4':
-                setIgG4Levels([...IgG4Levels, newLevel]);
+                setIgG4levels([...IgG4levels, newLevel]);
                 break;
             default:
                 break;
@@ -73,25 +73,25 @@ const AddLevels = () => {
     const removeLevel = (levelType, id) => {
         switch (levelType) {
             case 'IgA':
-                setIgALevels(IgALevels.filter(level => level.id !== id));
+                setIgAlevels(IgAlevels.filter(level => level.id !== id));
                 break;
             case 'IgG':
-                setIgGLevels(IgGLevels.filter(level => level.id !== id));
+                setIgGlevels(IgGlevels.filter(level => level.id !== id));
                 break;
             case 'IgM':
-                setIgMLevels(IgMLevels.filter(level => level.id !== id));
+                setIgMlevels(IgMlevels.filter(level => level.id !== id));
                 break;
             case 'IgG1':
-                setIgG1Levels(IgG1Levels.filter(level => level.id !== id));
+                setIgG1levels(IgG1levels.filter(level => level.id !== id));
                 break;
             case 'IgG2':
-                setIgG2Levels(IgG2Levels.filter(level => level.id !== id));
+                setIgG2levels(IgG2levels.filter(level => level.id !== id));
                 break;
             case 'IgG3':
-                setIgG3Levels(IgG3Levels.filter(level => level.id !== id));
+                setIgG3levels(IgG3levels.filter(level => level.id !== id));
                 break;
             case 'IgG4':
-                setIgG4Levels(IgG4Levels.filter(level => level.id !== id));
+                setIgG4levels(IgG4levels.filter(level => level.id !== id));
                 break;
             default:
                 break;
@@ -123,25 +123,25 @@ const AddLevels = () => {
 
         switch (levelType) {
             case 'IgA':
-                updateFunction(IgALevels, setIgALevels);
+                updateFunction(IgAlevels, setIgAlevels);
                 break;
             case 'IgG':
-                updateFunction(IgGLevels, setIgGLevels);
+                updateFunction(IgGlevels, setIgGlevels);
                 break;
             case 'IgM':
-                updateFunction(IgMLevels, setIgMLevels);
+                updateFunction(IgMlevels, setIgMlevels);
                 break;
             case 'IgG1':
-                updateFunction(IgG1Levels, setIgG1Levels);
+                updateFunction(IgG1levels, setIgG1levels);
                 break;
             case 'IgG2':
-                updateFunction(IgG2Levels, setIgG2Levels);
+                updateFunction(IgG2levels, setIgG2levels);
                 break;
             case 'IgG3':
-                updateFunction(IgG3Levels, setIgG3Levels);
+                updateFunction(IgG3levels, setIgG3levels);
                 break;
             case 'IgG4':
-                updateFunction(IgG4Levels, setIgG4Levels);
+                updateFunction(IgG4levels, setIgG4levels);
                 break;
             default:
                 break;
@@ -156,32 +156,44 @@ const AddLevels = () => {
         }
 
         // Boş alanları kontrol etme
-        const allLevels = [IgALevels, IgGLevels, IgMLevels, IgG1Levels, IgG2Levels, IgG3Levels, IgG4Levels];
+        const allLevels = [IgAlevels, IgGlevels, IgMlevels, IgG1levels, IgG2levels, IgG3levels, IgG4levels];
+        // Örnek: Yalnızca minMonth, maxMonth, min, max ve confidenceInterval alanlarını zorunlu kılalım
         for (let levelArray of allLevels) {
             for (let level of levelArray) {
-                for (let key in level) {
-                    if (key === 'confidenceInterval') {
-                        if (!level[key].min.trim() || !level[key].max.trim()) {
-                            Alert.alert('Hata', 'Tüm güven aralığı alanlarını doldurunuz.');
-                            return;
-                        }
-                    } else if (!level[key].toString().trim() && key !== 'id') {
-                        Alert.alert('Hata', 'Tüm alanları doldurunuz.');
+                // confidenceInterval kontrolü
+                if (level.confidenceInterval) {
+                    if (
+                        level.confidenceInterval.min === '' ||
+                        level.confidenceInterval.max === ''
+                    ) {
+                        Alert.alert('Hata', 'Tüm güven aralığı alanlarını doldurunuz.');
+                        return;
+                    }
+                }
+
+                // minMonth, maxMonth, min, max
+                const requiredNumericFields = ['minMonth', 'maxMonth', 'min', 'max'];
+                for (let field of requiredNumericFields) {
+                    // null veya boş string durumuna bak
+                    if (level[field] === '' || level[field] === null || level[field] === undefined) {
+                        Alert.alert('Hata', `${field} alanı boş bırakılamaz!`);
                         return;
                     }
                 }
             }
         }
 
+
+        console.log("hey")
         const data = {
             guideName: guideName.trim(),
-            IgALevels,
-            IgGLevels,
-            IgMLevels,
-            IgG1Levels,
-            IgG2Levels,
-            IgG3Levels,
-            IgG4Levels,
+            IgAlevels,
+            IgGlevels,
+            IgMlevels,
+            IgG1levels,
+            IgG2levels,
+            IgG3levels,
+            IgG4levels,
         };
         console.log("hey2")
         try {
@@ -191,13 +203,13 @@ const AddLevels = () => {
 
             // Formu temizlemek
             setGuideName('');
-            setIgALevels([]);
-            setIgGLevels([]);
-            setIgMLevels([]);
-            setIgG1Levels([]);
-            setIgG2Levels([]);
-            setIgG3Levels([]);
-            setIgG4Levels([]);
+            setIgAlevels([]);
+            setIgGlevels([]);
+            setIgMlevels([]);
+            setIgG1levels([]);
+            setIgG2levels([]);
+            setIgG3levels([]);
+            setIgG4levels([]);
         } catch (error) {
             console.error("Error adding document: ", error);
             Alert.alert('Hata', 'Veriler kaydedilemedi.');
@@ -226,8 +238,8 @@ const AddLevels = () => {
                     placeholderTextColor="#e3e3e3"
                     value={level.minMonth}
                     onChangeText={(text) => {
-                        const numericValue = text.replace(/[^0-9]/g, '');
-                        updateLevel(levelType, level.id, 'minMonth', numericValue);
+                        const numericValue = parseInt(text.replace(/[^0-9]/g, ''), 10); // Sadece sayıları al
+                        updateLevel(levelType, level.id, 'minMonth', numericValue || 0); // NaN olursa 0 kullan
                     }}
                     keyboardType="numeric"
                 />
@@ -237,10 +249,10 @@ const AddLevels = () => {
                     style={styles.input}
                     placeholder="Max Month"
                     placeholderTextColor="#e3e3e3"
-                    value={level.maxMonth}
+                    value={level.maxMonth.toString()} // Sayısal değeri stringe çevir
                     onChangeText={(text) => {
-                        const numericValue = text.replace(/[^0-9]/g, '');
-                        updateLevel(levelType, level.id, 'maxMonth', numericValue);
+                        const numericValue = parseInt(text.replace(/[^0-9]/g, ''), 10); // Sadece sayıları al
+                        updateLevel(levelType, level.id, 'maxMonth', numericValue || 0); // NaN olursa 0 kullan
                     }}
                     keyboardType="numeric"
                 />
@@ -274,8 +286,8 @@ const AddLevels = () => {
                     placeholderTextColor="#e3e3e3"
                     value={level.geoMin}
                     onChangeText={(text) => {
-                        const numericValue = text.replace(/[^0-9]/g, '');
-                        updateLevel(levelType, level.id, 'geoMin', numericValue);
+                        const numericValue = parseInt(text.replace(/[^0-9]/g, ''), 10); // Sadece sayıları al
+                        updateLevel(levelType, level.id, 'geoMin', numericValue || 0); // NaN olursa 0 kullan
                     }}
                     keyboardType="numeric"
                 />
@@ -287,8 +299,8 @@ const AddLevels = () => {
                     placeholderTextColor="#e3e3e3"
                     value={level.geoMax}
                     onChangeText={(text) => {
-                        const numericValue = text.replace(/[^0-9]/g, '');
-                        updateLevel(levelType, level.id, 'geoMax', numericValue);
+                        const numericValue = parseInt(text.replace(/[^0-9]/g, ''), 10); // Sadece sayıları al
+                        updateLevel(levelType, level.id, 'geoMax', numericValue || 0); // NaN olursa 0 kullan
                     }}
                     keyboardType="numeric"
                 />
@@ -335,8 +347,8 @@ const AddLevels = () => {
                     placeholderTextColor="#e3e3e3"
                     value={level.confidenceInterval.min}
                     onChangeText={(text) => {
-                        const numericValue = text.replace(/[^0-9.]/g, '');
-                        updateLevel(levelType, level.id, 'confidenceInterval.min', numericValue);
+                        const numericValue = parseInt(text.replace(/[^0-9]/g, ''), 10); // Sadece sayıları al
+                        updateLevel(levelType, level.id, 'confidenceInterval.min', numericValue || 0); // NaN olursa 0 kullan
                     }}
                     keyboardType="numeric"
                 />
@@ -348,8 +360,8 @@ const AddLevels = () => {
                     placeholderTextColor="#e3e3e3"
                     value={level.confidenceInterval.max}
                     onChangeText={(text) => {
-                        const numericValue = text.replace(/[^0-9.]/g, '');
-                        updateLevel(levelType, level.id, 'confidenceInterval.max', numericValue);
+                        const numericValue = parseInt(text.replace(/[^0-9]/g, ''), 10); // Sadece sayıları al
+                        updateLevel(levelType, level.id, 'confidenceInterval.max', numericValue || 0); // NaN olursa 0 kullan
                     }}
                     keyboardType="numeric"
                 />
@@ -371,7 +383,7 @@ const AddLevels = () => {
                 <Text style={styles.headerText}>T.C. SAĞLIK BAKANLIĞI</Text>
                 <Text style={styles.subHeaderText}>Yeni Kılavuz Ekle</Text>
             </View>
-            
+
 
             <Text style={styles.label}>Kılavuz Adı</Text>
             <TextInput
@@ -384,37 +396,37 @@ const AddLevels = () => {
 
             {/* IgA Levels */}
             <Text style={styles.sectionHeader}>IgA Seviyeleri</Text>
-            {renderLevels(IgALevels, 'IgA')}
+            {renderLevels(IgAlevels, 'IgA')}
             <Button title="IgA Seviyesi Ekle" onPress={() => addLevel('IgA')} />
 
             {/* IgG Levels */}
             <Text style={styles.sectionHeader}>IgG Seviyeleri</Text>
-            {renderLevels(IgGLevels, 'IgG')}
+            {renderLevels(IgGlevels, 'IgG')}
             <Button title="IgG Seviyesi Ekle" onPress={() => addLevel('IgG')} />
 
             {/* IgM Levels */}
             <Text style={styles.sectionHeader}>IgM Seviyeleri</Text>
-            {renderLevels(IgMLevels, 'IgM')}
+            {renderLevels(IgMlevels, 'IgM')}
             <Button title="IgM Seviyesi Ekle" onPress={() => addLevel('IgM')} />
 
             {/* IgG1 Levels */}
             <Text style={styles.sectionHeader}>IgG1 Seviyeleri</Text>
-            {renderLevels(IgG1Levels, 'IgG1')}
+            {renderLevels(IgG1levels, 'IgG1')}
             <Button title="IgG1 Seviyesi Ekle" onPress={() => addLevel('IgG1')} />
 
             {/* IgG2 Levels */}
             <Text style={styles.sectionHeader}>IgG2 Seviyeleri</Text>
-            {renderLevels(IgG2Levels, 'IgG2')}
+            {renderLevels(IgG2levels, 'IgG2')}
             <Button title="IgG2 Seviyesi Ekle" onPress={() => addLevel('IgG2')} />
 
             {/* IgG3 Levels */}
             <Text style={styles.sectionHeader}>IgG3 Seviyeleri</Text>
-            {renderLevels(IgG3Levels, 'IgG3')}
+            {renderLevels(IgG3levels, 'IgG3')}
             <Button title="IgG3 Seviyesi Ekle" onPress={() => addLevel('IgG3')} />
 
             {/* IgG4 Levels */}
             <Text style={styles.sectionHeader}>IgG4 Seviyeleri</Text>
-            {renderLevels(IgG4Levels, 'IgG4')}
+            {renderLevels(IgG4levels, 'IgG4')}
             <Button title="IgG4 Seviyesi Ekle" onPress={() => addLevel('IgG4')} />
 
             <View style={{ marginVertical: 20 }}>

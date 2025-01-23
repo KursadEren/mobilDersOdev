@@ -6,7 +6,7 @@
 
 
 
-import { View, Text, StyleSheet, TextInput, Dimensions, Button, ScrollView, TouchableOpacity, Alert, FlatList,Image } from 'react-native'
+import { View, Text, StyleSheet, TextInput, Dimensions, Button, ScrollView, TouchableOpacity, Alert, FlatList, Image } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { collection, doc, setDoc, getDocs } from "firebase/firestore";
 import { db } from './firebase/FirebaseConfig';
@@ -17,16 +17,16 @@ const { width, height } = Dimensions.get("window");
 
 export default function Admin({ navigation }) {
   const [kilavuz, setKilavuz] = useState([]);
-  const [UserIga, setUserIga] = useState();
-  const [UserIga1, setUserIga1] = useState();
-  const [UserIga2, setUserIga2] = useState();
-  const [UserIga3, setUserIga3] = useState();
-  const [UserIgG, setUserIgG] = useState();
-  const [UserIgG1, setUserIgG1] = useState();
-  const [UserIgG2, setUserIgG2] = useState();
-  const [UserIgG3, setUserIgG3] = useState();
-  const [UserIgG4, setUserIg4] = useState();
-  const [UserIgM, setUserIgM] = useState();
+  const [UserIga, setUserIga] = useState("");
+  const [UserIga1, setUserIga1] = useState("");
+  const [UserIga2, setUserIga2] = useState("");
+  const [UserIga3, setUserIga3] = useState("");
+  const [UserIgG, setUserIgG] = useState("");
+  const [UserIgG1, setUserIgG1] = useState("");
+  const [UserIgG2, setUserIgG2] = useState("");
+  const [UserIgG3, setUserIgG3] = useState("");
+  const [UserIgG4, setUserIg4] = useState("");
+  const [UserIgM, setUserIgM] = useState("");
   const [dataLenght, setDataLenght] = useState(0);
 
   const [day, setDay] = useState(''); // Gün
@@ -35,7 +35,7 @@ export default function Admin({ navigation }) {
   const [userMonth, setUserMonth] = useState(0);
   const [BirthDate, setBirtDate] = useState();
   const [list, setList] = useState([]);
-
+  const [flag, setFlag] = useState(0);
   const getAllkilavuz = async () => {
     try {
       const querySnapshot = await getDocs(collection(db, "dataCollection"));
@@ -105,25 +105,37 @@ export default function Admin({ navigation }) {
 
 
     for (let i = 0; i < kilavuz.length; i++) {
-
+      let foundRangeUserIga = false;
+      let foundRangeUserIgBayram = false;
+      let foundRangeUserIgSahin = false;
+      let foundRangeUserIgStiehm = false;
+      let foundRangeUserIgA2 = false;
+      let foundRangeUserIgA3 = false;
+      let foundRangeUserIgG1 = false;
+      let foundRangeUserIgG2 = false;
+      let foundRangeUserIgG3 = false;
+      let foundRangeUserIgG4 = false;
+      let foundRangeUserIgM = false;
 
       if (UserIga != "" && BirthDate) {
+        
 
-        if (kilavuz[i].key === "IgAlevels" ||
+        if (kilavuz[i].key == "IgAlevels" ||
           kilavuz[i].key === "IgAlevelsBayram" ||
           kilavuz[i].key === "IgAlevelsSahin" ||
           kilavuz[i].key === "IgAlevelsStiehm") {
           if (userMonth) {
             //IgAlevels 
-            if (kilavuz[i].key === "IgAlevels")
-              for (let a = 0; a < kilavuz[i].values.length; a++) {
+            if (kilavuz[i].key == "IgAlevels") {
 
+              for (let a = 0; a < kilavuz[i].values.length; a++) {
                 if (kilavuz[i].values[a].minMonth <= userMonth && userMonth <= kilavuz[i].values[a].maxMonth) {
+
 
                   if (kilavuz[i].values[a]?.min <= UserIga && UserIga <= kilavuz[i].values[a]?.max ||
                     kilavuz[i].values[a]?.confidenceInterval?.min <= UserIga && UserIga <= kilavuz[i].values[a]?.confidenceInterval?.max ||
                     kilavuz[i].values[a]?.geoMin <= UserIga && UserIga <= kilavuz[i].values[a]?.geoMax) {
-
+                    foundRangeUserIga = true;
                     const data = {
                       ageGroup: kilavuz[i].values[a]?.ageGroup || null,
                       confidenceIntervalMin: kilavuz[i].values[a]?.confidenceInterval?.min || null,
@@ -137,36 +149,39 @@ export default function Admin({ navigation }) {
                       maxMonth: kilavuz[i].values[a]?.maxMonth || null,
                       minMonth: kilavuz[i].values[a]?.minMonth || null,
                       number: kilavuz[i].values[a]?.number || null,
-                      kilavuzname: kilavuz[i]?.id,
+                      kilavuzname: kilavuz[i]?.id || kilavuz[i].values[a.max]?.guideName,
                       Type: "IgA",
                       isactive: true
                     }
 
                     setList((prevList) => [...prevList, data]);
                   }
-                  else {
-                    const data = {
-                      ageGroup: kilavuz[i].values[a]?.ageGroup || null,
-                      confidenceIntervalMin: kilavuz[i].values[a]?.confidenceInterval?.min || null,
-                      confidenceIntervalMax: kilavuz[i].values[a]?.confidenceInterval?.max || null,
-                      geoMax: kilavuz[i].values[a]?.geoMax || null,
-                      geoMin: kilavuz[i].values[a]?.geoMin || null,
-                      max: kilavuz[i].values[a]?.max || null,
-                      min: kilavuz[i].values[a]?.min || null,
-                      maxMeanSd: kilavuz[i].values[a]?.maxMeanSd || null,
-                      minMeanSd: kilavuz[i].values[a]?.minMeanSd || null,
-                      maxMonth: kilavuz[i].values[a]?.maxMonth || null,
-                      minMonth: kilavuz[i].values[a]?.minMonth || null,
-                      number: kilavuz[i].values[a]?.number || null,
-                      kilavuzname: kilavuz[i]?.id,
-                      Type: "IgA",
-                      isactive: false
-                    }
-                    setList((prevList) => [...prevList, data]);
 
+                }
+
+                if (foundRangeUserIga === false && a === kilavuz[i].values.length - 1) {
+                  const data = {
+                    ageGroup: kilavuz[i].values[a]?.ageGroup || null,
+                    confidenceIntervalMin: kilavuz[i].values[a]?.confidenceInterval?.min || null,
+                    confidenceIntervalMax: kilavuz[i].values[a]?.confidenceInterval?.max || null,
+                    geoMax: kilavuz[i].values[a]?.geoMax || null,
+                    geoMin: kilavuz[i].values[a]?.geoMin || null,
+                    max: kilavuz[i].values[a]?.max || null,
+                    min: kilavuz[i].values[a]?.min || null,
+                    maxMeanSd: kilavuz[i].values[a]?.maxMeanSd || null,
+                    minMeanSd: kilavuz[i].values[a]?.minMeanSd || null,
+                    maxMonth: kilavuz[i].values[a]?.maxMonth || null,
+                    minMonth: kilavuz[i].values[a]?.minMonth || null,
+                    number: kilavuz[i].values[a]?.number || null,
+                    kilavuzname: kilavuz[i]?.id || kilavuz[i].values[a.max]?.guideName,
+                    Type: "IgA",
+                    isactive: false
                   }
+                  setList((prevList) => [...prevList, data]);
                 }
               }
+            }
+
             //IgaLevels Bayram
             if (kilavuz[i].key === "IgAlevelsBayram")
               for (let a = 0; a < kilavuz[i].values.length; a++) {
@@ -193,24 +208,27 @@ export default function Admin({ navigation }) {
                     }
                     setList((prevList) => [...prevList, data]);
                   }
-                  else {
-                    const data = {
-                      ageGroup: kilavuz[i].values[a]?.ageGroup || null,
-                      confidenceIntervalMin: kilavuz[i].values[a]?.confidenceInterval?.min || null,
-                      confidenceIntervalMax: kilavuz[i].values[a]?.confidenceInterval?.max || null,
-                      geoMax: kilavuz[i].values[a]?.geoMax || null,
-                      geoMin: kilavuz[i].values[a]?.geoMin || null,
-                      max: kilavuz[i].values[a]?.max || null,
-                      min: kilavuz[i].values[a]?.min || null,
-                      maxMonth: kilavuz[i].values[a]?.maxMonth || null,
-                      minMonth: kilavuz[i].values[a]?.minMonth || null,
-                      number: kilavuz[i].values[a]?.number || null,
-                      kilavuzname: kilavuz[i]?.id,
-                      isactive: false
-                    }
-                    setList((prevList) => [...prevList, data]);
 
+                }
+                if (foundRangeUserIgBayram === false && a === kilavuz[i].values.length - 1) {
+                  const data = {
+                    ageGroup: kilavuz[i].values[a]?.ageGroup || null,
+                    confidenceIntervalMin: kilavuz[i].values[a]?.confidenceInterval?.min || null,
+                    confidenceIntervalMax: kilavuz[i].values[a]?.confidenceInterval?.max || null,
+                    geoMax: kilavuz[i].values[a]?.geoMax || null,
+                    geoMin: kilavuz[i].values[a]?.geoMin || null,
+                    max: kilavuz[i].values[a]?.max || null,
+                    min: kilavuz[i].values[a]?.min || null,
+                    maxMeanSd: kilavuz[i].values[a]?.maxMeanSd || null,
+                    minMeanSd: kilavuz[i].values[a]?.minMeanSd || null,
+                    maxMonth: kilavuz[i].values[a]?.maxMonth || null,
+                    minMonth: kilavuz[i].values[a]?.minMonth || null,
+                    number: kilavuz[i].values[a]?.number || null,
+                    kilavuzname: kilavuz[i]?.id || kilavuz[i].values[a.max]?.guideName,
+                    Type: "IgA",
+                    isactive: false
                   }
+                  setList((prevList) => [...prevList, data]);
                 }
               }
             //IgAlevels Sahin
@@ -239,24 +257,27 @@ export default function Admin({ navigation }) {
                     }
                     setList((prevList) => [...prevList, data]);
                   }
-                  else {
-                    const data = {
-                      ageGroup: kilavuz[i].values[a]?.ageGroup || null,
-                      confidenceIntervalMin: kilavuz[i].values[a]?.confidenceInterval?.min || null,
-                      confidenceIntervalMax: kilavuz[i].values[a]?.confidenceInterval?.max || null,
-                      geoMax: kilavuz[i].values[a]?.geoMax || null,
-                      geoMin: kilavuz[i].values[a]?.geoMin || null,
-                      max: kilavuz[i].values[a]?.max || null,
-                      min: kilavuz[i].values[a]?.min || null,
-                      maxMonth: kilavuz[i].values[a]?.maxMonth || null,
-                      minMonth: kilavuz[i].values[a]?.minMonth || null,
-                      number: kilavuz[i].values[a]?.number || null,
-                      kilavuzname: kilavuz[i]?.id,
-                      isactive: false
-                    }
-                    setList((prevList) => [...prevList, data]);
 
+                }
+                if (foundRangeUserIgSahin === false && a === kilavuz[i].values.length - 1) {
+                  const data = {
+                    ageGroup: kilavuz[i].values[a]?.ageGroup || null,
+                    confidenceIntervalMin: kilavuz[i].values[a]?.confidenceInterval?.min || null,
+                    confidenceIntervalMax: kilavuz[i].values[a]?.confidenceInterval?.max || null,
+                    geoMax: kilavuz[i].values[a]?.geoMax || null,
+                    geoMin: kilavuz[i].values[a]?.geoMin || null,
+                    max: kilavuz[i].values[a]?.max || null,
+                    min: kilavuz[i].values[a]?.min || null,
+                    maxMeanSd: kilavuz[i].values[a]?.maxMeanSd || null,
+                    minMeanSd: kilavuz[i].values[a]?.minMeanSd || null,
+                    maxMonth: kilavuz[i].values[a]?.maxMonth || null,
+                    minMonth: kilavuz[i].values[a]?.minMonth || null,
+                    number: kilavuz[i].values[a]?.number || null,
+                    kilavuzname: kilavuz[i]?.id || kilavuz[i].values[a.max]?.guideName,
+                    Type: "IgA",
+                    isactive: false
                   }
+                  setList((prevList) => [...prevList, data]);
                 }
               }
             //IgAlevels Stiehm 
@@ -285,24 +306,27 @@ export default function Admin({ navigation }) {
                     }
                     setList((prevList) => [...prevList, data]);
                   }
-                  else {
-                    const data = {
-                      ageGroup: kilavuz[i].values[a]?.ageGroup || null,
-                      confidenceIntervalMin: kilavuz[i].values[a]?.confidenceInterval?.min || null,
-                      confidenceIntervalMax: kilavuz[i].values[a]?.confidenceInterval?.max || null,
-                      geoMax: kilavuz[i].values[a]?.geoMax || null,
-                      geoMin: kilavuz[i].values[a]?.geoMin || null,
-                      max: kilavuz[i].values[a]?.max || null,
-                      min: kilavuz[i].values[a]?.min || null,
-                      maxMonth: kilavuz[i].values[a]?.maxMonth || null,
-                      minMonth: kilavuz[i].values[a]?.minMonth || null,
-                      number: kilavuz[i].values[a]?.number || null,
-                      kilavuzname: kilavuz[i]?.id,
-                      isactive: false
-                    }
-                    setList((prevList) => [...prevList, data]);
 
+                }
+                if (foundRangeUserIgStiehm === false && a === kilavuz[i].values.length - 1) {
+                  const data = {
+                    ageGroup: kilavuz[i].values[a]?.ageGroup || null,
+                    confidenceIntervalMin: kilavuz[i].values[a]?.confidenceInterval?.min || null,
+                    confidenceIntervalMax: kilavuz[i].values[a]?.confidenceInterval?.max || null,
+                    geoMax: kilavuz[i].values[a]?.geoMax || null,
+                    geoMin: kilavuz[i].values[a]?.geoMin || null,
+                    max: kilavuz[i].values[a]?.max || null,
+                    min: kilavuz[i].values[a]?.min || null,
+                    maxMeanSd: kilavuz[i].values[a]?.maxMeanSd || null,
+                    minMeanSd: kilavuz[i].values[a]?.minMeanSd || null,
+                    maxMonth: kilavuz[i].values[a]?.maxMonth || null,
+                    minMonth: kilavuz[i].values[a]?.minMonth || null,
+                    number: kilavuz[i].values[a]?.number || null,
+                    kilavuzname: kilavuz[i]?.id || kilavuz[i].values[a.max]?.guideName,
+                    Type: "IgA",
+                    isactive: false
                   }
+                  setList((prevList) => [...prevList, data]);
                 }
               }
 
@@ -346,27 +370,27 @@ export default function Admin({ navigation }) {
 
                   setList((prevList) => [...prevList, data]);
                 }
-                else {
-                  const data = {
-                    ageGroup: kilavuz[i].values[a]?.ageGroup || null,
-                    confidenceIntervalMin: kilavuz[i].values[a]?.confidenceInterval?.min || null,
-                    confidenceIntervalMax: kilavuz[i].values[a]?.confidenceInterval?.max || null,
-                    geoMax: kilavuz[i].values[a]?.geoMax || null,
-                    geoMin: kilavuz[i].values[a]?.geoMin || null,
-                    max: kilavuz[i].values[a]?.max || null,
-                    min: kilavuz[i].values[a]?.min || null,
-                    maxMeanSd: kilavuz[i].values[a]?.maxMeanSd || null,
-                    minMeanSd: kilavuz[i].values[a]?.minMeanSd || null,
-                    maxMonth: kilavuz[i].values[a]?.maxMonth || null,
-                    minMonth: kilavuz[i].values[a]?.minMonth || null,
-                    number: kilavuz[i].values[a]?.number || null,
-                    kilavuzname: kilavuz[i]?.id,
-                    Type: "IgA1",
-                    isactive: false
-                  }
-                  setList((prevList) => [...prevList, data]);
 
+              }
+              if (foundRangeUserIgStiehm === false && a === kilavuz[i].values.length - 1) {
+                const data = {
+                  ageGroup: kilavuz[i].values[a]?.ageGroup || null,
+                  confidenceIntervalMin: kilavuz[i].values[a]?.confidenceInterval?.min || null,
+                  confidenceIntervalMax: kilavuz[i].values[a]?.confidenceInterval?.max || null,
+                  geoMax: kilavuz[i].values[a]?.geoMax || null,
+                  geoMin: kilavuz[i].values[a]?.geoMin || null,
+                  max: kilavuz[i].values[a]?.max || null,
+                  min: kilavuz[i].values[a]?.min || null,
+                  maxMeanSd: kilavuz[i].values[a]?.maxMeanSd || null,
+                  minMeanSd: kilavuz[i].values[a]?.minMeanSd || null,
+                  maxMonth: kilavuz[i].values[a]?.maxMonth || null,
+                  minMonth: kilavuz[i].values[a]?.minMonth || null,
+                  number: kilavuz[i].values[a]?.number || null,
+                  kilavuzname: kilavuz[i]?.id || kilavuz[i].values[a.max]?.guideName,
+                  Type: "IgA",
+                  isactive: false
                 }
+                setList((prevList) => [...prevList, data]);
               }
             }
           }
@@ -411,27 +435,27 @@ export default function Admin({ navigation }) {
 
                   setList((prevList) => [...prevList, data]);
                 }
-                else {
-                  const data = {
-                    ageGroup: kilavuz[i].values[a]?.ageGroup || null,
-                    confidenceIntervalMin: kilavuz[i].values[a]?.confidenceInterval?.min || null,
-                    confidenceIntervalMax: kilavuz[i].values[a]?.confidenceInterval?.max || null,
-                    geoMax: kilavuz[i].values[a]?.geoMax || null,
-                    geoMin: kilavuz[i].values[a]?.geoMin || null,
-                    max: kilavuz[i].values[a]?.max || null,
-                    min: kilavuz[i].values[a]?.min || null,
-                    maxMeanSd: kilavuz[i].values[a]?.maxMeanSd || null,
-                    minMeanSd: kilavuz[i].values[a]?.minMeanSd || null,
-                    maxMonth: kilavuz[i].values[a]?.maxMonth || null,
-                    minMonth: kilavuz[i].values[a]?.minMonth || null,
-                    number: kilavuz[i].values[a]?.number || null,
-                    kilavuzname: kilavuz[i]?.id,
-                    Type: "IgA2",
-                    isactive: false
-                  }
-                  setList((prevList) => [...prevList, data]);
 
+              }
+              if (foundRangeUserIgA2 === false && a === kilavuz[i].values.length - 1) {
+                const data = {
+                  ageGroup: kilavuz[i].values[a]?.ageGroup || null,
+                  confidenceIntervalMin: kilavuz[i].values[a]?.confidenceInterval?.min || null,
+                  confidenceIntervalMax: kilavuz[i].values[a]?.confidenceInterval?.max || null,
+                  geoMax: kilavuz[i].values[a]?.geoMax || null,
+                  geoMin: kilavuz[i].values[a]?.geoMin || null,
+                  max: kilavuz[i].values[a]?.max || null,
+                  min: kilavuz[i].values[a]?.min || null,
+                  maxMeanSd: kilavuz[i].values[a]?.maxMeanSd || null,
+                  minMeanSd: kilavuz[i].values[a]?.minMeanSd || null,
+                  maxMonth: kilavuz[i].values[a]?.maxMonth || null,
+                  minMonth: kilavuz[i].values[a]?.minMonth || null,
+                  number: kilavuz[i].values[a]?.number || null,
+                  kilavuzname: kilavuz[i]?.id || kilavuz[i].values[a.max]?.guideName,
+                  Type: "IgA2",
+                  isactive: false
                 }
+                setList((prevList) => [...prevList, data]);
               }
             }
           }
@@ -469,27 +493,27 @@ export default function Admin({ navigation }) {
 
                   setList((prevList) => [...prevList, data]);
                 }
-                else {
-                  const data = {
-                    ageGroup: kilavuz[i].values[a]?.ageGroup || null,
-                    confidenceIntervalMin: kilavuz[i].values[a]?.confidenceInterval?.min || null,
-                    confidenceIntervalMax: kilavuz[i].values[a]?.confidenceInterval?.max || null,
-                    geoMax: kilavuz[i].values[a]?.geoMax || null,
-                    geoMin: kilavuz[i].values[a]?.geoMin || null,
-                    max: kilavuz[i].values[a]?.max || null,
-                    min: kilavuz[i].values[a]?.min || null,
-                    maxMeanSd: kilavuz[i].values[a]?.maxMeanSd || null,
-                    minMeanSd: kilavuz[i].values[a]?.minMeanSd || null,
-                    maxMonth: kilavuz[i].values[a]?.maxMonth || null,
-                    minMonth: kilavuz[i].values[a]?.minMonth || null,
-                    number: kilavuz[i].values[a]?.number || null,
-                    kilavuzname: kilavuz[i]?.id,
-                    Type: "IgA3",
-                    isactive: false
-                  }
-                  setList((prevList) => [...prevList, data]);
-
+                
+              }
+              if (foundRangeUserIgA3 === false && a === kilavuz[i].values.length - 1) {
+                const data = {
+                  ageGroup: kilavuz[i].values[a]?.ageGroup || null,
+                  confidenceIntervalMin: kilavuz[i].values[a]?.confidenceInterval?.min || null,
+                  confidenceIntervalMax: kilavuz[i].values[a]?.confidenceInterval?.max || null,
+                  geoMax: kilavuz[i].values[a]?.geoMax || null,
+                  geoMin: kilavuz[i].values[a]?.geoMin || null,
+                  max: kilavuz[i].values[a]?.max || null,
+                  min: kilavuz[i].values[a]?.min || null,
+                  maxMeanSd: kilavuz[i].values[a]?.maxMeanSd || null,
+                  minMeanSd: kilavuz[i].values[a]?.minMeanSd || null,
+                  maxMonth: kilavuz[i].values[a]?.maxMonth || null,
+                  minMonth: kilavuz[i].values[a]?.minMonth || null,
+                  number: kilavuz[i].values[a]?.number || null,
+                  kilavuzname: kilavuz[i]?.id || kilavuz[i].values[a.max]?.guideName,
+                  Type: "IgA3",
+                  isactive: false
                 }
+                setList((prevList) => [...prevList, data]);
               }
             }
           }
@@ -525,27 +549,27 @@ export default function Admin({ navigation }) {
 
                   setList((prevList) => [...prevList, data]);
                 }
-                else {
-                  const data = {
-                    ageGroup: kilavuz[i].values[a]?.ageGroup || null,
-                    confidenceIntervalMin: kilavuz[i].values[a]?.confidenceInterval?.min || null,
-                    confidenceIntervalMax: kilavuz[i].values[a]?.confidenceInterval?.max || null,
-                    geoMax: kilavuz[i].values[a]?.geoMax || null,
-                    geoMin: kilavuz[i].values[a]?.geoMin || null,
-                    max: kilavuz[i].values[a]?.max || null,
-                    min: kilavuz[i].values[a]?.min || null,
-                    maxMeanSd: kilavuz[i].values[a]?.maxMeanSd || null,
-                    minMeanSd: kilavuz[i].values[a]?.minMeanSd || null,
-                    maxMonth: kilavuz[i].values[a]?.maxMonth || null,
-                    minMonth: kilavuz[i].values[a]?.minMonth || null,
-                    number: kilavuz[i].values[a]?.number || null,
-                    kilavuzname: kilavuz[i]?.id,
-                    Type: "IgG",
-                    isactive: false
-                  }
-                  setList((prevList) => [...prevList, data]);
-
+                
+              }
+              if (foundRangeUserIgG === false && a === kilavuz[i].values.length - 1) {
+                const data = {
+                  ageGroup: kilavuz[i].values[a]?.ageGroup || null,
+                  confidenceIntervalMin: kilavuz[i].values[a]?.confidenceInterval?.min || null,
+                  confidenceIntervalMax: kilavuz[i].values[a]?.confidenceInterval?.max || null,
+                  geoMax: kilavuz[i].values[a]?.geoMax || null,
+                  geoMin: kilavuz[i].values[a]?.geoMin || null,
+                  max: kilavuz[i].values[a]?.max || null,
+                  min: kilavuz[i].values[a]?.min || null,
+                  maxMeanSd: kilavuz[i].values[a]?.maxMeanSd || null,
+                  minMeanSd: kilavuz[i].values[a]?.minMeanSd || null,
+                  maxMonth: kilavuz[i].values[a]?.maxMonth || null,
+                  minMonth: kilavuz[i].values[a]?.minMonth || null,
+                  number: kilavuz[i].values[a]?.number || null,
+                  kilavuzname: kilavuz[i]?.id || kilavuz[i].values[a.max]?.guideName,
+                  Type: "IgG",
+                  isactive: false
                 }
+                setList((prevList) => [...prevList, data]);
               }
             }
           }
@@ -581,27 +605,28 @@ export default function Admin({ navigation }) {
 
                   setList((prevList) => [...prevList, data]);
                 }
-                else {
-                  const data = {
-                    ageGroup: kilavuz[i].values[a]?.ageGroup || null,
-                    confidenceIntervalMin: kilavuz[i].values[a]?.confidenceInterval?.min || null,
-                    confidenceIntervalMax: kilavuz[i].values[a]?.confidenceInterval?.max || null,
-                    geoMax: kilavuz[i].values[a]?.geoMax || null,
-                    geoMin: kilavuz[i].values[a]?.geoMin || null,
-                    max: kilavuz[i].values[a]?.max || null,
-                    min: kilavuz[i].values[a]?.min || null,
-                    maxMeanSd: kilavuz[i].values[a]?.maxMeanSd || null,
-                    minMeanSd: kilavuz[i].values[a]?.minMeanSd || null,
-                    maxMonth: kilavuz[i].values[a]?.maxMonth || null,
-                    minMonth: kilavuz[i].values[a]?.minMonth || null,
-                    number: kilavuz[i].values[a]?.number || null,
-                    kilavuzname: kilavuz[i]?.id,
-                    Type: "IgG1",
-                    isactive: false
-                  }
-                  setList((prevList) => [...prevList, data]);
-
+                
+                  
+              }
+              if (foundRangeUserIgG1 === false && a === kilavuz[i].values.length - 1) {
+                const data = {
+                  ageGroup: kilavuz[i].values[a]?.ageGroup || null,
+                  confidenceIntervalMin: kilavuz[i].values[a]?.confidenceInterval?.min || null,
+                  confidenceIntervalMax: kilavuz[i].values[a]?.confidenceInterval?.max || null,
+                  geoMax: kilavuz[i].values[a]?.geoMax || null,
+                  geoMin: kilavuz[i].values[a]?.geoMin || null,
+                  max: kilavuz[i].values[a]?.max || null,
+                  min: kilavuz[i].values[a]?.min || null,
+                  maxMeanSd: kilavuz[i].values[a]?.maxMeanSd || null,
+                  minMeanSd: kilavuz[i].values[a]?.minMeanSd || null,
+                  maxMonth: kilavuz[i].values[a]?.maxMonth || null,
+                  minMonth: kilavuz[i].values[a]?.minMonth || null,
+                  number: kilavuz[i].values[a]?.number || null,
+                  kilavuzname: kilavuz[i]?.id || kilavuz[i].values[a.max]?.guideName,
+                  Type: "IgG1",
+                  isactive: false
                 }
+                setList((prevList) => [...prevList, data]);
               }
             }
           }
@@ -637,27 +662,27 @@ export default function Admin({ navigation }) {
 
                   setList((prevList) => [...prevList, data]);
                 }
-                else {
-                  const data = {
-                    ageGroup: kilavuz[i].values[a]?.ageGroup || null,
-                    confidenceIntervalMin: kilavuz[i].values[a]?.confidenceInterval?.min || null,
-                    confidenceIntervalMax: kilavuz[i].values[a]?.confidenceInterval?.max || null,
-                    geoMax: kilavuz[i].values[a]?.geoMax || null,
-                    geoMin: kilavuz[i].values[a]?.geoMin || null,
-                    max: kilavuz[i].values[a]?.max || null,
-                    min: kilavuz[i].values[a]?.min || null,
-                    maxMeanSd: kilavuz[i].values[a]?.maxMeanSd || null,
-                    minMeanSd: kilavuz[i].values[a]?.minMeanSd || null,
-                    maxMonth: kilavuz[i].values[a]?.maxMonth || null,
-                    minMonth: kilavuz[i].values[a]?.minMonth || null,
-                    number: kilavuz[i].values[a]?.number || null,
-                    kilavuzname: kilavuz[i]?.id,
-                    Type: "IgG2",
-                    isactive: false
-                  }
-                  setList((prevList) => [...prevList, data]);
-
+                
+              }
+              if (foundRangeUserIgG2 === false && a === kilavuz[i].values.length - 1) {
+                const data = {
+                  ageGroup: kilavuz[i].values[a]?.ageGroup || null,
+                  confidenceIntervalMin: kilavuz[i].values[a]?.confidenceInterval?.min || null,
+                  confidenceIntervalMax: kilavuz[i].values[a]?.confidenceInterval?.max || null,
+                  geoMax: kilavuz[i].values[a]?.geoMax || null,
+                  geoMin: kilavuz[i].values[a]?.geoMin || null,
+                  max: kilavuz[i].values[a]?.max || null,
+                  min: kilavuz[i].values[a]?.min || null,
+                  maxMeanSd: kilavuz[i].values[a]?.maxMeanSd || null,
+                  minMeanSd: kilavuz[i].values[a]?.minMeanSd || null,
+                  maxMonth: kilavuz[i].values[a]?.maxMonth || null,
+                  minMonth: kilavuz[i].values[a]?.minMonth || null,
+                  number: kilavuz[i].values[a]?.number || null,
+                  kilavuzname: kilavuz[i]?.id || kilavuz[i].values[a.max]?.guideName,
+                  Type: "IgG2",
+                  isactive: false
                 }
+                setList((prevList) => [...prevList, data]);
               }
             }
           }
@@ -693,27 +718,27 @@ export default function Admin({ navigation }) {
 
                   setList((prevList) => [...prevList, data]);
                 }
-                else {
-                  const data = {
-                    ageGroup: kilavuz[i].values[a]?.ageGroup || null,
-                    confidenceIntervalMin: kilavuz[i].values[a]?.confidenceInterval?.min || null,
-                    confidenceIntervalMax: kilavuz[i].values[a]?.confidenceInterval?.max || null,
-                    geoMax: kilavuz[i].values[a]?.geoMax || null,
-                    geoMin: kilavuz[i].values[a]?.geoMin || null,
-                    max: kilavuz[i].values[a]?.max || null,
-                    min: kilavuz[i].values[a]?.min || null,
-                    maxMeanSd: kilavuz[i].values[a]?.maxMeanSd || null,
-                    minMeanSd: kilavuz[i].values[a]?.minMeanSd || null,
-                    maxMonth: kilavuz[i].values[a]?.maxMonth || null,
-                    minMonth: kilavuz[i].values[a]?.minMonth || null,
-                    number: kilavuz[i].values[a]?.number || null,
-                    kilavuzname: kilavuz[i]?.id,
-                    Type: "IgG3",
-                    isactive: false
-                  }
-                  setList((prevList) => [...prevList, data]);
-
+                
+              }
+              if (foundRangeUserIgG3 === false && a === kilavuz[i].values.length - 1) {
+                const data = {
+                  ageGroup: kilavuz[i].values[a]?.ageGroup || null,
+                  confidenceIntervalMin: kilavuz[i].values[a]?.confidenceInterval?.min || null,
+                  confidenceIntervalMax: kilavuz[i].values[a]?.confidenceInterval?.max || null,
+                  geoMax: kilavuz[i].values[a]?.geoMax || null,
+                  geoMin: kilavuz[i].values[a]?.geoMin || null,
+                  max: kilavuz[i].values[a]?.max || null,
+                  min: kilavuz[i].values[a]?.min || null,
+                  maxMeanSd: kilavuz[i].values[a]?.maxMeanSd || null,
+                  minMeanSd: kilavuz[i].values[a]?.minMeanSd || null,
+                  maxMonth: kilavuz[i].values[a]?.maxMonth || null,
+                  minMonth: kilavuz[i].values[a]?.minMonth || null,
+                  number: kilavuz[i].values[a]?.number || null,
+                  kilavuzname: kilavuz[i]?.id || kilavuz[i].values[a.max]?.guideName,
+                  Type: "IgG3",
+                  isactive: false
                 }
+                setList((prevList) => [...prevList, data]);
               }
             }
           }
@@ -749,27 +774,28 @@ export default function Admin({ navigation }) {
 
                   setList((prevList) => [...prevList, data]);
                 }
-                else {
-                  const data = {
-                    ageGroup: kilavuz[i].values[a]?.ageGroup || null,
-                    confidenceIntervalMin: kilavuz[i].values[a]?.confidenceInterval?.min || null,
-                    confidenceIntervalMax: kilavuz[i].values[a]?.confidenceInterval?.max || null,
-                    geoMax: kilavuz[i].values[a]?.geoMax || null,
-                    geoMin: kilavuz[i].values[a]?.geoMin || null,
-                    max: kilavuz[i].values[a]?.max || null,
-                    min: kilavuz[i].values[a]?.min || null,
-                    maxMeanSd: kilavuz[i].values[a]?.maxMeanSd || null,
-                    minMeanSd: kilavuz[i].values[a]?.minMeanSd || null,
-                    maxMonth: kilavuz[i].values[a]?.maxMonth || null,
-                    minMonth: kilavuz[i].values[a]?.minMonth || null,
-                    number: kilavuz[i].values[a]?.number || null,
-                    kilavuzname: kilavuz[i]?.id,
-                    Type: "IgG4",
-                    isactive: false
-                  }
-                  setList((prevList) => [...prevList, data]);
-
+                
+                
+              }
+              if (foundRangeUserIgG4 === false && a === kilavuz[i].values.length - 1) {
+                const data = {
+                  ageGroup: kilavuz[i].values[a]?.ageGroup || null,
+                  confidenceIntervalMin: kilavuz[i].values[a]?.confidenceInterval?.min || null,
+                  confidenceIntervalMax: kilavuz[i].values[a]?.confidenceInterval?.max || null,
+                  geoMax: kilavuz[i].values[a]?.geoMax || null,
+                  geoMin: kilavuz[i].values[a]?.geoMin || null,
+                  max: kilavuz[i].values[a]?.max || null,
+                  min: kilavuz[i].values[a]?.min || null,
+                  maxMeanSd: kilavuz[i].values[a]?.maxMeanSd || null,
+                  minMeanSd: kilavuz[i].values[a]?.minMeanSd || null,
+                  maxMonth: kilavuz[i].values[a]?.maxMonth || null,
+                  minMonth: kilavuz[i].values[a]?.minMonth || null,
+                  number: kilavuz[i].values[a]?.number || null,
+                  kilavuzname: kilavuz[i]?.id || kilavuz[i].values[a.max]?.guideName,
+                  Type: "IgG4",
+                  isactive: false
                 }
+                setList((prevList) => [...prevList, data]);
               }
             }
           }
@@ -805,27 +831,27 @@ export default function Admin({ navigation }) {
 
                   setList((prevList) => [...prevList, data]);
                 }
-                else {
-                  const data = {
-                    ageGroup: kilavuz[i].values[a]?.ageGroup || null,
-                    confidenceIntervalMin: kilavuz[i].values[a]?.confidenceInterval?.min || null,
-                    confidenceIntervalMax: kilavuz[i].values[a]?.confidenceInterval?.max || null,
-                    geoMax: kilavuz[i].values[a]?.geoMax || null,
-                    geoMin: kilavuz[i].values[a]?.geoMin || null,
-                    max: kilavuz[i].values[a]?.max || null,
-                    min: kilavuz[i].values[a]?.min || null,
-                    maxMeanSd: kilavuz[i].values[a]?.maxMeanSd || null,
-                    minMeanSd: kilavuz[i].values[a]?.minMeanSd || null,
-                    maxMonth: kilavuz[i].values[a]?.maxMonth || null,
-                    minMonth: kilavuz[i].values[a]?.minMonth || null,
-                    number: kilavuz[i].values[a]?.number || null,
-                    kilavuzname: kilavuz[i]?.id,
-                    Type: "IgM",
-                    isactive: false
-                  }
-                  setList((prevList) => [...prevList, data]);
-
+               
+              }
+              if (foundRangeUserIgM === false && a === kilavuz[i].values.length - 1) {
+                const data = {
+                  ageGroup: kilavuz[i].values[a]?.ageGroup || null,
+                  confidenceIntervalMin: kilavuz[i].values[a]?.confidenceInterval?.min || null,
+                  confidenceIntervalMax: kilavuz[i].values[a]?.confidenceInterval?.max || null,
+                  geoMax: kilavuz[i].values[a]?.geoMax || null,
+                  geoMin: kilavuz[i].values[a]?.geoMin || null,
+                  max: kilavuz[i].values[a]?.max || null,
+                  min: kilavuz[i].values[a]?.min || null,
+                  maxMeanSd: kilavuz[i].values[a]?.maxMeanSd || null,
+                  minMeanSd: kilavuz[i].values[a]?.minMeanSd || null,
+                  maxMonth: kilavuz[i].values[a]?.maxMonth || null,
+                  minMonth: kilavuz[i].values[a]?.minMonth || null,
+                  number: kilavuz[i].values[a]?.number || null,
+                  kilavuzname: kilavuz[i]?.id || kilavuz[i].values[a.max]?.guideName,
+                  Type: "IgM",
+                  isactive: false
                 }
+                setList((prevList) => [...prevList, data]);
               }
             }
           }
@@ -852,88 +878,32 @@ export default function Admin({ navigation }) {
         onDayChange={setDay}
         onMonthChange={setMonth}
         onYearChange={setYear} />
+      <View style={styles.inputContainer}>
+        {[
+          { label: "UserIga", value: UserIga, setter: setUserIga },
+          { label: "UserIga1", value: UserIga1, setter: setUserIga1 },
+          { label: "UserIga2", value: UserIga2, setter: setUserIga2 },
+          { label: "UserIga3", value: UserIga3, setter: setUserIga3 },
+          { label: "UserIgG", value: UserIgG, setter: setUserIgG },
+          { label: "UserIgG1", value: UserIgG1, setter: setUserIgG1 },
+          { label: "UserIgG2", value: UserIgG2, setter: setUserIgG2 },
+          { label: "UserIgG3", value: UserIgG3, setter: setUserIgG3 },
+          { label: "UserIgG4", value: UserIgG4, setter: setUserIg4 },
+          { label: "UserIgM", value: UserIgM, setter: setUserIgM },
+        ].map((item, index) => (
+          <View key={index} style={styles.inputWrapper}>
+            <Text style={styles.inputLabel}>{item.label}</Text>
+            <TextInput
+              style={styles.input}
+              placeholder={`${item.label} giriniz`}
+              placeholderTextColor="#000"
+              value={item.value}
+              onChangeText={item.setter}
+            />
+          </View>
+        ))}
+      </View>
 
-      <Text style={styles.Text}>UserIga</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="UserIga değeri giriniz"
-        placeholderTextColor={"#e3e3e3"}
-        value={UserIga}
-        onChangeText={setUserIga}
-      />
-      <Text style={styles.Text}>UserIga1</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="UserIga1 değeri giriniz"
-        placeholderTextColor={"#e3e3e3"}
-        value={UserIga1}
-        onChangeText={setUserIga1}
-      />
-      <Text style={styles.Text}>UserIga2</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="UserIga2 değeri giriniz"
-        placeholderTextColor={"#e3e3e3"}
-        value={UserIga2}
-        onChangeText={setUserIga2}
-      />
-      <Text style={styles.Text}>UserIga3</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="UserIga3 değeri giriniz"
-        placeholderTextColor={"#e3e3e3"}
-        value={UserIga3}
-        onChangeText={setUserIga3}
-      />
-      <Text style={styles.Text}>UserIgG</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="UserIgG değeri giriniz"
-        placeholderTextColor={"#e3e3e3"}
-        value={UserIgG}
-        onChangeText={setUserIgG}
-      />
-      <Text style={styles.Text}>UserIgG1</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="UserIgG1 değeri giriniz"
-        placeholderTextColor={"#e3e3e3"}
-        value={UserIgG1}
-        onChangeText={setUserIgG1}
-      />
-      <Text style={styles.Text}>UserIgG2</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="UserIgG2 değeri giriniz"
-        placeholderTextColor={"#e3e3e3"}
-        value={UserIgG2}
-        onChangeText={setUserIgG2}
-      />
-
-      <Text style={styles.Text}>UserIgG3</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="UserIgG3 değeri giriniz"
-        placeholderTextColor={"#e3e3e3"}
-        value={UserIgG3}
-        onChangeText={setUserIgG3}
-      />
-      <Text style={styles.Text}>UserIgG4</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="UserIgG4 değeri giriniz"
-        placeholderTextColor={"#e3e3e3"}
-        value={UserIgG4}
-        onChangeText={setUserIg4}
-      />
-      <Text style={styles.Text}>UserIgM</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="UserIgM değeri giriniz"
-        placeholderTextColor={"#e3e3e3"}
-        value={UserIgM}
-        onChangeText={setUserIgM}
-      />
       <FlatList
         data={Object.entries(
           list.reduce((groups, item) => {
@@ -950,62 +920,70 @@ export default function Admin({ navigation }) {
           const [groupName, groupData] = item;
           return (
             <View style={styles.groupContainer}>
-              <Text style={styles.groupTitle}>Kılavuz: {groupName}</Text>
-              <FlatList
-                data={groupData}
-                keyExtractor={(subItem, index) => `${groupName}-${index}`}
-                horizontal
-                renderItem={({ item: subItem }) => (
-                  <View
-                    style={[
-                      styles.listItem,
-                      {
-                        borderWidth: 1,
-                        borderColor: subItem.isactive ? 'green' : 'red',
-                        borderRadius: 10,
-                        backgroundColor: '#e3e3e3',
-                        marginVertical: 10,
-                        marginHorizontal: 10,
-                        padding: 10,
-                      },
-                    ]}
-                  >
-                    {/* Type */}
-                    {subItem.Type && <Text style={styles.itemText}>Type: {subItem.Type || 'N/A'}</Text>}
-                    {/* Age Group */}
-                    {subItem.ageGroup && (
-                      <Text style={styles.itemText}>Age Group: {subItem.ageGroup || 'N/A'}</Text>
-                    )}
-                    {/* Confidence Interval Min */}
-                    {subItem.confidenceIntervalMin && (
-                      <Text style={styles.itemText}>
-                        Confidence Interval Min: {subItem.confidenceIntervalMin || 'N/A'}
+              <Text style={{ fontSize: 20, marginTop: 10 }}> {groupName}</Text>
+              <View style={{ borderBottomWidth: 1, width: "auto" }}></View>
+              {groupData.map((subItem, index) => (
+                <View
+                  key={`${groupName}-${index}`}
+
+                >
+                  <View style={{ marginTop: 5, width: "100%", height: 50, flexDirection: "row", flex: 1, justifyContent: "space-around", borderWidth: 1, marginBottom: 3, borderRadius: 10, borderColor: subItem.isactive ? "green" : "red", padding: 3 }}>
+                    <View style={{ flex: 1, flexDirection: "column", justifyContent: "space-evenly" }}>
+
+                      <Text>
+                        {subItem.Type}
                       </Text>
-                    )}
-                    {/* Confidence Interval Max */}
-                    {subItem.confidenceIntervalMax && (
-                      <Text style={styles.itemText}>
-                        Confidence Interval Max: {subItem.confidenceIntervalMax || 'N/A'}
+                    </View>
+                    <View style={{ flex: 1, flexDirection: "column", justifyContent: "space-evenly" }}>
+                      <Text>
+                        {(groupName === "kilavuz-cilv" || groupName === "kilavuz-ap") ? ("Min-Max Mean SD") : ("conf.ınterval")}
                       </Text>
-                    )}
-                    {/* Geo Max */}
-                    {subItem.geoMax && <Text style={styles.itemText}>Geo Max: {subItem.geoMax || 'N/A'}</Text>}
-                    {/* Geo Min */}
-                    {subItem.geoMin && <Text style={styles.itemText}>Geo Min: {subItem.geoMin || 'N/A'}</Text>}
-                    {/* Max */}
-                    {subItem.max && <Text style={styles.itemText}>Max: {subItem.max || 'N/A'}</Text>}
-                    {/* Min */}
-                    {subItem.min && <Text style={styles.itemText}>Min: {subItem.min || 'N/A'}</Text>}
-                    {/* Active */}
-                    <Text style={styles.itemText}>Active: {subItem.isactive ? 'Yes' : 'No'}</Text>
+                      <Text style={{ textDecorationLine: "underline" }}>
+                        {(groupName === "kilavuz-cilv" || groupName === "kilavuz-ap") ? (
+                          <>
+                            <Text style={{ textDecorationLine: "underline" }}>{subItem.minMeanSd || 'N/A'}</Text>
+                            <Text style={{ textDecorationLine: "none" }}> - </Text>
+                            <Text style={{ textDecorationLine: "underline" }}>{subItem.maxMeanSd || 'N/A'}</Text>
+                          </>
+                        ) : (
+                          <>
+                            <Text style={{ textDecorationLine: "underline" }}>{subItem.geoMin || 'N/A'}</Text>
+                            <Text style={{ textDecorationLine: "none" }}> - </Text>
+                            <Text style={{ textDecorationLine: "underline" }}>{subItem.geoMax || 'N/A'}</Text>
+                          </>
+                        )}
+                      </Text>
+
+                    </View>
+                    <View style={{ flex: 1, flexDirection: "column", justifyContent: "space-evenly" }}>
+                      {(groupName === "kilavuz-cilv" || groupName === "kilavuz-ap") ? (
+                        <Text></Text>
+                      ) : (
+                        <View>
+                          <Text>conf.Interval</Text>
+                          <Text>
+                            <Text style={{ textDecorationLine: "underline" }}>
+                              {subItem.confidenceIntervalMin || 'N/A'}
+                            </Text>
+                            <Text style={{ textDecorationLine: "none" }}> - </Text>
+                            <Text style={{ textDecorationLine: "underline" }}>
+                              {subItem.confidenceIntervalMax || 'N/A'}
+                            </Text>
+                          </Text>
+                        </View>
+                      )}
+                    </View>
                   </View>
-                )}
-              />
+
+                  <View style={{ borderBottomWidth: 0.5, width: "auto" }}></View>
+                </View>
+              ))}
             </View>
           );
         }}
         ListEmptyComponent={<Text style={styles.emptyText}>Henüz veri yok</Text>}
       />
+
       <View style={styles.ButtonStyle}>
         <Button onPress={() => FilterKilavuz()} title="Filterele"></Button>
       </View>
@@ -1028,20 +1006,28 @@ const styles = StyleSheet.create({
     marginTop: 40,
     backgroundColor: '#fff'
   },
+  inputContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+    marginBottom: 20,
+  },
+  inputWrapper: {
+    width: "30%", // TextInput genişliği
+    marginBottom: 10,
+  },
+  inputLabel: {
+    fontSize: 18,
+    color: "#aaa",
+    marginBottom: 5,
+    textAlign: "center",
+  },
   input: {
-    width: '100%',
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: "#ccc",
     borderRadius: 4,
     padding: 8,
-    marginTop: 10,
-
-  },
-  Text: {
-    fontSize: 18,
-    marginVertical: height * 0.02,
-    fontWeight: "bold",
-    color: "#aaa"
+    textAlign: "center",
   },
   ButtonStyle: {
     marginVertical: height * 0.01,
@@ -1057,23 +1043,23 @@ const styles = StyleSheet.create({
   headerSection: {
     alignItems: 'center',
     marginBottom: 20,
-},
-logo: {
+  },
+  logo: {
     width: 100,
     height: 100,
     marginBottom: 10,
-},
-headerText: {
+  },
+  headerText: {
     fontSize: 20,
     fontWeight: 'bold',
     textAlign: 'center',
     color: '#000',
-},
-subHeaderText: {
+  },
+  subHeaderText: {
     fontSize: 16,
     textAlign: 'center',
     color: '#333',
     marginBottom: 20,
-},
+  },
 
 });
