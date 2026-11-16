@@ -7,12 +7,12 @@ import { getFirestore } from "firebase/firestore";
 
 // Firebase configuration
 const firebaseConfig = {
-  apiKey: "REMOVED_FIREBASE_API_KEY",
+  apiKey: process.env.EXPO_PUBLIC_FIREBASE_API_KEY,
   authDomain: "mobildersapp.firebaseapp.com",
   projectId: "mobildersapp",
   storageBucket: "mobildersapp.firebasestorage.app",
   messagingSenderId: "470541547468",
-  appId: "1:470541547468:web:d719c31600bb0911d14f69",
+  appId: process.env.EXPO_PUBLIC_FIREBASE_APP_ID,
   measurementId: "G-Y41C8DZ6GH"
 };
 
